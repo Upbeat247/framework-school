@@ -1,5 +1,7 @@
 # Framework School
 
+**Live: https://upbeat247.github.io/framework-school/**
+
 A silent, offline school for communication frameworks. Learn each framework properly,
 then prove you have it with tests hard enough to be worth your time.
 
@@ -52,10 +54,24 @@ moment in the app, so that is where the teaching lives.
 - **Chapter 1 — PREP**: complete. 40 questions.
 - Remaining 11 frameworks: listed in-app as "Coming next".
 
-## Local preview
+## Where to open it
+
+- **Work laptop:** https://upbeat247.github.io/framework-school/ — `github.io` generally passes
+  corporate proxies as developer tooling. Verified live: the page issues **exactly one** network
+  request (the document itself).
+- **Offline fallback:** it is one file, so save the page (⌘S) or copy `index.html` anywhere and
+  open it. It behaves identically from `file://`.
+- **Local preview:** `python3 -m http.server 5240 --directory framework-school`
+
+Progress is per-browser (`localStorage`), so work and home progress stay separate.
+
+> If the URL is ever blocked, use the offline copy or ask IT to whitelist it. Never tunnel or
+> VPN around the company proxy to reach it.
+
+## Publishing changes
 
 ```bash
-python3 -m http.server 5240 --directory framework-school
+git add -A && git commit -m "..." && git push
 ```
 
-Then open http://localhost:5240 — though opening the file directly works just as well.
+GitHub Pages serves `main` from the repo root, so a push is the deploy.
