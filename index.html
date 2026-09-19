@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Framework School</title>
+<!--
+  Framework School — a silent, offline communication-frameworks school.
+  Deliberately self-contained for corporate-laptop use:
+    · single HTML file, no build step
+    · ZERO network requests (no CDN, no web fonts, no API calls)
+    · no microphone, no camera, no permissions of any kind
+    · progress stored in localStorage only, never transmitted
+  Open it straight from disk (file://) or serve it statically. Both work.
+-->
+<style>
+  :root{
+    --bg:#f7f6f2; --bg-2:#eeedea; --card:#ffffff;
+    --ink:#1a1a1a; --ink-2:#5a5a5a; --ink-3:#8a8a8a;
+    --teal:#01696f; --teal-l:#e6f3f3; --teal-d:#015a5f;
+    --orange:#e8762b; --orange-l:#fef3eb;
+    --gold:#c4981a; --gold-l:#fdf8eb;
+    --blue:#2b6cb0; --blue-l:#ebf4ff;
+    --red:#c53030; --red-l:#fff5f5;
+    --green:#2f855a; --green-l:#f0fff4;
+    --line:#e2e1dd;
+    --r-s:8px; --r-m:12px; --r-l:16px;
+    --sh:0 1px 3px rgba(0,0,0,.06); --sh-m:0 4px 12px rgba(0,0,0,.08);
+    --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --bg:#1a1a1a; --bg-2:#242424; --card:#2a2a2a;
+      --ink:#f0efeb; --ink-2:#b0b0b0; --ink-3:#707070;
+      --teal:#4db6ac; --teal-l:#0a2e30; --teal-d:#6ec9c0;
+      --orange-l:#2e1f10; --gold-l:#2e2810; --blue-l:#1a2a3e;
+      --red-l:#2e1a1a; --red:#f08a8a; --green:#7ad3a0; --green-l:#1a2e1a;
+      --line:#3a3a3a;
+      --sh:0 1px 3px rgba(0,0,0,.2); --sh-m:0 4px 12px rgba(0,0,0,.3);
+    }
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:var(--font);
+    font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:720px;margin:0 auto;padding:22px 18px 90px}
+  h1,h2,h3{line-height:1.25;margin:0}
+  h1{font-size:1.7rem;letter-spacing:-.01em}
+  h2{font-size:1.2rem;margin-top:26px;margin-bottom:10px}
+  h3{font-size:1rem;margin-bottom:6px}
+  p{margin:0 0 12px}
+  .muted{color:var(--ink-2)}
+  .tiny{font-size:.82rem}
+  .label{font-size:.72rem;text-transform:uppercase;letter-spacing:.07em;
+    color:var(--ink-3);font-weight:700;margin:22px 0 8px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r-l);
+    padding:18px;box-shadow:var(--sh);margin-bottom:12px}
+  .btn{font-family:var(--font);font-size:.95rem;font-weight:600;border-radius:var(--r-m);
+    padding:11px 16px;border:1px solid transparent;cursor:pointer;display:inline-flex;
+    align-items:center;gap:8px;justify-content:center;transition:filter .12s}
+  .btn:hover{filter:brightness(1.06)}
+  .btn:disabled{opacity:.5;cursor:default}
+  .btn-p{background:var(--teal);color:#fff}
+  .btn-s{background:var(--bg-2);color:var(--ink);border-color:var(--line)}
+  .btn-g{background:transparent;color:var(--ink-2)}
+  .btn-full{width:100%}
+  .row{display:flex;gap:8px;flex-wrap:wrap}
+  .top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+  .brand{display:flex;align-items:center;gap:9px;font-weight:700;letter-spacing:-.01em}
+  .brand svg{color:var(--teal)}
+  .bar{height:8px;background:var(--bg-2);border-radius:99px;overflow:hidden}
+  .bar>i{display:block;height:100%;background:var(--teal);border-radius:99px}
+  .pill{display:inline-block;padding:3px 10px;border-radius:99px;font-size:.74rem;font-weight:700}
+  .pill-t{background:var(--teal-l);color:var(--teal)}
+  .pill-g{background:var(--green-l);color:var(--green)}
+  .pill-o{background:var(--orange-l);color:var(--orange)}
+  .pill-m{background:var(--bg-2);color:var(--ink-3)}
+  /* stage list */
+  .stage{display:flex;align-items:center;gap:12px;width:100%;text-align:left;
+    background:var(--card);border:1px solid var(--line);border-radius:var(--r-m);
+    padding:14px;margin-bottom:8px;cursor:pointer;font-family:var(--font);color:var(--ink)}
+  .stage[disabled]{opacity:.55;cursor:default}
+  .stage .n{width:28px;height:28px;border-radius:50%;background:var(--bg-2);color:var(--ink-2);
+    display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;flex:0 0 auto}
+  .stage.done .n{background:var(--green-l);color:var(--green)}
+  .stage .t{flex:1;min-width:0}
+  .stage .t b{display:block;font-size:.98rem}
+  .stage .t span{display:block;font-size:.82rem;color:var(--ink-2)}
+  .stage .t .pill{display:inline-block;font-size:.74rem}
+  /* elements */
+  .el{border-left:3px solid var(--teal);background:var(--teal-l);border-radius:var(--r-s);
+    padding:12px 14px;margin-bottom:10px}
+  .el b{display:block;margin-bottom:3px}
+  .el .fail{font-size:.86rem;color:var(--ink-2);margin-top:6px}
+  /* worked example lines */
+  .line{border-left:3px solid var(--line);padding:9px 12px;border-radius:var(--r-s);margin-bottom:6px;background:var(--bg-2)}
+  .line .tag{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;
+    color:#fff;padding:2px 7px;border-radius:99px;display:inline-block;margin-bottom:5px}
+  /* quiz */
+  .opt{display:block;width:100%;text-align:left;background:var(--card);border:1.5px solid var(--line);
+    border-radius:var(--r-m);padding:13px 15px;margin-bottom:9px;cursor:pointer;
+    font-family:var(--font);font-size:.95rem;color:var(--ink);line-height:1.5}
+  .opt:hover:not(:disabled){border-color:var(--teal)}
+  .opt:disabled{cursor:default}
+  .opt .why{display:block;font-size:.85rem;color:var(--ink-2);margin-top:8px;padding-top:8px;
+    border-top:1px dashed var(--line)}
+  .opt.correct{border-color:var(--green);background:var(--green-l)}
+  .opt.wrong{border-color:var(--red);background:var(--red-l)}
+  .opt .mk{font-weight:700;font-size:.74rem;letter-spacing:.05em;text-transform:uppercase}
+  .opt.correct .mk{color:var(--green)}
+  .opt.wrong .mk{color:var(--red)}
+  .passage{background:var(--bg-2);border-left:3px solid var(--ink-3);padding:12px 14px;
+    border-radius:var(--r-s);margin-bottom:14px;font-size:.95rem;white-space:pre-wrap}
+  .take{background:var(--gold-l);border-left:3px solid var(--gold);padding:11px 14px;
+    border-radius:var(--r-s);margin:12px 0;font-size:.9rem}
+  .qmeta{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;
+    font-size:.82rem;color:var(--ink-3)}
+  .locked{opacity:.55}
+  .center{text-align:center}
+  .big{font-size:2.4rem;font-weight:800;letter-spacing:-.02em;line-height:1.1}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="brand">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      <span>Framework School</span>
+    </div>
+    <button class="btn btn-g tiny" id="homeBtn" onclick="go('home')" style="display:none">All chapters</button>
+  </div>
+  <div id="app"></div>
+</div>
+
+<script>
+/* ============================================================
+   DATA — Chapter 1: PREP
+   Every option carries its own `why`, shown after answering.
+   The explanations are where the teaching actually happens.
+   ============================================================ */
+
+const CH_PREP = {
+  id:'prep', n:1,
+  title:'PREP',
+  subtitle:'Point → Reason → Example → Point',
+  blurb:'The workhorse for answering any "what do you think?" under time pressure.',
+  idea:[
+    `PREP is a four-beat shape for making a point persuasively when you have thirty seconds and one chance. It is the single most useful structure in professional life, because the most common moment you face is not a prepared talk — it is someone turning to you in a meeting and asking what you think.`,
+    `It works because it front-loads your conclusion, so a busy listener gets your position immediately; then earns that position with logic; then proves it with something concrete; then re-lands it so your conclusion is the last thing in the room's ears as well as the first.`,
+    `What most people do instead is the reverse: context, then reasoning, then — eventually — a position, often hedged. By then the listener has either decided for themselves or stopped listening. PREP is the discipline of refusing to make people wait for your answer.`
+  ],
+  whenToUse:[
+    'Someone asks your opinion or recommendation in a meeting',
+    'An interview question that wants a view, not a story',
+    'Defending a technical judgement to a non-technical audience',
+    'Any moment you have one minute and need to be believed'
+  ],
+  elements:[
+    { name:'Point', key:'point', color:'var(--teal)', job:'State your position in one plain sentence — first, before any context or reasoning.',
+      fail:'Classic failure: burying it under three sentences of background, or hedging it into mush ("I think maybe we could possibly consider…"). If the listener cannot repeat your position back after your first sentence, the Point failed.' },
+    { name:'Reason', key:'reason', color:'var(--orange)', job:'Explain why the position holds — the mechanism or logic that makes it true.',
+      fail:'Classic failure: restating the Point in different words ("we should do it because it is the right thing to do"). That is a circle, not a reason. A real Reason answers "why is that true?", not "what do you want?".' },
+    { name:'Example', key:'example', color:'var(--gold)', job:'One specific, checkable instance that proves the Reason.',
+      fail:'Classic failure: the placeholder — "we have seen good results", "other teams liked it". It has the shape of evidence and none of the substance. Also fatal: a precise example that proves a different claim than the one your Reason made.' },
+    { name:'Point (restated)', key:'restate', color:'var(--blue)', job:'Re-land the position, slightly elevated — usually with the implication or the ask.',
+      fail:'Classic failure: a flat word-for-word repeat that adds nothing, or drifting into a brand-new argument at the exact moment you should be closing.' }
+  ],
+  examples:[
+    { label:'Business decision',
+      prompt:'"Should we switch suppliers?"',
+      lines:[
+        {el:'Point', c:'var(--teal)', t:'We should switch suppliers.'},
+        {el:'Reason', c:'var(--orange)', t:'Their lead times have roughly doubled, and our planning cycle assumes a ten-day turnaround — so every order now quietly breaks the schedule downstream.'},
+        {el:'Example', c:'var(--gold)', t:'In August we waited five weeks for a part quoted at ten days, and the crew stood down for two of them.'},
+        {el:'Point (restated)', c:'var(--blue)', t:'So switching is the right call — and I would start qualifying the alternate before the next campaign.'}
+      ]},
+    { label:'Interview answer',
+      prompt:'"Do you work better alone or in a team?"',
+      lines:[
+        {el:'Point', c:'var(--teal)', t:'I do my best work in a team, provided I get protected time alone for the deep analysis.'},
+        {el:'Reason', c:'var(--orange)', t:'The quality of my conclusions depends on quiet focus, but the quality of my questions depends on other people challenging them early.'},
+        {el:'Example', c:'var(--gold)', t:'On the pipeline integrity review, I spent two days alone on the data, then walked the draft round four colleagues — one of them spotted that I had used the wrong corrosion allowance, which would have put the whole recommendation out.'},
+        {el:'Point (restated)', c:'var(--blue)', t:'So: a team to pressure-test, quiet to do the work. That combination is where I am strongest.'}
+      ]},
+    { label:'Technical, to a non-technical audience',
+      prompt:'"Why do we need to intercept this line now?"',
+      lines:[
+        {el:'Point', c:'var(--teal)', t:'We should intercept this line during the next shutdown window.'},
+        {el:'Reason', c:'var(--orange)', t:'Wall loss at the worst point is 22% and trending, and the following window is eighteen months out — by then we would likely be below the retirement limit, which turns a planned job into a forced one.'},
+        {el:'Example', c:'var(--gold)', t:'In March we deferred a similar line for the same reasoning, and it came back needing emergency replacement at roughly four times the planned cost.'},
+        {el:'Point (restated)', c:'var(--blue)', t:'So intercepting now is both the cheaper option and the lower-risk one — and I would put it in this window rather than the next.'}
+      ]},
+    { label:'Everyday',
+      prompt:'"Is the new reading programme working?"',
+      lines:[
+        {el:'Point', c:'var(--teal)', t:'Yes — it is working, and I would expand it next term.'},
+        {el:'Reason', c:'var(--orange)', t:'The gain comes from daily short practice rather than weekly long sessions, which is exactly what the programme changed.'},
+        {el:'Example', c:'var(--gold)', t:'The group that started in September moved from 41% to 78% on the same end-of-topic assessment.'},
+        {el:'Point (restated)', c:'var(--blue)', t:'So it is working — and the case for putting the second cohort on it is strong.'}
+      ]}
+  ],
+  weakStrong:{
+    prompt:'"Why should we approve the extra budget?"',
+    weak:'Well, there is a lot going on — three campaigns, the new regulations, and the contractor change. It is a complicated picture, and the team has been under real pressure. So broadly I think more budget would probably help us.',
+    weakWhy:'Context first, position last, and hedged when it finally arrives ("broadly… probably"). There is no mechanism and no evidence — only the assertion that things are hard.',
+    strong:'Approve it. Without it we cannot cover the two new lines, which means the inspection interval slips past the regulatory limit. Last quarter we deferred four inspections for exactly that reason, and one came back at 22% wall loss. So approving it is the cheaper option — and the safer one.',
+    strongWhy:'Position in two words. A mechanism the approver can follow (coverage → interval → regulatory limit). A specific, checkable precedent. Then a close that re-lands the position in the language the audience cares about.'
+  },
+  questions:[
+    /* ---------- POINT ---------- */
+    { id:'p1', el:'point', check:true,
+      stem:'Your manager asks: "Should we bring inspection in-house?" Which opening line works best as a PREP Point?',
+      opts:[
+        {t:'"There are a few considerations here, and honestly I have gone back and forth on it."', w:'No position at all. A Point must commit — this is throat-clearing that makes the listener wait.'},
+        {t:'"We should bring inspection in-house."', w:'A single sentence, a clear position, delivered first. Everything after it now reads as support.'},
+        {t:'"I think we could maybe look at bringing it in-house, if that seems reasonable?"', w:'The position is in there, buried under hedges. "Maybe… if that seems reasonable" tells your manager you do not back your own view.'},
+        {t:'"In-house inspection has real advantages, though there are trade-offs to weigh."', w:'Balanced and thoughtful — but it is an observation, not a position. PREP needs you to land somewhere.'}
+      ], a:1, take:'The test of a Point: could someone disagree with it? If not, it is not a position.' },
+
+    { id:'p2', el:'point', check:true,
+      stem:'A colleague opens with: "So, before I answer, it is worth saying the context here is complicated, there are three teams involved, and the budget picture changed last month." What is the PREP failure?',
+      opts:[
+        {t:'The Reason is missing.', w:'Reason comes second — you cannot fault it before the Point has even landed.'},
+        {t:'The Point is hedged.', w:'Close, but nothing here is hedged. The problem is that there is no position at all, hedged or otherwise.'},
+        {t:'The Point is buried under context.', w:'Context before position is the most common PREP failure in professional life. Three sentences in, the listener still does not know what this person thinks.'},
+        {t:'The Example arrives too early.', w:'None of this is an example — it is scene-setting.'}
+      ], a:2, take:'Context feels responsible. It is usually just delay.' },
+
+    { id:'p3', el:'point', check:true,
+      stem:'Which of these is a genuine Point (a position) rather than a topic?',
+      opts:[
+        {t:'"I want to talk about our turnaround schedule."', w:'A topic announcement. It says what you will discuss, not what you think.'},
+        {t:'"The turnaround schedule is worth discussing carefully."', w:'Still a topic, dressed as a mild opinion. What do you actually think should happen?'},
+        {t:'"We should push the turnaround back by three weeks."', w:'Something a listener could agree or disagree with — that is the test of a real Point.'},
+        {t:'"There are several views on the turnaround schedule."', w:'Reporting that other people have views is not the same as having one.'}
+      ], a:2, take:'A topic is what you will talk about. A Point is what you conclude.' },
+
+    { id:'p4', el:'point', check:true,
+      stem:'Both answers state a position. Which is the stronger Point?\n(i) "We should not extend the inspection interval."\n(ii) "We should not extend the inspection interval — the data does not support it and I would be uncomfortable signing that off."',
+      opts:[
+        {t:'(i) — it is shorter, and a Point must always be one sentence.', w:'Brevity is a guide, not a rule. The test is whether the position lands cleanly, not the word count.'},
+        {t:'(ii) — it states the position and pre-loads the reasoning.', w:'Tempting, but this is the weaker option: it collapses Point and Reason together, so the reasoning arrives before the position has had a beat to land — and gets less room than it deserves.'},
+        {t:'(i) — it lets the position land alone before you argue for it.', w:'Keeping the Point clean gives it its own beat. The reasoning then comes next, properly made, instead of squeezed into a subordinate clause.'},
+        {t:'(ii) — mentioning your discomfort adds useful conviction.', w:'Discomfort is a feeling, not an argument — and it softens a position that was strong standing alone.'}
+      ], a:2, take:'Let the Point land alone. Crowding it with reasoning weakens both.' },
+
+    { id:'p5', el:'point',
+      stem:'A teacher is asked: "Is my son doing okay in maths?" Which is the best Point?',
+      opts:[
+        {t:'"It is early days and we are still gathering data."', w:'A deflection. It may be true, but it is not a position — and it teaches the listener that you dodge.'},
+        {t:'"He is on track, and I would keep the extra practice going."', w:'A clear verdict that also carries the implication forward. The parent knows exactly where things stand.'},
+        {t:'"The picture is mixed but broadly there are some encouraging signs emerging."', w:'Hedged into vagueness. "Mixed but broadly encouraging" commits to nothing and helps no one.'},
+        {t:'"His scores, attendance and engagement have all moved since September."', w:'Evidence arriving before any position — an Example sitting in the Point slot.'}
+      ], a:1, take:'Vagueness feels safe. To the listener it reads as evasion.' },
+
+    { id:'p6', el:'point',
+      stem:'Which of these four openings would most damage your credibility with a senior audience?',
+      opts:[
+        {t:'"I would recommend we delay."', w:'Clean and direct. Exactly what you want.'},
+        {t:'"We should delay. I know that is not the popular answer."', w:'Direct, with a touch of self-awareness. Slightly extra, but the position is unmistakable.'},
+        {t:'"I am not really the expert here, but I suppose we might want to delay, possibly?"', w:'Pre-emptive self-disqualification plus triple hedging. You have instructed the room to discount you before making your case.'},
+        {t:'"Delay. Here is why."', w:'Blunt, but powerful — the position is unmissable and the structure is signposted.'}
+      ], a:2, take:'Never disqualify yourself in your opening sentence. They will believe you.' },
+
+    { id:'p7', el:'point',
+      stem:'Which statement correctly describes the job of the Point?',
+      opts:[
+        {t:'To preview the reasons you are about to give.', w:'That is a signpost, not a Point. The Point is the conclusion itself, not a table of contents.'},
+        {t:'To state your position in one plain sentence, before any reasoning.', w:'Position first, plainly, so that everything after it is read as support rather than suspense.'},
+        {t:'To summarise the situation so that everyone shares the context.', w:'That is context-setting — the very thing PREP deliberately skips at the opening, because it is what buries most answers.'},
+        {t:'To restate the question you intend to answer.', w:'Restating the question spends your strongest moment on something they already know. Answer it instead.'}
+      ], a:1, take:'Point = conclusion. Not topic, not preview, not context.' },
+
+    { id:'p8', el:'point',
+      stem:'In a heated meeting, which Point is most likely to keep you credible?',
+      opts:[
+        {t:'"Everyone is missing the obvious answer here — we delay."', w:'The position is clear, but the framing insults the room. You will spend the rest of the meeting defending your tone instead of your reasoning.'},
+        {t:'"We delay. I will explain why, and I will tell you what would change my mind."', w:'Firm position, plus an invitation that signals confidence rather than stubbornness. Commitment without brittleness.'},
+        {t:'"Maybe we delay? I am open to anything, really."', w:'Open-mindedness is good; having no position is not. This hands the decision to whoever speaks loudest next.'},
+        {t:'"I will go with whatever the room decides, but delay seems safer."', w:'You have conceded before arguing. The position is buried behind deference.'}
+      ], a:1, take:'Naming what would change your mind is strength, not weakness.' },
+
+    /* ---------- REASON ---------- */
+    { id:'r1', el:'reason', check:true,
+      stem:'Point: "We should replace the vendor." Which of these is a genuine Reason?',
+      opts:[
+        {t:'"Because they are not the right fit for us any more."', w:'Circular — "we should replace them because they are not right" restates the Point in new words and explains nothing.'},
+        {t:'"Because their response time has slipped past the point where our crews can plan around it."', w:'This gives the mechanism: why the situation forces the conclusion. That is what a Reason is for.'},
+        {t:'"Because I have had concerns for a while now."', w:'The history of your feeling, not a reason. It explains when you decided, not why it is right.'},
+        {t:'"Because several people have said the same thing."', w:'Consensus is not logic. It may be supporting evidence later, but it does not explain why the conclusion holds.'}
+      ], a:1, take:'A Reason answers "why is that true?" — never "what do I want?"' },
+
+    { id:'r2', el:'reason', check:true,
+      stem:'Which Reason is circular — restating the Point rather than explaining it?',
+      opts:[
+        {t:'"…because right now three teams produce three formats and the review board loses half its time reconciling them."', w:'A clear mechanism with a visible cost. Not circular.'},
+        {t:'"…because standardisation would make our reporting more consistent."', w:'"We should standardise because it would be more standardised." The reason is the point wearing a hat.'},
+        {t:'"…because inconsistent formats have twice caused a finding to be missed at handover."', w:'A concrete causal chain. Genuine reason.'},
+        {t:'"…because new engineers take weeks longer to become useful when every team writes differently."', w:'Explains the cost of not acting. Genuine reason.'}
+      ], a:1, take:'If you can swap the Reason and the Point without losing meaning, you have a circle.' },
+
+    { id:'r3', el:'reason', check:true,
+      stem:'What is the Reason\'s job in PREP?',
+      opts:[
+        {t:'To provide the evidence that proves your position.', w:'That is the Example. Reason is the logic; Example is the proof. Confusing them leaves you with facts and no argument.'},
+        {t:'To explain why your position holds — the logic or mechanism behind it.', w:'Reason answers "why is that true?" and prepares the ground for the evidence that follows.'},
+        {t:'To acknowledge the other side of the argument.', w:'Useful in persuasion generally, but not what this slot is for.'},
+        {t:'To soften the position so it lands more easily.', w:'Softening is hedging by another name. The Reason should make the position sturdier, not gentler.'}
+      ], a:1, take:'Reason = logic. Example = proof. Two different jobs.' },
+
+    { id:'r4', el:'reason', check:true,
+      stem:'Point: "We should run the inspection during the planned shutdown." Which Reason is strongest?',
+      opts:[
+        {t:'"Because doing it then is the most sensible approach."', w:'Assertion, not explanation. "Sensible" is a conclusion word doing no work.'},
+        {t:'"Because the line has to be depressurised to be inspected, and the shutdown is the only window where that happens anyway."', w:'A hard constraint that shows the conclusion is close to forced. The strongest kind of Reason.'},
+        {t:'"Because we have always aligned inspections with shutdowns."', w:'Precedent, not logic. "We have always" explains habit, not merit — and invites "so what?"'},
+        {t:'"Because the team would prefer it."', w:'Preference is not something a decision-maker can weigh against cost or risk.'}
+      ], a:1, take:'The best Reasons make the conclusion feel forced, not preferred.' },
+
+    { id:'r5', el:'reason',
+      stem:'A response gives the Point, jumps straight to a detailed Example, then restates the Point. What has been lost?',
+      opts:[
+        {t:'Nothing — a strong example implies the reason.', w:'Sometimes a listener can infer it. But you have made them do your work, and they may infer a different reason than the one you meant.'},
+        {t:'The logic that connects the evidence to the conclusion.', w:'Without the Reason, the example is just a fact sitting near a claim. The Reason is what makes the evidence mean something.'},
+        {t:'The credibility of the speaker.', w:'Skipping the Reason weakens the argument, but credibility usually survives a single structural gap.'},
+        {t:'The listener\'s attention.', w:'A vivid example usually holds attention perfectly well. The loss here is logical, not attentional.'}
+      ], a:1, take:'Evidence without logic is trivia. The Reason is what makes a fact matter.' },
+
+    { id:'r6', el:'reason',
+      stem:'Which pairing shows a Reason that does NOT actually support its Point?',
+      opts:[
+        {t:'Point: "Delay the launch." Reason: "The payment path still fails on about one in twenty transactions."', w:'Directly supports delay.'},
+        {t:'Point: "Delay the launch." Reason: "A competitor is releasing something similar next month."', w:'A competitor shipping soon is an argument to move faster. The reason pulls against the point — and a sharp listener will notice immediately.'},
+        {t:'Point: "Delay the launch." Reason: "Support is not staffed for the volume we are expecting."', w:'Supports delay cleanly.'},
+        {t:'Point: "Delay the launch." Reason: "Both engineers who own the rollback path are on leave next week."', w:'A real risk that argues for delay.'}
+      ], a:1, take:'Check your Reason actually points the same direction as your Point.' },
+
+    { id:'r7', el:'reason',
+      stem:'Which Reason would a sceptical finance director find most persuasive?',
+      opts:[
+        {t:'"Because it is best practice in our industry."', w:'An appeal to authority with no mechanism. They will immediately ask what it costs and what it saves.'},
+        {t:'"Because deferring converts a bounded, planned cost into an unbounded, unplanned one."', w:'The logic is framed in the currency they actually think in: exposure. Same argument, translated.'},
+        {t:'"Because the engineering team feels strongly about it."', w:'Internal preference, not a business mechanism.'},
+        {t:'"Because we have already had a near miss."', w:'Closer — but that is evidence (an Example), not the reason it generalises.'}
+      ], a:1, take:'Translate your Reason into the listener\'s currency: risk, cost, time, reputation.' },
+
+    { id:'r8', el:'reason',
+      stem:'A doctor says: "You should start this medication. It is the right treatment for your condition." Why is that Reason weak?',
+      opts:[
+        {t:'It is too technical for the listener.', w:'It is not technical at all — the problem is the opposite. It is empty.'},
+        {t:'It restates the recommendation instead of explaining the mechanism.', w:'"Take it because it is the right treatment" is a loop. What does it actually do, and why does that help?'},
+        {t:'It fails to mention side effects.', w:'Completeness is a separate issue. The structural failure here is circularity.'},
+        {t:'It should have come before the Point.', w:'Point first is correct in PREP. The order is not the problem.'}
+      ], a:1, take:'Circular reasoning hides everywhere — especially in expert speech.' },
+
+    /* ---------- EXAMPLE ---------- */
+    { id:'e1', el:'example', check:true,
+      stem:'Which of these is a real Example rather than a placeholder?',
+      opts:[
+        {t:'"We have seen good results since we changed it."', w:'The shape of evidence with none of the substance. What results? How much? When?'},
+        {t:'"Other teams have had positive experiences."', w:'The classic placeholder — unnamed teams, undefined experiences. It proves nothing.'},
+        {t:'"After we changed the handover format in March, missed actions dropped from about nine a month to one."', w:'A specific change, a specific timeframe, specific numbers. Someone could go and check it — which is exactly why it persuades.'},
+        {t:'"There is plenty of evidence that this approach works well."', w:'Asserting that evidence exists is not the same as providing it.'}
+      ], a:2, take:'If nobody could check it, it is not evidence.' },
+
+    { id:'e2', el:'example', check:true,
+      stem:'Point: "We should standardise inspection reports." Reason: "Inconsistent formats cause findings to be missed at handover." Which Example best proves that Reason?',
+      opts:[
+        {t:'"Standardised reporting is used widely across the industry."', w:'Proves that it is common, not that inconsistency causes missed findings. Evidence for the wrong claim.'},
+        {t:'"Last year a wall-thickness reading sat in a free-text note on one team\'s format and was not picked up until the next campaign."', w:'It demonstrates exactly the mechanism the Reason claims: a finding lost because of format.'},
+        {t:'"Our engineers say they find the current system frustrating."', w:'Frustration is a symptom, not proof that findings were missed. Adjacent to the Reason, not evidence for it.'},
+        {t:'"We produce over 400 reports a year across three teams."', w:'Scale, not consequence. It shows the exposure but never shows the harm.'}
+      ], a:1, take:'The Example must prove the Reason you actually gave — not a nearby one.' },
+
+    { id:'e3', el:'example', check:true,
+      stem:'What makes an Example do its job in PREP?',
+      opts:[
+        {t:'It is dramatic enough to be memorable.', w:'Memorability helps, but a vivid story that does not prove the Reason is decoration.'},
+        {t:'It is specific, and it demonstrates the exact mechanism the Reason claims.', w:'Specificity makes it credible; alignment with the Reason makes it relevant. It needs both to work.'},
+        {t:'It comes from a source the audience respects.', w:'Authority can add weight, but a borrowed example that does not fit your reason still fails.'},
+        {t:'It covers several cases rather than one.', w:'One precise example usually beats three vague ones. Volume is not the test.'}
+      ], a:1, take:'Specific + aligned. Miss either and the Example fails.' },
+
+    { id:'e4', el:'example', check:true,
+      stem:'Which Example is specific but mismatched to its Reason?',
+      opts:[
+        {t:'Reason: "The tool saves engineers time." Example: "It cut weekly report prep from four hours to forty minutes."', w:'Specific and perfectly aligned to time saved.'},
+        {t:'Reason: "The tool saves engineers time." Example: "Since we bought it, licence costs have dropped 18%."', w:'Highly specific — and it proves a cost saving, not a time saving. Precise evidence for the wrong claim, which is the subtler and more common failure.'},
+        {t:'Reason: "The tool saves engineers time." Example: "Two engineers each reclaimed most of a day a week after rollout."', w:'Specific and on-mechanism.'},
+        {t:'Reason: "The tool saves engineers time." Example: "The Monday data-copying job that took three hours is now automatic."', w:'Concrete and directly about time.'}
+      ], a:1, take:'Precision is not the same as relevance. Check the Example proves your Reason.' },
+
+    { id:'e5', el:'example',
+      stem:'You have no hard numbers to hand. What is the best move for the Example?',
+      opts:[
+        {t:'Skip the Example and go straight to restating the Point.', w:'A PREP answer without evidence is an opinion in a nice shape. Something concrete beats nothing.'},
+        {t:'Use a specific, named, non-numeric instance — a particular case, date or decision.', w:'Specificity does not require numbers. "The Tuesday handover on Train 2" is concrete, vivid and checkable.'},
+        {t:'Use a general statement such as "we have seen this repeatedly."', w:'That is the placeholder trap: it sounds like evidence and is not.'},
+        {t:'Give an approximate figure so the answer feels grounded.', w:'Never invent numbers. One invented figure that gets checked destroys everything else you said.'}
+      ], a:1, take:'No numbers? Name a specific case. Specificity, not arithmetic, is the point.' },
+
+    { id:'e6', el:'example',
+      stem:'Which Example most undermines the speaker, despite being detailed?',
+      opts:[
+        {t:'"On 14 March the relief valve lifted at 8.2 bar, two hours into the run."', w:'Precise and verifiable. Strong.'},
+        {t:'"I think it was maybe around March, or possibly April, when something similar happened — I would have to check."', w:'The hedging turns your proof into a liability. You have displayed uncertainty at the exact moment you needed authority.'},
+        {t:'"Our last campaign found three instances of the same defect on the same line."', w:'Clean and specific.'},
+        {t:'"The February report flagged this and the action is still open."', w:'Concrete and checkable.'}
+      ], a:1, take:'A hedged example is worse than no example. It advertises that you are guessing.' },
+
+    { id:'e7', el:'example',
+      stem:'An interview answer: "I am good at handling pressure. For instance, I have worked on lots of tight deadlines and always delivered." Why is the Example weak?',
+      opts:[
+        {t:'It is too short.', w:'Length is not the issue — one sentence can be excellent evidence.'},
+        {t:'It is a summary of many events rather than one concrete instance.', w:'"Lots of deadlines, always delivered" is the claim repeated, not a case proven. One specific deadline with stakes and outcome would do far more.'},
+        {t:'It should have come before the Reason.', w:'Example follows Reason in PREP. The order is fine.'},
+        {t:'It is not relevant to pressure.', w:'Deadlines are relevant. The failure is specificity, not relevance.'}
+      ], a:1, take:'"I always…" is a claim. "That Thursday…" is evidence.' },
+
+    { id:'e8', el:'example',
+      stem:'Which is the strongest Example for the Reason "manual data transfer is where our errors enter"?',
+      opts:[
+        {t:'"Manual processes are inherently more error-prone than automated ones."', w:'A general principle, not an example. It restates the Reason at a higher altitude.'},
+        {t:'"Our error rate is unacceptable."', w:'A judgement with no evidence inside it at all.'},
+        {t:'"Three of the last four discrepancies traced back to the same copy-paste step between the logger and the spreadsheet."', w:'It pinpoints the exact step the Reason blames, with a countable pattern. Nothing here is arguable without going and checking.'},
+        {t:'"Everyone who does the transfer says it is easy to make mistakes."', w:'Testimony about the possibility of error, not evidence that error occurred.'}
+      ], a:2, take:'The best Examples name the exact step your Reason blamed.' },
+
+    /* ---------- RESTATED POINT ---------- */
+    { id:'s1', el:'restate', check:true,
+      stem:'Which closing line does the restated Point\'s job best?',
+      opts:[
+        {t:'"So, yeah, that is my view on it anyway."', w:'Trails off and undercuts everything before it. You have just told the room your case was merely "a view, anyway".'},
+        {t:'"So we should replace the vendor — and I would start the transition before the next campaign."', w:'Re-lands the position and elevates it into an action. The last thing they hear is your conclusion plus the ask.'},
+        {t:'"And another thing worth considering is the contract renewal timing."', w:'A brand-new point at the close. This is drift: it reopens the argument at the exact moment it should be landing.'},
+        {t:'"We should replace the vendor."', w:'Right shape, but a flat echo of the opening. Serviceable — yet it leaves the ask unspoken, which the stronger option supplies.'}
+      ], a:1, take:'The close converts a position into a decision.' },
+
+    { id:'s2', el:'restate', check:true,
+      stem:'What is the most common failure of the final Point?',
+      opts:[
+        {t:'Repeating the opening word-for-word and adding nothing.', w:'The default failure: technically present, doing no work. The close should re-land the position and add the implication or ask.'},
+        {t:'Making it longer than the opening Point.', w:'Length is not the problem — a closing Point can be slightly fuller precisely because it adds the implication.'},
+        {t:'Using different words from the opening.', w:'Rewording is fine and often better. What matters is that the position is unmistakably the same one.'},
+        {t:'Ending with a question.', w:'Sometimes weak, sometimes deliberate. Not the classic failure.'}
+      ], a:0, take:'A close that only repeats has wasted your last sentence.' },
+
+    { id:'s3', el:'restate', check:true,
+      stem:'Which close introduces drift — a new point — rather than re-landing the original?',
+      opts:[
+        {t:'"So the interval should not be extended — and that is a position I would put in writing."', w:'Same position, plus conviction. No drift.'},
+        {t:'"So the interval should not be extended, and separately I do think our whole inspection philosophy needs a rethink."', w:'"And separately" is the tell. You have opened a second, larger argument at the very moment you should be closing the first — and now neither lands.'},
+        {t:'"So the interval should not be extended, because the data simply does not support it."', w:'Re-lands with a compressed reason. Fine.'},
+        {t:'"So: no extension, and I would revisit it after the next campaign."', w:'Same position with a sensible next step. That is a timeline, not drift.'}
+      ], a:1, take:'Close the argument you made. Do not open a bigger one.' },
+
+    { id:'s4', el:'restate', check:true,
+      stem:'A strong restated Point usually does one extra thing beyond repeating the position. What?',
+      opts:[
+        {t:'Names the implication or the ask.', w:'"So we delay — and I would tell the customer this week." The close turns a position into a decision someone can act on.'},
+        {t:'Adds a second example for weight.', w:'Evidence belongs in the Example slot. Piling more on at the close dilutes the landing.'},
+        {t:'Acknowledges what you might have got wrong.', w:'Humility has its place, but the close is where you land — not where you wobble.'},
+        {t:'Summarises all three previous elements.', w:'A full recap is heavy for a short answer and buries the position inside a summary.'}
+      ], a:0, take:'Position + implication. That is the close.' },
+
+    { id:'s5', el:'restate',
+      stem:'A candidate ends an interview answer: "…and that is why I left. Anyway, sorry, that was probably too long." What is the damage?',
+      opts:[
+        {t:'The apology erases the close and leaves self-doubt as the final impression.', w:'Whatever the answer\'s quality, the last thing the panel heard was you judging it as poor. Never close on an apology.'},
+        {t:'The close restates the point too forcefully.', w:'There is no restated point at all — which is part of the problem.'},
+        {t:'The example was too detailed.', w:'We cannot tell from this, and it is not what the close reveals.'},
+        {t:'The structure needed a fifth element.', w:'PREP has four. The failure is in executing the last one.'}
+      ], a:0, take:'Whatever you end on is what they remember. Never end on an apology.' },
+
+    { id:'s6', el:'restate',
+      stem:'Given the opening Point "We should bring inspection in-house", which close is strongest?',
+      opts:[
+        {t:'"So, in-house. Thanks."', w:'Lands the position but abruptly, and wastes the chance to add the implication.'},
+        {t:'"So bringing it in-house is the right call — and the next shutdown is the natural point to start."', w:'Same position, elevated with a concrete next step. The listener leaves with a decision rather than a view.'},
+        {t:'"So there is a strong case for in-house, though outsourcing has its merits too."', w:'Re-opening the balance at the close dissolves the position you just spent the whole answer building.'},
+        {t:'"So we should bring inspection in-house."', w:'Right shape, but a flat echo. Acceptable — the stronger option does strictly more with the same breath.'}
+      ], a:1, take:'Never re-open the counter-case in your closing line.' },
+
+    /* ---------- WHOLE RESPONSE ---------- */
+    { id:'w1', el:'whole',
+      stem:'Question: "Why should we approve the extra budget?" Which response executes PREP best?',
+      opts:[
+        {t:'"Well, there is a lot going on — three campaigns, new regulations, a contractor change. It is complicated. But broadly I think more budget would help us."', w:'Context first, position last and hedged. This is the exact shape PREP exists to prevent.'},
+        {t:'"We should approve it because it is needed. The team has been clear about this, and we cannot keep going as we are. So yes, approve it."', w:'The four beats are there in outline, but the Reason is circular ("needed") and there is no Example at all — only assertion and fatigue.'},
+        {t:'"Approve it. Without it we cannot cover the two new lines, so the inspection interval slips past the regulatory limit. Last quarter we deferred four inspections for exactly that reason and one came back at 22% wall loss. So approving it is the cheaper option — and the safer one."', w:'Point in two words, a mechanism the approver can follow, a specific and aligned example, and a close that elevates into implication.'},
+        {t:'"Last quarter we deferred four inspections and one came back at 22% wall loss. We are stretched across two new lines. The interval is close to the regulatory limit. So — budget."', w:'The evidence is genuinely strong, but the position arrives last. A busy approver may have stopped listening before you got there.'}
+      ], a:2, take:'Strong evidence in the wrong order still loses the room.' },
+
+    { id:'w2', el:'whole',
+      stem:'Which response does NOT follow PREP, despite sounding competent?',
+      opts:[
+        {t:'"We should switch suppliers. Their lead times have doubled, which breaks our planning cycle. In August we waited five weeks for a part quoted at ten days. So switching is the right call."', w:'Textbook PREP.'},
+        {t:'"Last year we had a serious problem with delays. I was asked to fix it, so I renegotiated terms and built a tracker. Lead times came down by half."', w:'This is STAR — Situation, Task, Action, Result. A competent answer to a different kind of question, with no position stated anywhere. Being well-structured is not the same as being PREP.'},
+        {t:'"We should renegotiate. Our terms give them no penalty for lateness, so nothing forces improvement. The August delay cost us five weeks and no one paid for it. So a penalty clause is the fix."', w:'PREP, cleanly executed.'},
+        {t:'"We should keep them. Switching costs six months of requalification, and our only comparable supplier failed audit last year. So staying is the lower-risk option."', w:'PREP, compact but complete.'}
+      ], a:1, take:'A good structure in the wrong slot is still the wrong answer.' },
+
+    { id:'w3', el:'whole',
+      stem:'So far: "We should move the inspection into the shutdown window. The line has to be depressurised to be inspected, and the shutdown is the only time that happens." What is the best next line?',
+      opts:[
+        {t:'"So it really is the sensible option all round."', w:'That is a close — but you have skipped the Example and would be landing on assertion alone.'},
+        {t:'"Last year we tried to inspect it live, aborted after two days, and still lost the production we were trying to protect."', w:'A specific instance that proves the exact mechanism just claimed. Example is the right next beat.'},
+        {t:'"Also, the crews prefer working during shutdown."', w:'A second, weaker Reason after the strong one has already landed. It dilutes rather than proves.'},
+        {t:'"Of course, there are arguments for doing it sooner."', w:'Opening the counter-case mid-build undercuts your own reasoning before you have evidenced it.'}
+      ], a:1, take:'After a strong Reason, prove it. Do not pile on weaker reasons.' },
+
+    { id:'w4', el:'whole',
+      stem:'"We should upgrade the monitoring system. It is old and it causes problems. For example, it is quite unreliable at times. So an upgrade makes sense." Which element fails most badly?',
+      opts:[
+        {t:'Point', w:'The Point is clean and first. That part works.'},
+        {t:'Reason', w:'"Old and causes problems" is thin and near-circular — genuinely weak, but it at least gestures at a mechanism. One element is worse.'},
+        {t:'Example', w:'"Quite unreliable at times" is a placeholder wearing the words "for example". No instance, no date, no consequence — nothing a listener could picture or check.'},
+        {t:'Restated Point', w:'"So an upgrade makes sense" is flat and adds nothing, but it does at least land the position.'}
+      ], a:2, take:'The words "for example" do not create an example.' },
+
+    { id:'w5', el:'whole',
+      stem:'These four lines are scrambled. Which order is correct PREP?\n(1) "In March the coating survey found active CUI under three of the eight supports we opened."\n(2) "So we should open the remaining supports during this shutdown."\n(3) "We should open the remaining pipe supports for inspection."\n(4) "Insulation traps water at the supports, and we cannot see corrosion there without removing it."',
+      opts:[
+        {t:'3 → 4 → 1 → 2', w:'Position, mechanism, specific proof, then the position re-landed with timing. Correct PREP.'},
+        {t:'1 → 4 → 3 → 2', w:'Evidence first, position third. The listener waits far too long to learn what you actually want.'},
+        {t:'3 → 1 → 4 → 2', w:'Example before Reason — the evidence arrives before the logic that gives it meaning.'},
+        {t:'4 → 3 → 1 → 2', w:'Mechanism before position. Readable, and a very common habit — but it is not PREP, and it delays your conclusion.'}
+      ], a:0, take:'Position, logic, proof, land. In that order, every time.' },
+
+    { id:'w6', el:'whole',
+      stem:'A parent asks a teacher: "Is my son doing okay in maths?" Which is the best PREP answer?',
+      opts:[
+        {t:'"He is doing fine, no concerns at all really."', w:'A position, but with no reason and no evidence — and "fine" gives the parent nothing to act on.'},
+        {t:'"He is on track. The gain is coming from short daily practice rather than long weekly sessions, which is what we changed in September. On the same end-of-topic test he moved from 41% to 78%. So keep the home practice going and he will stay on track."', w:'Position, mechanism, specific evidence, and a close that hands the parent their part of the job.'},
+        {t:'"In September he struggled with fractions, then we started extra practice, and there has been improvement since, and last month he got 78%."', w:'Good evidence, told chronologically — but no position is ever stated. The parent has to infer the verdict themselves.'},
+        {t:'"Maths is a subject where progress varies a lot at this age, so it is hard to generalise."', w:'A hedge disguised as expertise. They asked a direct question and received a paragraph about variance.'}
+      ], a:1, take:'PREP works outside work too — anywhere someone wants your verdict.' },
+
+    { id:'w7', el:'whole',
+      stem:'All four follow PREP. Which is strongest?',
+      opts:[
+        {t:'"We should delay. The rollback path is not tested. If it failed we would have no way back. So we should delay."', w:'Correct shape and a real mechanism — but the Example slot holds a hypothetical ("if it failed"), not an instance. Imagined evidence is not evidence.'},
+        {t:'"We should delay. The rollback path is not tested, so a bad release would leave us with no way back. In the June incident we needed rollback twice in one night. So delay until rollback is proven."', w:'Mechanism, then a real and specific precedent from your own context, then a close that names the condition for proceeding. Strongest of the four.'},
+        {t:'"We should delay. Everyone on the team is uneasy, and when the team is uneasy it is usually right. In my experience that instinct is rarely wrong. So let us delay."', w:'The Reason is intuition and the Example is a generalisation about intuition. Nothing here is checkable by anyone.'},
+        {t:'"We should delay. The rollback path is not tested, which is the kind of gap that causes incidents. Industry data shows untested rollback is a leading cause of extended outages. So we delay."', w:'Better — but the evidence is generic industry data rather than something from your own situation. Local precedent beats borrowed statistics almost every time.'}
+      ], a:1, take:'Your own specific precedent outranks industry data and hypotheticals.' },
+
+    { id:'w8', el:'whole',
+      stem:'"We should hire a second inspector. Because the workload is too high for one person. Which is why one person cannot cover it. So we need another." What has gone wrong?',
+      opts:[
+        {t:'The Point is buried.', w:'The Point is first and perfectly clear.'},
+        {t:'Reason, Example and close are all the same claim reworded.', w:'Three different slots all say "one person is not enough". There is no mechanism and no evidence — just the Point on a loop, which feels like an argument while containing none.'},
+        {t:'The Example is mismatched.', w:'There is no Example to mismatch — which is the deeper problem.'},
+        {t:'It needs a stronger opening.', w:'The opening is the only part actually working.'}
+      ], a:1, take:'Four slots, four different jobs. Saying one thing four times is not PREP.' },
+
+    { id:'w9', el:'whole',
+      stem:'You are interrupted right after your Point and asked "Why?" — what is the best immediate move?',
+      opts:[
+        {t:'Give the Reason, then the Example, as planned.', w:'The interruption is simply an invitation to run the rest of PREP. Your structure still works — that is the point of having one.'},
+        {t:'Restate the Point more forcefully.', w:'Repeating yourself when asked for reasoning reads as having none.'},
+        {t:'Go to the Example first, since evidence convinces.', w:'Tempting — but evidence without the logic makes the listener work out why it matters, and they may reach a different conclusion than you intended.'},
+        {t:'Acknowledge you might be wrong and soften the Point.', w:'A direct question is not an attack. Softening here surrenders the position you have only just taken.'}
+      ], a:0, take:'Being interrupted does not break PREP. It just starts the next beat early.' },
+
+    { id:'w10', el:'whole',
+      stem:'Management asks: "Why do we need to intercept this line now?" Which answer is strongest?',
+      opts:[
+        {t:'"Because of CUI. It is a known degradation mechanism under insulation and it is progressive, so the sooner the better really."', w:'Technically accurate but audience-blind: it explains a mechanism to people who need a decision, with no evidence and no ask.'},
+        {t:'"We need to intercept in this window. Wall loss at the worst point is 22% and trending, and the next window is eighteen months out — by then we would likely be below the retirement limit. In March we deferred a similar line and it came back needing emergency replacement at four times the planned cost. So intercepting now is the cheaper and lower-risk option."', w:'Position, a mechanism a non-technical audience can follow, a specific precedent with a cost attached, and a close framed in their currency.'},
+        {t:'"There is significant corrosion under the insulation, several breach points, and the readings are concerning. I would strongly recommend we act."', w:'Evidence-shaped but vague ("significant", "concerning"), with the recommendation trailing at the end where it is easiest to ignore.'},
+        {t:'"We should intercept now, because if we do not, something serious could happen and it would be very expensive."', w:'The position is clear, but the Reason is vague fear and there is no evidence. "Something serious" invites exactly the scepticism you cannot afford.'}
+      ], a:1, take:'Same facts, translated into their currency, is the whole game.' }
+  ]
+};
+
+const CHAPTERS = [CH_PREP];
+const COMING = [
+  'The 3-Part Answer — Intro → Body → Conclusion',
+  'Self-Introduction — Name → Role → Value → Hook',
+  'One-Point Clarity — The One Point → Anchor → Landing',
+  'STAR — Situation → Task → Action → Result',
+  'Stakeholder Meeting — Context → Problem → Recommendation → Next Steps',
+  'Bad News — State → Reason → Plan → Support',
+  'Technical Briefing — Thesis → Architecture → Demo → Takeaway',
+  'AIDA — Attention → Interest → Desire → Action',
+  'Impromptu (ABT) — And → But → Therefore',
+  'Q&A Mastery — Listen → Clarify → Pause → Answer → Bridge',
+  'Executive Presence — Credibility → Vision → Call to Action'
+];
+
+/* ============================================================
+   STATE — localStorage only, never transmitted
+   ============================================================ */
+const STORE = 'framework-school-v1';
+const PASS_MARK = 0.9;      // mastery exam threshold
+const EXAM_LEN  = 12;       // questions in the mastery exam
+
+let S = loadState();
+function blankChapter(){ return { read:false, checks:{}, drills:{n:0,ok:0}, missed:{}, mastered:false, examBest:0 }; }
+function loadState(){
+  let raw = {};
+  try { raw = JSON.parse(localStorage.getItem(STORE) || '{}'); } catch(e){ raw = {}; }
+  const s = { ch: {} };
+  CHAPTERS.forEach(c => { s.ch[c.id] = Object.assign(blankChapter(), (raw.ch && raw.ch[c.id]) || {}); });
+  return s;
+}
+function save(){ try { localStorage.setItem(STORE, JSON.stringify(S)); } catch(e){} }
+function P(id){ return S.ch[id] || (S.ch[id] = blankChapter()); }
+
+/* ============================================================
+   HELPERS
+   ============================================================ */
+const $ = sel => document.querySelector(sel);
+function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function nl(s){ return esc(s).replace(/\n/g,'<br>'); }
+function shuffle(a){ const b=a.slice(); for(let i=b.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [b[i],b[j]]=[b[j],b[i]]; } return b; }
+function chapter(id){ return CHAPTERS.find(c=>c.id===id); }
+function elementsOf(c){ return c.elements.map(e=>e.name.toLowerCase().split(' ')[0]); }
+function qsFor(c, el){ return c.questions.filter(q => q.el === el); }
+function checkQs(c, el){ return c.questions.filter(q => q.el === el && q.check); }
+function chapterDone(c){
+  const p = P(c.id);
+  const allChecks = c.elements.every(e => p.checks[e.key]);
+  return p.read && allChecks && p.mastered;
+}
+function stagesDone(c){
+  const p = P(c.id);
+  let n = 0;
+  if (p.read) n++;
+  c.elements.forEach(e => { if (p.checks[e.key]) n++; });
+  if (p.drills.n >= 10) n++;
+  if (p.mastered) n++;
+  return n;
+}
+function stagesTotal(c){ return 1 + c.elements.length + 1 + 1; }
+
+/* ============================================================
+   ROUTER
+   ============================================================ */
+let VIEW = { name:'home' };
+function go(name, opts){ VIEW = Object.assign({name}, opts||{}); render(); window.scrollTo(0,0); }
+function render(){
+  $('#homeBtn').style.display = VIEW.name === 'home' ? 'none' : 'inline-flex';
+  const v = VIEW.name;
+  if (v === 'home')     return renderHome();
+  if (v === 'chapter')  return renderChapter(VIEW.id);
+  if (v === 'read')     return renderRead(VIEW.id);
+  if (v === 'quiz')     return renderQuiz();
+  if (v === 'result')   return renderResult();
+  renderHome();
+}
+
+/* ============================================================
+   VIEWS
+   ============================================================ */
+function renderHome(){
+  const rows = CHAPTERS.map(c => {
+    const p = P(c.id), done = stagesDone(c), tot = stagesTotal(c);
+    const pct = Math.round(done/tot*100);
+    const badge = p.mastered ? '<span class="pill pill-g">Mastered</span>'
+                : done>0 ? '<span class="pill pill-o">In progress</span>'
+                : '<span class="pill pill-t">Start here</span>';
+    return `<button class="stage" onclick="go('chapter',{id:'${c.id}'})">
+      <span class="n">${c.n}</span>
+      <span class="t"><b>${esc(c.title)} &nbsp;${badge}</b>
+      <span>${esc(c.subtitle)}</span>
+      <span style="margin-top:8px"><span class="bar"><i style="width:${pct}%"></i></span></span></span>
+    </button>`;
+  }).join('');
+
+  const soon = COMING.map(t => `<div class="stage locked" style="cursor:default">
+      <span class="n">·</span><span class="t"><b>${esc(t.split(' — ')[0])}</b><span>${esc(t.split(' — ')[1]||'')}</span></span>
+      <span class="pill pill-m">Soon</span></div>`).join('');
+
+  $('#app').innerHTML = `
+    <h1>Framework School</h1>
+    <p class="muted">Learn each communication framework properly, then prove you have it — with tests hard enough to be worth your time. Silent, offline, no account.</p>
+    <div class="label">Chapters</div>
+    ${rows}
+    <div class="label">Coming next</div>
+    ${soon}
+    <p class="tiny muted" style="margin-top:22px">Progress is saved in this browser only. Nothing leaves this device — there are no network requests at all.</p>
+  `;
+}
+
+function renderChapter(id){
+  const c = chapter(id), p = P(id);
+  const checks = c.elements.map(e => {
+    const k = e.key, done = !!p.checks[k];
+    const locked = !p.read;
+    return `<button class="stage ${done?'done':''}" ${locked?'disabled':''}
+      onclick="startQuiz('${id}','check','${k}')">
+      <span class="n">${done?'✓':'?'}</span>
+      <span class="t"><b>Check: ${esc(e.name)}</b><span>${done?'Passed — all correct':'Answer every question correctly to pass'}</span></span>
+    </button>`;
+  }).join('');
+
+  const drillAcc = p.drills.n ? Math.round(p.drills.ok/p.drills.n*100) : 0;
+  const examLocked = !(p.read && c.elements.every(e=>p.checks[e.key]));
+
+  $('#app').innerHTML = `
+    <h1>${esc(c.title)}</h1>
+    <p class="muted" style="margin-bottom:4px">${esc(c.subtitle)}</p>
+    <p class="muted tiny">${esc(c.blurb)}</p>
+
+    <div class="label">1 · Learn</div>
+    <button class="stage ${p.read?'done':''}" onclick="go('read',{id:'${id}'})">
+      <span class="n">${p.read?'✓':'1'}</span>
+      <span class="t"><b>Read the chapter</b><span>${p.read?'Read — open again any time':'The idea, the anatomy, four worked examples'}</span></span>
+    </button>
+
+    <div class="label">2 · Check each element${p.read?'':' <span class="pill pill-m">read first</span>'}</div>
+    ${checks}
+
+    <div class="label">3 · Drill</div>
+    <button class="stage" onclick="startQuiz('${id}','drill')" ${p.read?'':'disabled'}>
+      <span class="n">∞</span>
+      <span class="t"><b>Practice drills</b><span>${p.drills.n? `${p.drills.n} answered · ${drillAcc}% correct · misses come back more often` : 'Endless mixed questions from the whole chapter'}</span></span>
+    </button>
+
+    <div class="label">4 · Mastery exam</div>
+    <button class="stage ${p.mastered?'done':''}" onclick="startQuiz('${id}','exam')" ${examLocked?'disabled':''}>
+      <span class="n">${p.mastered?'✓':'★'}</span>
+      <span class="t"><b>${p.mastered?'Mastered':'Take the mastery exam'}</b>
+      <span>${examLocked ? 'Finish the reading and all element checks first'
+        : `${EXAM_LEN} mixed questions · ${Math.round(PASS_MARK*100)}% to pass${p.examBest?` · best ${p.examBest}%`:''}`}</span></span>
+    </button>
+    ${p.mastered ? `<div class="card" style="background:var(--green-l);border-color:var(--green)">
+        <b style="color:var(--green)">Chapter mastered.</b>
+        <p class="tiny muted" style="margin:6px 0 0">Keep drilling to hold it — the next chapters will mix PREP questions back in so it does not fade.</p>
+      </div>` : ''}
+  `;
+}
+
+function renderRead(id){
+  const c = chapter(id);
+  const idea = c.idea.map(t=>`<p>${esc(t)}</p>`).join('');
+  const when = c.whenToUse.map(t=>`<li>${esc(t)}</li>`).join('');
+  const els = c.elements.map((e,i)=>`
+    <div class="el" style="border-left-color:${e.color};background:var(--bg-2)">
+      <b style="color:${e.color}">${i+1}. ${esc(e.name)}</b>
+      <div>${esc(e.job)}</div>
+      <div class="fail">${esc(e.fail)}</div>
+    </div>`).join('');
+  const exs = c.examples.map(ex=>`
+    <div class="card">
+      <div class="tiny muted" style="font-weight:700;text-transform:uppercase;letter-spacing:.05em">${esc(ex.label)}</div>
+      <p class="muted" style="margin:6px 0 12px">${esc(ex.prompt)}</p>
+      ${ex.lines.map(l=>`<div class="line" style="border-left-color:${l.c}">
+          <span class="tag" style="background:${l.c}">${esc(l.el)}</span>
+          <div>${esc(l.t)}</div></div>`).join('')}
+    </div>`).join('');
+  const ws = c.weakStrong;
+
+  $('#app').innerHTML = `
+    <h1>${esc(c.title)}</h1>
+    <p class="muted">${esc(c.subtitle)}</p>
+
+    <h2>The idea</h2>
+    ${idea}
+
+    <h2>When to reach for it</h2>
+    <ul class="muted" style="margin-top:0">${when}</ul>
+
+    <h2>Anatomy</h2>
+    <p class="muted tiny">Four slots, four different jobs. Most failures are one slot doing another slot's work — or no work at all.</p>
+    ${els}
+
+    <h2>Worked examples</h2>
+    ${exs}
+
+    <h2>Weak vs strong</h2>
+    <p class="muted">${esc(ws.prompt)}</p>
+    <div class="card" style="border-left:3px solid var(--red);background:var(--red-l)">
+      <div class="tiny" style="font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Weak</div>
+      <div>${esc(ws.weak)}</div>
+      <div class="tiny muted" style="margin-top:9px">${esc(ws.weakWhy)}</div>
+    </div>
+    <div class="card" style="border-left:3px solid var(--green);background:var(--green-l)">
+      <div class="tiny" style="font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Strong</div>
+      <div>${esc(ws.strong)}</div>
+      <div class="tiny muted" style="margin-top:9px">${esc(ws.strongWhy)}</div>
+    </div>
+
+    <button class="btn btn-p btn-full" style="margin-top:18px" onclick="markRead('${id}')">
+      I have read this — unlock the checks
+    </button>
+  `;
+}
+function markRead(id){ P(id).read = true; save(); go('chapter',{id}); }
+
+/* ============================================================
+   QUIZ ENGINE
+   mode: 'check' (must get all right) | 'drill' (endless, miss-weighted) | 'exam'
+   ============================================================ */
+let Q = null;
+
+function startQuiz(id, mode, el){
+  const c = chapter(id), p = P(id);
+  let queue = [];
+  if (mode === 'check'){
+    const name = c.elements.find(e => e.key === el).name;
+    queue = shuffle(checkQs(c, el));
+    Q = { id, mode, el, elName:name, queue, i:0, ok:0, asked:0, requeue:[], answered:false, picked:-1, order:null };
+  } else if (mode === 'drill'){
+    queue = buildDrillQueue(c, p, 8);
+    Q = { id, mode, queue, i:0, ok:0, asked:0, requeue:[], answered:false, picked:-1, order:null };
+  } else {
+    queue = buildExamQueue(c);
+    Q = { id, mode, queue, i:0, ok:0, asked:0, requeue:[], answered:false, picked:-1, order:null };
+  }
+  go('quiz');
+}
+
+// Drills bias toward questions previously missed.
+function buildDrillQueue(c, p, n){
+  const missed = c.questions.filter(q => (p.missed[q.id]||0) > 0);
+  const rest   = c.questions.filter(q => !(p.missed[q.id]||0));
+  const pick   = shuffle(missed).slice(0, Math.min(missed.length, Math.ceil(n/2)))
+                 .concat(shuffle(rest));
+  return pick.slice(0, n);
+}
+// Exam samples across every element so it cannot be gamed.
+function buildExamQueue(c){
+  const groups = ['point','reason','example','restate','whole'];
+  let out = [];
+  groups.forEach(g => { out = out.concat(shuffle(qsFor(c,g)).slice(0, g==='whole'?4:2)); });
+  return shuffle(out).slice(0, EXAM_LEN);
+}
+
+function renderQuiz(){
+  const c = chapter(Q.id);
+  const q = Q.queue[Q.i];
+  if (!q) return finishQuiz();
+
+  // Randomise option order per question so answer position can't be memorised.
+  if (!Q.order) Q.order = shuffle(q.opts.map((_,i)=>i));
+  const order = Q.order;
+
+  const title = Q.mode==='check' ? `Check · ${esc(Q.elName)}`
+              : Q.mode==='exam'  ? 'Mastery exam' : 'Practice drill';
+  const counter = Q.mode==='drill'
+      ? `${Q.asked+1} · ${Q.ok}/${Q.asked} correct`
+      : `${Q.i+1} of ${Q.queue.length}${Q.requeue.length?` (+${Q.requeue.length} to retry)`:''}`;
+
+  const opts = order.map((origIdx, shownIdx) => {
+    const o = q.opts[origIdx];
+    const isAns = origIdx === q.a;
+    let cls = '', mark = '';
+    if (Q.answered){
+      if (isAns){ cls='correct'; mark='<span class="mk">Correct</span><br>'; }
+      else if (shownIdx === Q.picked){ cls='wrong'; mark='<span class="mk">Your answer</span><br>'; }
+    }
+    return `<button class="opt ${cls}" ${Q.answered?'disabled':''} onclick="answer(${shownIdx})">
+      ${mark}${esc(o.t)}
+      ${Q.answered ? `<span class="why">${esc(o.w)}</span>` : ''}
+    </button>`;
+  }).join('');
+
+  $('#app').innerHTML = `
+    <div class="qmeta"><span>${title}</span><span>${counter}</span></div>
+    <div class="card">
+      <div style="font-weight:600;margin-bottom:${q.passage?'12px':'14px'}">${nl(q.stem)}</div>
+      ${q.passage?`<div class="passage">${nl(q.passage)}</div>`:''}
+      ${opts}
+      ${Q.answered && q.take ? `<div class="take"><b>Takeaway:</b> ${esc(q.take)}</div>` : ''}
+    </div>
+    ${Q.answered ? `<button class="btn btn-p btn-full" onclick="nextQ()">${nextLabel()}</button>` : ''}
+    <button class="btn btn-g btn-full" style="margin-top:8px" onclick="quitQuiz()">Leave</button>
+  `;
+}
+function nextLabel(){
+  if (Q.mode==='drill') return 'Next question';
+  const last = Q.i >= Q.queue.length-1;
+  if (!last) return 'Next question';
+  return Q.requeue.length ? 'Retry the ones you missed' : 'See result';
+}
+
+function answer(shownIdx){
+  if (Q.answered) return;
+  const q = Q.queue[Q.i];
+  const origIdx = Q.order[shownIdx];
+  const correct = origIdx === q.a;
+  const p = P(Q.id);
+
+  Q.answered = true; Q.picked = shownIdx; Q.asked++;
+  if (correct){
+    Q.ok++;
+    if (p.missed[q.id]) p.missed[q.id]--;
+  } else {
+    p.missed[q.id] = (p.missed[q.id]||0) + 1;
+    if (Q.mode === 'check') Q.requeue.push(q);   // "until you get all of it"
+  }
+  if (Q.mode === 'drill'){ p.drills.n++; if (correct) p.drills.ok++; }
+  save();
+  renderQuiz();
+}
+
+function nextQ(){
+  Q.answered = false; Q.picked = -1; Q.order = null;
+  if (Q.mode === 'drill'){
+    Q.i++;
+    if (Q.i >= Q.queue.length){ // keep going endlessly
+      Q.queue = Q.queue.concat(buildDrillQueue(chapter(Q.id), P(Q.id), 8));
+    }
+    return renderQuiz();
+  }
+  Q.i++;
+  if (Q.i >= Q.queue.length){
+    if (Q.requeue.length){          // check mode: redo missed until clean
+      Q.queue = shuffle(Q.requeue); Q.requeue = []; Q.i = 0;
+      return renderQuiz();
+    }
+    return finishQuiz();
+  }
+  renderQuiz();
+}
+function quitQuiz(){ const id = Q.id; Q = null; go('chapter',{id}); }
+
+function finishQuiz(){
+  const id = Q.id, p = P(id), c = chapter(id);
+  if (Q.mode === 'check'){
+    p.checks[Q.el] = true;                       // only reachable once all are right
+  } else if (Q.mode === 'exam'){
+    const pct = Math.round(Q.ok / Q.queue.length * 100);
+    p.examBest = Math.max(p.examBest||0, pct);
+    if (Q.ok / Q.queue.length >= PASS_MARK) p.mastered = true;
+    VIEW.pct = pct;
+  }
+  save();
+  go('result', { id, mode:Q.mode, ok:Q.ok, total:Q.queue.length, el:Q.elName });
+}
+
+function renderResult(){
+  const { id, mode, ok, total, el } = VIEW;
+  const p = P(id);
+  const pct = total ? Math.round(ok/total*100) : 0;
+  let head, body, tone;
+
+  if (mode === 'check'){
+    head = 'Element check passed';
+    tone = 'var(--green)';
+    body = `You answered every ${esc(el)} question correctly — including the ones you had to come back to. That is the bar.`;
+  } else if (mode === 'exam'){
+    const passed = p.mastered && pct >= Math.round(PASS_MARK*100);
+    head = passed ? 'Mastery exam passed' : 'Not yet';
+    tone = passed ? 'var(--green)' : 'var(--orange)';
+    body = passed
+      ? 'You have PREP. Keep it warm with drills — and it will keep resurfacing inside later chapters so it does not fade.'
+      : `You need ${Math.round(PASS_MARK*100)}% to pass. Run some drills — the questions you missed will come back more often — then sit it again.`;
+  } else {
+    head = 'Drill session';
+    tone = 'var(--teal)';
+    body = 'Every question you missed is now weighted to return sooner. That is how it sticks.';
+  }
+
+  $('#app').innerHTML = `
+    <div class="card center" style="padding:28px 18px">
+      <div class="big" style="color:${tone}">${mode==='check' ? '✓' : pct + '%'}</div>
+      <h2 style="margin:6px 0 8px">${esc(head)}</h2>
+      <p class="muted" style="margin-bottom:0">${esc(body)}</p>
+      ${mode!=='check' ? `<p class="tiny muted" style="margin-top:10px">${ok} of ${total} correct</p>` : ''}
+    </div>
+    <div class="row">
+      <button class="btn btn-s" style="flex:1" onclick="go('chapter',{id:'${id}'})">Back to chapter</button>
+      ${mode==='exam' && !p.mastered ? `<button class="btn btn-p" style="flex:1" onclick="startQuiz('${id}','drill')">Drill now</button>` : ''}
+      ${mode==='drill' ? `<button class="btn btn-p" style="flex:1" onclick="startQuiz('${id}','drill')">Keep drilling</button>` : ''}
+    </div>
+  `;
+}
+
+render();
+</script>
+</body>
+</html>
