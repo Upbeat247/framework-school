@@ -574,11 +574,982 @@ const CH_PREP = {
   ]
 };
 
-const CHAPTERS = [CH_PREP];
+/* ============================================================
+   Chapter 2 — The 3-Part Answer
+   ============================================================ */
+const CH_THREE = {
+  id:'three', n:2,
+  title:'The 3-Part Answer',
+  subtitle:'Introduction → Body → Conclusion',
+  blurb:'The simplest complete shape. When nothing more specific fits, use this one.',
+  idea:[
+    `The 3-Part Answer is the most basic complete shape in speaking: say what you think, support it, then close. It is what you fall back on when a question catches you cold and no more specific framework fits.`,
+    `Its real value is that it guarantees an ending. Most unstructured answers do not end — they run out. And an answer that trails off ("…so, yeah, that is about it") quietly undoes whatever came before it, because the last thing the room hears is you losing confidence in your own material.`,
+    `Where PREP insists on evidence, the 3-Part Answer is looser: the Body can be a reason, a detail, a consequence or a short story. That makes it more flexible and slightly less persuasive. Reach for PREP when you need to convince someone; reach for the 3-Part Answer when you need to be clear and finish cleanly.`
+  ],
+  whenToUse:[
+    'A question catches you off guard and you need a shape immediately',
+    'Short status updates, stand-ups and handovers',
+    'Any answer where clarity matters more than persuasion',
+    'Whenever you notice yourself about to ramble'
+  ],
+  elements:[
+    { name:'Introduction', key:'intro', color:'var(--teal)',
+      job:'State your main point in one sentence, up front.',
+      fail:'Classic failure: using the slot to announce the topic ("So, on the schedule question…") or to restate what you were just asked, instead of answering it. An introduction that introduces rather than answers has wasted the only moment everyone is definitely listening.' },
+    { name:'Body', key:'body', color:'var(--orange)',
+      job:'Give the one supporting detail, reason or consequence that makes the point land.',
+      fail:'Classic failure: emptying everything you know into it. The Body is one supporting move, not an inventory. Three half-made points are always weaker than one fully made.' },
+    { name:'Conclusion', key:'conclusion', color:'var(--gold)',
+      job:'Reinforce the point and stop — deliberately, on your own terms.',
+      fail:'Classic failure: trailing off, or introducing new material just as you should be landing. If your last sentence opens something, you have not concluded — you have paused.' }
+  ],
+  examples:[
+    { label:'Caught cold in a meeting', prompt:'"What is the biggest risk on this job right now?"',
+      lines:[
+        {el:'Introduction', c:'var(--teal)', t:'The biggest risk right now is that we lose the shutdown window.'},
+        {el:'Body', c:'var(--orange)', t:'Two of the three long-lead valves are still unconfirmed, and if either slips we cannot complete the tie-in during the outage — which pushes the whole scope into next year.'},
+        {el:'Conclusion', c:'var(--gold)', t:'So the window is the risk, and confirming those two deliveries is the thing I would chase this week.'}
+      ]},
+    { label:'Status update', prompt:'"Where are we on the corrosion survey?"',
+      lines:[
+        {el:'Introduction', c:'var(--teal)', t:'The survey is on track, and I expect the report by Friday.'},
+        {el:'Body', c:'var(--orange)', t:'We have completed eleven of the fourteen circuits; the three outstanding ones need scaffold, which goes up Wednesday.'},
+        {el:'Conclusion', c:'var(--gold)', t:'So: on track for Friday, and the only thing that could move it is the scaffold.'}
+      ]},
+    { label:'Interview', prompt:'"What did you learn from your last project?"',
+      lines:[
+        {el:'Introduction', c:'var(--teal)', t:'The biggest lesson was that early feedback saves months of rework.'},
+        {el:'Body', c:'var(--orange)', t:'We built the first version in isolation for ten weeks, then showed it to users who found it confusing — and four weeks of redesign later we realised five people in week two would have caught it.'},
+        {el:'Conclusion', c:'var(--gold)', t:'So I now insist on user testing in the first sprint of anything I run.'}
+      ]},
+    { label:'Everyday', prompt:'"Should we move house this year?"',
+      lines:[
+        {el:'Introduction', c:'var(--teal)', t:'I think we should wait until next year.'},
+        {el:'Body', c:'var(--orange)', t:'Moving now means changing schools mid-year, and the saving we would make on the rent does not cover what that disruption costs the children.'},
+        {el:'Conclusion', c:'var(--gold)', t:'So: next year, and we start looking properly after Easter.'}
+      ]}
+  ],
+  weakStrong:{
+    prompt:'"How did the inspection campaign go?"',
+    weak:'Yeah, it went okay I think. There were a few issues with access early on, and the weather did not help, and one of the contractors was short-staffed for a bit. We got most of it done though. There is still a couple of things outstanding, and the report needs finishing. So, yeah.',
+    weakWhy:'No position at the front, a Body that is a list of grievances rather than one supporting move, and a Conclusion that is literally "so, yeah". Nothing lands because nothing was aimed.',
+    strong:'The campaign went well — we finished on schedule. Access was slow in the first week, but we resequenced around the scaffold and recovered the time by the second. So: on schedule, and the report is with you Friday.',
+    strongWhy:'A verdict in the first four words, one supporting move that also shows judgement (a problem and how it was handled), and a close that restates the verdict and hands over the next thing.'
+  },
+  questions:[
+    /* --- INTRODUCTION --- */
+    { id:'i1', el:'intro', check:true,
+      stem:'You are asked: "How is the turnaround going?" Which is the strongest Introduction?',
+      opts:[
+        {t:'"So, on the turnaround — there is quite a lot to cover."', w:'Announces the topic and warns of length. It answers nothing and lowers the room\'s expectations before you start.'},
+        {t:'"The turnaround is on schedule."', w:'A verdict in four words. The listener now has your answer and can hear everything else as support.'},
+        {t:'"Well, it depends what you mean by going."', w:'A clever deflection that reads as evasive. If the question is genuinely ambiguous, answer the most likely reading and say so.'},
+        {t:'"Let me walk you through where each workpack stands."', w:'A process announcement. It tells them what you are about to do rather than what they asked to know.'}
+      ], a:1, take:'The Introduction answers. It does not announce.' },
+
+    { id:'i2', el:'intro', check:true,
+      stem:'Which Introduction fails by restating the question?',
+      opts:[
+        {t:'"You are asking whether the interval can be extended, and that is a good question."', w:'It consumes your strongest moment repeating something the listener already said, then compliments them instead of answering. Pure delay.'},
+        {t:'"The interval should not be extended."', w:'Direct answer. Correct.'},
+        {t:'"No — and I can show you why in about a minute."', w:'Answer plus a signpost about length. Efficient and confident.'},
+        {t:'"Extending the interval would put us outside the inspection basis."', w:'Answers by stating the consequence. Slightly indirect but the position is unmistakable.'}
+      ], a:0, take:'Never spend your opening repeating the question back.' },
+
+    { id:'i3', el:'intro', check:true,
+      stem:'What is the Introduction\'s job in a 3-Part Answer?',
+      opts:[
+        {t:'To give the context the listener needs to understand your answer.', w:'That is the instinct the framework exists to break. Context belongs in the Body, if at all — leading with it buries the answer.'},
+        {t:'To state your main point in one sentence, before anything else.', w:'Point first, in one sentence. Everything after it then reads as support.'},
+        {t:'To outline the three things you will cover.', w:'That is a signpost. Useful in longer talks, but here it delays the answer by a whole sentence.'},
+        {t:'To establish your credibility on the subject.', w:'Credibility comes from answering well, not from claiming standing before you answer.'}
+      ], a:1, take:'One sentence, your actual answer, first.' },
+
+    { id:'i4', el:'intro', check:true,
+      stem:'Two openings answer the question. Which is the better Introduction?\n(i) "We are two days behind."\n(ii) "We are two days behind, which happened because the scaffold crew were pulled onto another job on Tuesday and we lost most of that shift."',
+      opts:[
+        {t:'(ii) — it answers and explains at once, saving time.', w:'It feels efficient, but it collapses Introduction and Body into one breath, so the headline and the detail compete. The listener hears a sentence about scaffolding, not a sentence about being two days behind.'},
+        {t:'(i) — the headline lands alone, and the explanation follows with room to breathe.', w:'Let the number land by itself. The Body then has space to do its own job properly instead of being crammed into a subordinate clause.'},
+        {t:'(ii) — pre-empting the obvious follow-up question is always stronger.', w:'Pre-empting is often good; doing it inside your opening sentence is not. You can pre-empt in the Body, where it belongs.'},
+        {t:'(i) — because an Introduction must never contain more than six words.', w:'There is no word limit. The principle is one idea, not a fixed length.'}
+      ], a:1, take:'Let the headline land alone. The Body has its own slot.' },
+
+    { id:'i5', el:'intro',
+      stem:'Your answer is genuinely "it depends". What is the best Introduction?',
+      opts:[
+        {t:'"It depends on a few things, really."', w:'True and useless. You have committed to nothing and handed the work back to the questioner.'},
+        {t:'"It depends on one thing: whether the spare arrives before Thursday. If it does, we finish on time; if not, we slip a week."', w:'Name the hinge and give the answer on both sides of it. That is decisive even though the answer is conditional.'},
+        {t:'"That is quite a complex question with a lot of moving parts."', w:'A description of the question rather than an answer to it — and it sounds like stalling.'},
+        {t:'"I would need more information before I could say."', w:'Sometimes legitimate, but usually a dodge. If you know what information you need, say what your answer would be in each case.'}
+      ], a:1, take:'"It depends" is only acceptable if you immediately name what it depends on.' },
+
+    { id:'i6', el:'intro',
+      stem:'Which opening most damages a short status update?',
+      opts:[
+        {t:'"We are on track."', w:'Clean verdict. Ideal.'},
+        {t:'"So, um, where do I start… there has been a lot going on this week."', w:'Two sentences of nothing, plus an implied warning that this will be long and disorganised. The room disengages before you reach any content.'},
+        {t:'"Short version: on track, one risk."', w:'Excellent — verdict plus a flag of what is coming.'},
+        {t:'"Mostly good news."', w:'Vague, but it is a verdict of sorts and it orients the listener. Weak, not fatal.'}
+      ], a:1, take:'"Where do I start" tells the room you did not prepare.' },
+
+    /* --- BODY --- */
+    { id:'b1', el:'body', check:true,
+      stem:'Introduction: "The survey is running two days late." Which is the strongest Body?',
+      opts:[
+        {t:'"There have been a few issues — weather, access, some contractor availability, and a bit of a delay on the permits as well."', w:'Four half-made points instead of one fully made. The listener cannot tell which actually cost you the two days, so none of it registers.'},
+        {t:'"We lost Tuesday and most of Wednesday when the scaffold crew were redeployed, and those two circuits were the only ones that needed elevated access."', w:'One cause, explained well enough that the listener understands exactly how two days were lost. Specific and complete.'},
+        {t:'"It is just been one of those weeks, honestly."', w:'Sympathetic, but it contains no information at all. The listener still does not know what happened.'},
+        {t:'"We are doing everything we can to catch up."', w:'Reassurance in the Body slot. It skips the explanation the listener actually needs.'}
+      ], a:1, take:'One supporting move, made fully. Not four, made partly.' },
+
+    { id:'b2', el:'body', check:true,
+      stem:'What is the Body\'s job?',
+      opts:[
+        {t:'To list everything relevant so the listener has the full picture.', w:'Completeness is the enemy here. The Body carries the one thing that makes your point land — an inventory dilutes it.'},
+        {t:'To give the single supporting detail, reason or consequence that makes the point land.', w:'One supporting move, chosen because it is the one that makes your Introduction believable.'},
+        {t:'To pre-empt every objection the listener might raise.', w:'That is a different job for a longer format. Trying to do it here turns a clear answer into a defensive one.'},
+        {t:'To provide the background needed to understand the topic.', w:'Background is what buries answers. Include it only if it is what supports your point.'}
+      ], a:1, take:'The Body supports. It does not survey.' },
+
+    { id:'b3', el:'body', check:true,
+      stem:'Which Body does NOT actually support its Introduction?',
+      opts:[
+        {t:'Intro: "We should replace the pump." Body: "It has failed twice this quarter, and each failure cost us a full day of production."', w:'Directly supports replacement. Good.'},
+        {t:'Intro: "We should replace the pump." Body: "The maintenance team have done an excellent job keeping it running for eleven years."', w:'A genuine and generous statement that argues for the opposite conclusion — if they have kept it running, why replace it? The Body undercuts the Introduction.'},
+        {t:'Intro: "We should replace the pump." Body: "Spares are no longer manufactured, so the next failure could keep us down for weeks."', w:'A strong supporting consequence.'},
+        {t:'Intro: "We should replace the pump." Body: "Its efficiency has dropped far enough that we are paying for the replacement in energy anyway."', w:'Supports replacement on cost grounds.'}
+      ], a:1, take:'Check the Body argues for your Introduction, not against it.' },
+
+    { id:'b4', el:'body', check:true,
+      stem:'You have three good supporting points and thirty seconds. What should you do?',
+      opts:[
+        {t:'Give all three briefly so nothing is lost.', w:'Three points in thirty seconds means none is made properly, and the listener retains the last one by accident rather than the best one by design.'},
+        {t:'Give the strongest one properly, and offer the others if wanted.', w:'One point fully made lands. And "there are two other reasons if useful" signals depth without spending the time.'},
+        {t:'Give the one that is easiest to explain.', w:'Easy to explain is not the same as most persuasive. Choose on strength, then work out how to say it simply.'},
+        {t:'Summarise all three into a single general statement.', w:'Generalising three specifics into one abstraction loses the force of all three. You end up with a vague claim.'}
+      ], a:1, take:'Say "there are other reasons if useful" — then make one properly.' },
+
+    { id:'b5', el:'body',
+      stem:'Which Body is the classic "inventory" failure?',
+      opts:[
+        {t:'"The handover pack was missing the isolation certificates, which is why the crew could not start on Monday."', w:'One cause, one consequence. Clean.'},
+        {t:'"There were issues with the handover, the permits, the isolations, the night shift briefing, the spares, and to be honest the weather did not help either."', w:'Six items, none explained. It signals that everything went wrong and nothing was understood — and the listener cannot act on any of it.'},
+        {t:'"We were blocked all Monday because the isolation certificates had not been signed."', w:'Single, specific, causal.'},
+        {t:'"The only real problem was permits — everything else went to plan."', w:'One thing, plus useful reassurance about the rest. Strong.'}
+      ], a:1, take:'A list of problems is not an explanation of one.' },
+
+    { id:'b6', el:'body',
+      stem:'A Body that is one well-told short story usually beats one that is a reason. When is that most true?',
+      opts:[
+        {t:'When the audience already agrees with you.', w:'If they already agree, you need less support of any kind — story or reason.'},
+        {t:'When the point is about consequences people have not felt.', w:'A story makes an abstract consequence concrete and felt. "Costs mount" is a claim; "we stood twelve people down for two days" is an experience.'},
+        {t:'When you are short of time.', w:'Stories usually take longer than reasons. Under real time pressure a crisp reason is often the safer choice.'},
+        {t:'When the audience is technical.', w:'Technical audiences respond to stories too, but they will also accept a mechanism directly — so the story advantage is smallest there.'}
+      ], a:1, take:'Use a story when the listener needs to feel it, not just accept it.' },
+
+    /* --- CONCLUSION --- */
+    { id:'c1', el:'conclusion', check:true,
+      stem:'Which Conclusion does its job?',
+      opts:[
+        {t:'"So, yeah, that is basically where we are."', w:'The most common ending in professional life, and it forfeits the moment. "Basically" and "yeah" tell the room your own answer did not convince you.'},
+        {t:'"So we are two days behind, and the scaffold going up Wednesday is what recovers it."', w:'Restates the headline and hands over the one thing that matters next. The listener leaves with both.'},
+        {t:'"Anyway, there is also the question of the spares, but that is probably for another time."', w:'Opens a new topic and then abandons it — the worst of both. You end on something unresolved.'},
+        {t:'"Does that answer your question?"', w:'Handing the verdict back to them. Occasionally gracious, usually a sign you are unsure whether you landed it.'}
+      ], a:1, take:'A Conclusion reinforces and stops. It does not open.' },
+
+    { id:'c2', el:'conclusion', check:true,
+      stem:'Why does trailing off damage an otherwise good answer?',
+      opts:[
+        {t:'Because the listener forgets what came before it.', w:'They usually remember the content. What changes is how much they trust it.'},
+        {t:'Because the last thing they hear is you losing confidence in your own material.', w:'Recency is unforgiving. A strong answer that ends in "…so, yeah" gets remembered as an uncertain one, because certainty is judged from the ending.'},
+        {t:'Because it makes the answer longer than necessary.', w:'Trailing off is usually short. Length is not the damage.'},
+        {t:'Because it breaks the framework.', w:'True but circular — the question is why the framework insists on a clean ending.'}
+      ], a:1, take:'You are judged on your last sentence more than your best one.' },
+
+    { id:'c3', el:'conclusion', check:true,
+      stem:'Which Conclusion adds new material when it should be landing?',
+      opts:[
+        {t:'"So: on schedule, report with you Friday."', w:'Restates and hands over. Clean.'},
+        {t:'"So we are on schedule — though I should mention the pump issue is still unresolved and might change things."', w:'A grenade in the last sentence. You have just told them your own headline may be wrong, at the moment they can no longer ask about it comfortably. If the pump matters, it belonged in the Body.'},
+        {t:'"So we are on schedule, and the one thing I am watching is the scaffold."', w:'This names a watch item without contradicting the headline — a flag, not a new argument.'},
+        {t:'"So: on schedule. I will flag it immediately if that changes."', w:'Restates and commits. Strong.'}
+      ], a:1, take:'If it could change your headline, it belongs in the Body — not the close.' },
+
+    { id:'c4', el:'conclusion', check:true,
+      stem:'A good Conclusion usually does which of these?',
+      opts:[
+        {t:'Echoes the Introduction and stops deliberately.', w:'Return to the headline and end on your own terms. The echo closes the loop and the deliberate stop signals control.'},
+        {t:'Summarises everything you said in the Body.', w:'A recap of detail buries the headline in summary. Return to the point, not to the evidence.'},
+        {t:'Softens the position so you do not sound arrogant.', w:'Softening at the close dissolves the answer you just built. Confidence is not arrogance.'},
+        {t:'Invites questions.', w:'Fine as a separate move afterwards — but it is not the Conclusion itself.'}
+      ], a:0, take:'Echo the opening, then stop on purpose.' },
+
+    { id:'c5', el:'conclusion',
+      stem:'You realise mid-answer that your Introduction was slightly wrong. What is the best Conclusion?',
+      opts:[
+        {t:'Land the original headline anyway for consistency.', w:'Knowingly closing on something you now believe is wrong is the one genuinely dangerous option here.'},
+        {t:'Correct it cleanly in the close: "So — I said on schedule, but talking it through, Friday is tight. I will confirm by noon."', w:'Updating openly reads as competence, not weakness, provided you do it cleanly and commit to a next step. It is far stronger than either bluffing or trailing off.'},
+        {t:'Trail off and hope nobody noticed.', w:'They noticed. And you have ended on visible uncertainty.'},
+        {t:'Apologise for the confusion and restart the answer.', w:'Restarting costs time and credibility. Correct and close; do not begin again.'}
+      ], a:1, take:'Updating your answer out loud is strength — if you still close cleanly.' },
+
+    { id:'c6', el:'conclusion',
+      stem:'Which ending is strongest for a handover?',
+      opts:[
+        {t:'"That is everything I can think of."', w:'Ends on the limits of your memory. It invites doubt about what you forgot.'},
+        {t:'"So: two circuits outstanding, scaffold Wednesday, and the permits are with Ade."', w:'A compact restatement of exactly what the next person needs. The close doubles as the handover itself.'},
+        {t:'"I think that is most of it, more or less."', w:'Two hedges in seven words, at the moment the next person needs certainty.'},
+        {t:'"Let me know if you need anything."', w:'Polite, but it ends on availability rather than on the content. Use it after the close, not as it.'}
+      ], a:1, take:'In a handover, the close is the deliverable.' },
+
+    /* --- WHOLE --- */
+    { id:'w1', el:'whole',
+      stem:'Which response executes the 3-Part Answer best?',
+      opts:[
+        {t:'"Access was difficult early on and the weather was poor, and the contractor was short-staffed, but we made up some time later and I think overall it went reasonably well considering."', w:'The verdict arrives last, hedged twice ("I think", "considering"), after a list of grievances. The shape is exactly inverted.'},
+        {t:'"It went well. We lost the first week to scaffold access, but resequencing recovered it by the second. So: finished on schedule, report Friday."', w:'Verdict, one supporting move that also shows judgement, and a close that restates and hands over. Complete in three sentences.'},
+        {t:'"It went well. Really well, actually. Everyone worked hard and I am pleased with how the team handled it. So yes, it went well."', w:'It has the right shape — but the Body is praise rather than support, so the answer contains no information at all. Structure without substance.'},
+        {t:'"Finished on schedule. Access was slow, scaffold went up late, we resequenced, contractor was short two people, permits were fine, report is Friday."', w:'Strong opening, then an inventory with no hierarchy. The listener cannot tell what mattered.'}
+      ], a:1, take:'Right shape plus no content is still a failed answer.' },
+
+    { id:'w2', el:'whole',
+      stem:'Which element is failing here? "So, regarding the valve question — there is quite a bit of history. We first saw the issue in 2023, then it recurred last year, and there was a repair in between. It is complicated. Anyway, that is the picture."',
+      opts:[
+        {t:'Introduction', w:'It announces the topic and promises history instead of answering — but one element fails even more completely.'},
+        {t:'Body', w:'Chronology without a point, though it does at least contain information.'},
+        {t:'Conclusion', w:'"Anyway, that is the picture" ends nothing, because nothing was ever claimed. But the deeper failure is upstream.'},
+        {t:'All three — there is no position anywhere in it.', w:'This answer never states a point, so nothing supports anything and nothing can be concluded. It is a history lesson wearing the shape of an answer — the most common way the framework fails in practice.'}
+      ], a:3, take:'With no position, all three slots fail at once.' },
+
+    { id:'w3', el:'whole',
+      stem:'Given: "We should postpone the tie-in." What is the best next line?',
+      opts:[
+        {t:'"There are a few reasons for that."', w:'An announcement of reasons rather than a reason. It spends a sentence to say nothing.'},
+        {t:'"The isolation valves have not been proven, and doing a live tie-in on unproven isolations is how people get hurt."', w:'A single supporting move with a consequence the listener feels. Exactly what the Body is for.'},
+        {t:'"So postponing is the right call."', w:'That is the Conclusion, arriving before any support. You would be asserting twice and proving nothing.'},
+        {t:'"Although I know that is not what anyone wants to hear."', w:'Social management instead of support. It can be a nice touch later, but here it delays the argument.'}
+      ], a:1, take:'After the headline, support it — do not announce that you will.' },
+
+    { id:'w4', el:'whole',
+      stem:'These lines are scrambled. Which order is the 3-Part Answer?\n(1) "Two of the three long-lead valves are still unconfirmed, and if either slips we cannot complete the tie-in during the outage."\n(2) "So the window is the risk, and confirming those deliveries is what I would chase this week."\n(3) "The biggest risk right now is losing the shutdown window."',
+      opts:[
+        {t:'3 → 1 → 2', w:'Verdict, the supporting detail that makes it real, then a close that restates and points at the action.'},
+        {t:'1 → 3 → 2', w:'Detail first. The listener hears about valves before they know why it matters.'},
+        {t:'3 → 2 → 1', w:'Conclusion before support — you land, then explain, which leaves the answer ending on detail.'},
+        {t:'1 → 2 → 3', w:'Detail, close, then the point. The headline arrives after you have already finished.'}
+      ], a:0, take:'Point, support, land. The shape is not negotiable.' },
+
+    { id:'w5', el:'whole',
+      stem:'When should you reach for PREP instead of the 3-Part Answer?',
+      opts:[
+        {t:'When the answer is longer than about a minute.', w:'Length is not the distinction — both shapes scale up and down.'},
+        {t:'When you need to convince someone rather than just inform them.', w:'PREP forces evidence, which is what persuasion needs. The 3-Part Answer is looser and better suited to clarity and speed.'},
+        {t:'When the audience is senior.', w:'Seniority changes your framing, not which of these two shapes applies.'},
+        {t:'When you have been asked a direct question.', w:'Both work for direct questions. That is not what separates them.'}
+      ], a:1, take:'Informing: 3-Part. Convincing: PREP.' },
+
+    { id:'w6', el:'whole',
+      stem:'Which of these is NOT a 3-Part Answer, despite sounding organised?',
+      opts:[
+        {t:'"We are behind. The scaffold crew were redeployed on Tuesday and we lost the shift. So: two days behind, recovering from Wednesday."', w:'Textbook.'},
+        {t:'"First, the access problems. Second, the permit delays. Third, the contractor shortfall. Those are the three issues."', w:'A well-organised list, and lists feel like structure — but there is no position, no support and no landing. Three headings is not three parts.'},
+        {t:'"It went badly. We lost four days to access we should have foreseen. So the lesson is that access planning has to move earlier in the cycle."', w:'Verdict, support, and a close that elevates into a lesson.'},
+        {t:'"On schedule. The only risk was scaffold and that is resolved. So: on schedule, nothing outstanding."', w:'Compact but complete.'}
+      ], a:1, take:'A numbered list is organisation, not structure.' },
+
+    { id:'w7', el:'whole',
+      stem:'All four have the right shape. Which is strongest?',
+      opts:[
+        {t:'"The risk is the weather. It has been bad. So the weather is the risk."', w:'Perfect shape, empty content — the Body adds nothing the Introduction did not already say.'},
+        {t:'"The risk is the weather. Forecast is above the crane limit from Thursday, and the lift is the only critical-path activity left. So if Thursday blows out, we lose the window."', w:'The Body adds a mechanism the Introduction could not carry alone, and the close converts the point into a consequence that matters.'},
+        {t:'"The risk is the weather, which as everyone knows has been a real problem for this whole campaign and is outside our control. So it is the weather."', w:'The Body is commiseration plus an excuse ("outside our control"), which quietly abdicates rather than informs.'},
+        {t:'"The risk is the weather. We have had three bad weeks, the forecast is poor, the crane has limits, the lift is critical path, and the window closes soon. So: weather."', w:'Five compressed facts with no hierarchy — the listener cannot tell which one is the actual mechanism.'}
+      ], a:1, take:'The Body must add what the Introduction could not carry alone.' },
+
+    { id:'w8', el:'whole',
+      stem:'You are interrupted after your Introduction with "why?". What should you do?',
+      opts:[
+        {t:'Give the Body, then close as planned.', w:'The interruption simply starts the next beat early. Your shape still holds — that is the point of having one.'},
+        {t:'Restate the Introduction with more conviction.', w:'Repeating yourself when asked for support signals that you have none.'},
+        {t:'Apologise and start the answer again.', w:'Restarting hands away the initiative and wastes the time you were given.'},
+        {t:'Jump to the Conclusion to keep it short.', w:'Concluding without support means asserting twice. The question asked for exactly the part you would be skipping.'}
+      ], a:0, take:'An interruption is just the next beat, early.' },
+
+    { id:'w9', el:'whole',
+      stem:'A colleague gives a clear Introduction and a strong Body, then says: "…anyway, sorry, I have probably gone on too long." What has it cost them?',
+      opts:[
+        {t:'Nothing — the substance was strong and that is what is remembered.', w:'Substance is remembered, but confidence is judged almost entirely from the ending.'},
+        {t:'The close, and with it the impression of authority the first two parts had earned.', w:'They built credibility for two sentences and spent it in the third. An apology at the close retroactively reframes a good answer as an imposition.'},
+        {t:'Only a little time.', w:'The cost is not the seconds; it is the frame the room is left holding.'},
+        {t:'The accuracy of the answer.', w:'Accuracy is untouched. The damage is entirely to how it is received.'}
+      ], a:1, take:'Never end on an apology. It rewrites everything before it.' },
+
+    { id:'w10', el:'whole',
+      stem:'Management asks, mid-meeting: "Are we going to make the shutdown window?" You are not certain. Best answer?',
+      opts:[
+        {t:'"Probably, yes — I would say we are more likely than not to make it."', w:'A hedge dressed as a verdict. It gives no basis and no next step, so nobody can act on it.'},
+        {t:'"Right now, yes — on one condition. Both long-lead valves have to be confirmed this week; everything else has float. So: yes if those land by Friday, and I will tell you Friday either way."', w:'A real verdict, the single hinge that governs it, and a close that commits to a date. Certainty about the structure of your uncertainty.'},
+        {t:'"It is difficult to say at this stage with so many variables in play."', w:'A description of your difficulty rather than an answer to their question.'},
+        {t:'"We are doing absolutely everything we can to make it."', w:'Effort offered where a forecast was requested. Senior audiences read this as a no that nobody wants to say.'}
+      ], a:1, take:'When unsure: give the verdict, name the hinge, commit to a date.' }
+  ]
+};
+
+/* ============================================================
+   Chapter 3 — Self-Introduction
+   ============================================================ */
+const CH_SELFINTRO = {
+  id:'selfintro', n:3,
+  title:'Self-Introduction',
+  subtitle:'Name → Role → Value → Hook',
+  blurb:'The thirty seconds that decide whether anyone remembers you.',
+  idea:[
+    `Most self-introductions are forgotten before the next person finishes speaking. Not because the speaker was uninteresting, but because they gave a job title and stopped — and a job title is a category, not a person.`,
+    `This framework fixes that by separating what you are called, what you do, what you are for, and what makes you worth a follow-up question. The first two are facts. The last two are where the memory is made, and they are the two almost everyone skips.`,
+    `The hardest discipline here is slowing down on your own name. You have said it ten thousand times, so you say it fast — and it is the single word your listener most needs and least expects. Say it as if it were new information, because to them it is.`
+  ],
+  whenToUse:[
+    'Round-the-table introductions at the start of a meeting',
+    'Conferences, networking, site visits with an unfamiliar team',
+    '"So, tell me about yourself" at the start of an interview',
+    'Any moment you are the new person in a room'
+  ],
+  elements:[
+    { name:'Name', key:'name', color:'var(--teal)',
+      job:'Say your name clearly and slowly enough to be caught.',
+      fail:'Classic failure: rushing it, because it is the most familiar sound in your life. If people have to ask again later, this slot failed — and most people will not ask, they will simply avoid using your name.' },
+    { name:'Role', key:'role', color:'var(--orange)',
+      job:'Say what you do, in words the listener already owns.',
+      fail:'Classic failure: your internal job title. "Senior Integrity Engineer, Static Equipment" is accurate and means nothing outside your function. Translate it.' },
+    { name:'Value', key:'value', color:'var(--gold)',
+      job:'Say what you are for — the problem you exist to solve for people like them.',
+      fail:'Classic failure: skipping it entirely, which is what turns an introduction into a label. Value is what tells the room why they might need you.' },
+    { name:'Hook', key:'hook', color:'var(--blue)',
+      job:'Give one specific, live detail that invites a follow-up question.',
+      fail:'Classic failure: a generic interest ("I like technology", "I enjoy problem-solving") that gives nobody anything to ask about. A hook must be catchable.' }
+  ],
+  examples:[
+    { label:'Round-the-table, mixed audience', prompt:'"Let us go round and introduce ourselves."',
+      lines:[
+        {el:'Name', c:'var(--teal)', t:'I am Ibim Brown.'},
+        {el:'Role', c:'var(--orange)', t:'I look after the integrity of our pressure equipment — essentially, I work out which pipes and vessels are quietly degrading before they cause a problem.'},
+        {el:'Value', c:'var(--gold)', t:'So when a shutdown scope is being argued over, I am the person who can tell you what genuinely has to be opened and what can safely wait.'},
+        {el:'Hook', c:'var(--blue)', t:'At the moment I am trialling moisture sensors under insulation, which is a problem the industry has basically been guessing at for thirty years.'}
+      ]},
+    { label:'Interview opener', prompt:'"Tell me about yourself."',
+      lines:[
+        {el:'Name', c:'var(--teal)', t:'I am Ibim.'},
+        {el:'Role', c:'var(--orange)', t:'I am an inspection engineer — I decide where and when we inspect, and I sign off whether equipment is fit to keep running.'},
+        {el:'Value', c:'var(--gold)', t:'What I am good at is the judgement call in the middle: the cases where the data is ambiguous and someone has to weigh production against risk and be accountable for it.'},
+        {el:'Hook', c:'var(--blue)', t:'The work I am proudest of is a corrosion-prediction model that moved us from fixed-interval inspection to risk-based, and cut about a third of our scaffold spend.'}
+      ]},
+    { label:'Conference / networking', prompt:'"What do you do?"',
+      lines:[
+        {el:'Name', c:'var(--teal)', t:'Ibim.'},
+        {el:'Role', c:'var(--orange)', t:'I work in asset integrity at an LNG plant.'},
+        {el:'Value', c:'var(--gold)', t:'My job is basically to stop expensive surprises — finding the corrosion nobody can see before it finds us.'},
+        {el:'Hook', c:'var(--blue)', t:'The strange part is that the worst damage almost always happens under the insulation, where it is invisible. That is the bit I spend most of my time on.'}
+      ]},
+    { label:'Outside work', prompt:'"And what do you do?" at a social event',
+      lines:[
+        {el:'Name', c:'var(--teal)', t:'I am Ibim.'},
+        {el:'Role', c:'var(--orange)', t:'I am an engineer — I work on a gas plant.'},
+        {el:'Value', c:'var(--gold)', t:'My job is making sure the pipes do not fail. Cheerful work.'},
+        {el:'Hook', c:'var(--blue)', t:'The odd thing about it is that rust does its worst work where you cannot see it — under the insulation. Most of my job is finding ways to look.'}
+      ]}
+  ],
+  weakStrong:{
+    prompt:'"Let us go round the table."',
+    weak:'Hi, Ibim Brown, Senior Integrity Engineer, Static Equipment, been with the company about nine years, so yeah, that is me.',
+    weakWhy:'The name is rushed past, the role is an internal title nobody outside the function can decode, tenure is offered instead of value, and there is nothing to ask a question about. Accurate, complete, and utterly forgettable.',
+    strong:'I am Ibim Brown. I look after the integrity of our pressure equipment — which pipes and vessels are quietly degrading before they cause a problem. So when shutdown scope is being argued over, I can tell you what genuinely has to be opened and what can wait. Right now I am trialling sensors that look under insulation, which the industry has mostly been guessing at for thirty years.',
+    strongWhy:'The name lands alone. The role is translated into plain language. The value tells the room when they would want you. And the hook is specific and live, so someone will ask about it — which is the entire point.'
+  },
+  questions:[
+    /* --- NAME --- */
+    { id:'n1', el:'name', check:true,
+      stem:'Why does the Name slot fail most often?',
+      opts:[
+        {t:'People give a nickname instead of their full name.', w:'Nicknames are usually fine and often warmer. Not the common failure.'},
+        {t:'People say it too fast, because it is the most familiar sound in their life.', w:'You have heard your name ten thousand times; your listener is hearing it once, cold, while still settling. Familiarity makes you rush the one word they most need.'},
+        {t:'People say it too loudly.', w:'Rare, and easily corrected. Rushing is the epidemic.'},
+        {t:'People give their surname first.', w:'A convention difference, not a failure.'}
+      ], a:1, take:'Slow down on your own name. It is new information to them.' },
+
+    { id:'n2', el:'name', check:true,
+      stem:'Which opening handles the Name slot best in a round-the-table?',
+      opts:[
+        {t:'"HiIamIbimBrownSeniorIntegrityEngineer—"', w:'Name and title fused into one breath. The listener catches the last three words and loses the name entirely.'},
+        {t:'"I am Ibim Brown." [small pause] "I look after pressure equipment integrity."', w:'The name gets its own beat. The pause is what makes it catchable — and costs a fifth of a second.'},
+        {t:'"So, yeah, Ibim, Integrity."', w:'Casual to the point of inaudible. Two fragments, neither of which lands.'},
+        {t:'"My name is Ibim Brown and I have been with the company for nine years."', w:'The name is clear, but tenure immediately displaces the role — and seniority is not what the room needs first.'}
+      ], a:1, take:'Give your name its own beat, then stop for a fraction of a second.' },
+
+    { id:'n3', el:'name', check:true,
+      stem:'Your name is often misheard or mispronounced. Best approach?',
+      opts:[
+        {t:'Say it quickly to get past the awkwardness.', w:'Speed guarantees the mishearing you are trying to avoid, and signals you are embarrassed by your own name.'},
+        {t:'Say it clearly, and give a short anchor if it helps: "Ibim — like the bird, with an M."', w:'One tiny anchor turns an unfamiliar sound into something storable. It is confident and it solves the problem in three words.'},
+        {t:'Use an anglicised version so it is easier for people.', w:'It works socially and costs you something real — and it teaches the room that your name is a problem to be managed rather than learned.'},
+        {t:'Wait for someone to ask.', w:'Almost nobody asks. They avoid using your name instead, which is worse than mispronouncing it.'}
+      ], a:1, take:'A one-line anchor makes an unfamiliar name storable.' },
+
+    { id:'n4', el:'name', check:true,
+      stem:'In a long meeting where you will speak several times, when is the Name slot most valuable?',
+      opts:[
+        {t:'Only at the start — repeating it later is self-important.', w:'A brief re-identification is normal and useful, not vain, especially with people who met twelve strangers in an hour.'},
+        {t:'At the start, and briefly again the first time you make a substantive contribution.', w:'People attach names to contributions, not to introductions. Re-anchoring once as you say something worth remembering is when the name actually sticks.'},
+        {t:'Every time you speak.', w:'That tips into performance and starts to grate.'},
+        {t:'Never — the chair should introduce you.', w:'Relying on the chair leaves your identity to chance.'}
+      ], a:1, take:'Names stick to contributions, not to introductions.' },
+
+    { id:'n5', el:'name',
+      stem:'Which is the subtlest failure in this opening? "Hi everyone, I am — sorry, can you hear me at the back? — I am Ibim, integrity."',
+      opts:[
+        {t:'The name is interrupted by an admin question, so it never lands cleanly.', w:'Splitting your name across an interruption destroys it. Check the room before you start, then deliver the name in one clean piece.'},
+        {t:'"Integrity" is too short a role description.', w:'It is too short, but that is the Role slot and a separate problem.'},
+        {t:'"Hi everyone" is too informal.', w:'Perfectly normal and not a failure.'},
+        {t:'The introduction is too brief overall.', w:'Brevity is a virtue here. The damage is the fracture, not the length.'}
+      ], a:0, take:'Settle the room first, then deliver your name in one piece.' },
+
+    /* --- ROLE --- */
+    { id:'ro1', el:'role', check:true,
+      stem:'Which Role works best for a mixed, largely non-technical room?',
+      opts:[
+        {t:'"Senior Integrity Engineer, Static Equipment."', w:'Precise inside your function and meaningless outside it. The room files you under "engineer, something technical" and stops listening.'},
+        {t:'"I look after the integrity of our pressure equipment — which pipes and vessels are quietly degrading before they cause a problem."', w:'Translated into words the listener already owns, with a concrete image. They can now picture what you do.'},
+        {t:'"I am in the AIM department, reporting to the Integrity Manager."', w:'An org-chart position. It tells them where you sit, not what you do.'},
+        {t:'"I do inspection and integrity management across the asset."', w:'Better than a title, but still departmental language. "Integrity management" is not plain English.'}
+      ], a:1, take:'Your job title is for HR. Your Role slot is for humans.' },
+
+    { id:'ro2', el:'role', check:true,
+      stem:'What is the test of a good Role line?',
+      opts:[
+        {t:'It uses your official job title accurately.', w:'Accuracy to the org chart is not the goal — being understood is.'},
+        {t:'A listener outside your function could repeat it back correctly.', w:'If they can repeat it, they understood it. That is the only test that matters.'},
+        {t:'It conveys your seniority.', w:'Seniority leaks through naturally from how you talk about your work. Stating it is usually counterproductive.'},
+        {t:'It is as short as possible.', w:'Short helps, but a short piece of jargon is still jargon.'}
+      ], a:1, take:'If they cannot repeat it back, you have not said it yet.' },
+
+    { id:'ro3', el:'role', check:true,
+      stem:'Which Role line is jargon wearing plain clothes?',
+      opts:[
+        {t:'"I work out which pipes are corroding before anyone can see it."', w:'Genuinely plain. Anyone can picture it.'},
+        {t:'"I own the risk-based inspection methodology and its implementation across the asset base."', w:'Every individual word is ordinary English, yet the sentence is pure internal language — "risk-based inspection methodology" and "asset base" mean nothing outside the function. This is the disguised version, and therefore the more dangerous one.'},
+        {t:'"I decide when we open equipment up to check it, and when we can safely leave it."', w:'Plain and concrete.'},
+        {t:'"I stop expensive surprises on a gas plant."', w:'Very plain, slightly playful, entirely clear.'}
+      ], a:1, take:'Jargon is not just long words — it is any phrase only your function owns.' },
+
+    { id:'ro4', el:'role', check:true,
+      stem:'You are introducing yourself to your own department, who all know exactly what you do. What should the Role slot become?',
+      opts:[
+        {t:'Skip straight to Value and Hook.', w:'With shared context, the Role slot has no work to do — so spend those seconds on what they do not know: what you are currently for, and what you are working on.'},
+        {t:'Give the full job title, since they will understand it.', w:'They already know it. Spending your scarce seconds on shared information is the waste this framework exists to prevent.'},
+        {t:'Give a more technical version of your role.', w:'More technical detail is not more useful to people who already have it.'},
+        {t:'Keep it exactly the same for consistency.', w:'The framework adapts to the audience. A fixed script is the opposite of the point.'}
+      ], a:0, take:'Never spend your seconds on what the room already knows.' },
+
+    { id:'ro5', el:'role',
+      stem:'Which Role line would a recruiter find most useful?',
+      opts:[
+        {t:'"I am a Senior Engineer, Grade 14."', w:'An internal grade that means nothing outside your company.'},
+        {t:'"I decide whether ageing pressure equipment is safe to keep running, and I am accountable for that call."', w:'Names the decision and the accountability, which is what actually distinguishes seniority in any organisation.'},
+        {t:'"I have nine years of experience in the oil and gas industry."', w:'Tenure, not role. Years served says nothing about what you can do.'},
+        {t:'"I work in asset integrity management."', w:'A department name. It locates you without describing you.'}
+      ], a:1, take:'Describe the decision you own, not the box you sit in.' },
+
+    /* --- VALUE --- */
+    { id:'v1', el:'value', check:true,
+      stem:'What is the Value slot for?',
+      opts:[
+        {t:'Listing your achievements so people take you seriously.', w:'Achievements belong in the Hook if anywhere. Value is about them, not about your record.'},
+        {t:'Saying what you are for — the problem you solve for people like them.', w:'Value answers the listener\'s silent question: "when would I need this person?" It converts a label into a reason to remember you.'},
+        {t:'Explaining your career history.', w:'History is backwards-looking and slow. Value is present-tense and useful.'},
+        {t:'Stating your ambitions.', w:'Your ambitions matter to you. Value is the part that matters to them.'}
+      ], a:1, take:'Value answers: "when would I need this person?"' },
+
+    { id:'v2', el:'value', check:true,
+      stem:'Which is the strongest Value line in a room of project managers?',
+      opts:[
+        {t:'"I am very experienced in inspection and quite thorough in how I work."', w:'Self-praise with no object. Nobody in the room learns when to call you.'},
+        {t:'"When shutdown scope is being argued over, I can tell you what genuinely has to be opened and what can safely wait."', w:'It names the exact situation this audience lives in and the decision you unlock. They now know precisely when to call you.'},
+        {t:'"I add a lot of value to the integrity function."', w:'Says "value" without containing any. Circular.'},
+        {t:'"I have worked on several major turnarounds."', w:'Experience, not value. It says where you have been, not what you are for.'}
+      ], a:1, take:'Name the situation they recognise and the decision you unlock.' },
+
+    { id:'v3', el:'value', check:true,
+      stem:'Why do most people skip the Value slot?',
+      opts:[
+        {t:'It feels like boasting.', w:'Value is often read as self-promotion, so people cut it — but stating what you are useful for is service, not vanity. Skipping it is exactly what reduces an introduction to a label.'},
+        {t:'It takes too long.', w:'It is one sentence. Time is not the reason.'},
+        {t:'It is not expected in professional settings.', w:'It is welcomed in every setting. People want to know when to call you.'},
+        {t:'It is hard to know what your value is.', w:'Sometimes true — but the usual driver is discomfort, not uncertainty.'}
+      ], a:0, take:'Saying what you are for is service, not showing off.' },
+
+    { id:'v4', el:'value', check:true,
+      stem:'The same person, different rooms. Which Value line is wrong for its audience?',
+      opts:[
+        {t:'To finance: "I help avoid the unplanned shutdowns that blow a year\'s maintenance budget in a week."', w:'Framed in their currency. Strong.'},
+        {t:'To operations: "I can tell you what has to come offline and what can keep running."', w:'Directly relevant to their daily tension.'},
+        {t:'To fellow inspection engineers: "I make sure equipment is safe."', w:'True but so generic that it says nothing to a room who all do this. With peers, the value has to be sharper — a specialism, a method, a problem you own.'},
+        {t:'To new graduates: "I can show you how the judgement calls actually get made, not just the procedure."', w:'Precisely what that audience lacks and wants.'}
+      ], a:2, take:'The more expert the room, the sharper your Value must be.' },
+
+    { id:'v5', el:'value',
+      stem:'Which Value statement is strongest at a conference of strangers?',
+      opts:[
+        {t:'"My job is basically to stop expensive surprises — finding the corrosion nobody can see before it finds us."', w:'Universally understandable, slightly vivid, and it makes the work sound like something worth asking about.'},
+        {t:'"I deliver integrity assurance across a complex brownfield asset."', w:'Three pieces of industry language in one sentence. Outsiders disengage; insiders have heard it a hundred times.'},
+        {t:'"I keep things safe."', w:'True of thousands of jobs. Too broad to distinguish you.'},
+        {t:'"I am responsible for a large inspection programme."', w:'Scope, not value. Being responsible for something is not the same as being useful for something.'}
+      ], a:0, take:'Make the value vivid enough that a stranger wants the next sentence.' },
+
+    { id:'v6', el:'value',
+      stem:'What separates a Value line from a Role line?',
+      opts:[
+        {t:'Value is longer and more detailed.', w:'Both should be one sentence. Length is not the difference.'},
+        {t:'Role says what you do; Value says what that is worth to the listener.', w:'Role is the activity. Value is the benefit, expressed from their side of the table. Same job, different vantage point.'},
+        {t:'Role is formal; Value is informal.', w:'Register is a style choice, not the distinction.'},
+        {t:'Value must include a number.', w:'Numbers help in a Hook. Value is about relevance, not measurement.'}
+      ], a:1, take:'Role = what you do. Value = why that matters to them.' },
+
+    /* --- HOOK --- */
+    { id:'h1', el:'hook', check:true,
+      stem:'What makes a Hook work?',
+      opts:[
+        {t:'It shows you are a well-rounded person.', w:'Roundedness is pleasant but not memorable. A hook needs a handle, not a personality summary.'},
+        {t:'It is specific enough that someone can ask a follow-up question about it.', w:'The whole test is catchability. If nobody can form a question from it, it is not a hook.'},
+        {t:'It is unusual or surprising.', w:'Surprise helps, but an unusual detail nobody can ask about still dies.'},
+        {t:'It relates to your hobbies rather than your work.', w:'Either works. The requirement is specificity, not subject.'}
+      ], a:1, take:'A hook is only a hook if someone can grab it.' },
+
+    { id:'h2', el:'hook', check:true,
+      stem:'Which is a genuine Hook?',
+      opts:[
+        {t:'"I am passionate about engineering."', w:'Everyone says this and nobody can ask anything about it. Passion without an object is noise.'},
+        {t:'"Right now I am trialling sensors that can see corrosion under insulation — something the industry has mostly been guessing at for thirty years."', w:'Specific, current, and it contains a built-in question ("how do they work?" / "does it work?"). It practically hands someone their opening line.'},
+        {t:'"I enjoy solving difficult problems."', w:'The most common non-hook in professional life. It describes a preference shared by everyone in the room.'},
+        {t:'"I have a keen interest in new technology."', w:'Vague and unfollow-up-able. Which technology? Doing what?'}
+      ], a:1, take:'Give them something to grab. "Passionate" gives them nothing.' },
+
+    { id:'h3', el:'hook', check:true,
+      stem:'Which Hook is specific but still weak?',
+      opts:[
+        {t:'"I am currently modelling CUI progression rates using our last six years of inspection data."', w:'Specific, current, and easy to ask about.'},
+        {t:'"I completed my B.Eng at the University of Port Harcourt in 2014."', w:'Perfectly specific and completely inert. It is a settled fact from a decade ago — nothing is live in it, so there is nothing to ask. Specificity alone is not enough; a hook must also be current or unresolved.'},
+        {t:'"I am trying to work out why one line corrodes three times faster than its twin."', w:'An unsolved puzzle — irresistible to anyone technical.'},
+        {t:'"I am writing up a method for inspecting supports without removing the insulation."', w:'Live work with a visible problem.'}
+      ], a:1, take:'Specific AND live. A settled fact is not a hook.' },
+
+    { id:'h4', el:'hook', check:true,
+      stem:'You have used the same hook for two years. What is the risk?',
+      opts:[
+        {t:'People will think you are repetitive.', w:'Most listeners are new and will not know. That is not the real cost.'},
+        {t:'It stops being current, so it invites questions about work you have moved on from.', w:'A hook is a doorway into your present. An out-of-date one drags you backwards and makes you sound like someone whose interesting work is behind them.'},
+        {t:'It becomes too polished to sound genuine.', w:'Polish is mostly an asset. Staleness is the problem.'},
+        {t:'It will not suit every audience.', w:'True of any hook, and solved by having two or three.'}
+      ], a:1, take:'Refresh your hook whenever your work moves on.' },
+
+    { id:'h5', el:'hook',
+      stem:'In a social setting, which Hook is strongest?',
+      opts:[
+        {t:'"I work in oil and gas, which is not very exciting I am afraid."', w:'Self-deprecation that closes the conversation. You have told them not to ask.'},
+        {t:'"The odd thing about my job is that rust does its worst work where you cannot see it — under the insulation. Most of my job is finding ways to look."', w:'A small mystery anyone can follow, with an obvious next question. It makes technical work feel human.'},
+        {t:'"I am a Senior Integrity Engineer."', w:'A title in a social setting. It reads as a wall rather than a door.'},
+        {t:'"It is quite technical, you would probably find it boring."', w:'Pre-emptively dismisses both your work and their curiosity.'}
+      ], a:1, take:'Never apologise for your work. Find the part that is strange.' },
+
+    { id:'h6', el:'hook',
+      stem:'Which Hook best suits an interview panel?',
+      opts:[
+        {t:'"Outside work I play a lot of football."', w:'Humanising and fine as a closing aside, but it spends your strongest slot on something the panel is not assessing.'},
+        {t:'"The work I am proudest of is a corrosion model that moved us from fixed-interval to risk-based inspection and cut about a third of our scaffold spend."', w:'Specific, quantified, and it plants the exact follow-up you most want to be asked. You are choosing the next question.'},
+        {t:'"I am a hard worker and I always deliver."', w:'A claim everyone makes and nobody can interrogate.'},
+        {t:'"I am really excited about this opportunity."', w:'Enthusiasm belongs elsewhere in the interview. As a hook it gives them nothing about you.'}
+      ], a:1, take:'A good hook chooses the question you get asked next.' },
+
+    /* --- WHOLE --- */
+    { id:'sw1', el:'whole',
+      stem:'Which self-introduction is strongest for a mixed room?',
+      opts:[
+        {t:'"Hi, Ibim Brown, Senior Integrity Engineer, Static Equipment, nine years with the company."', w:'Rushed name, internal title, tenure instead of value, no hook. Complete, accurate, forgettable.'},
+        {t:'"I am Ibim Brown. I look after our pressure equipment — which pipes are quietly degrading before they cause a problem. So when shutdown scope is argued over, I can tell you what really has to be opened. Right now I am trialling sensors that see under insulation."', w:'All four slots doing their own job: name alone, role translated, value framed for the room, and a live hook.'},
+        {t:'"I am Ibim and I am passionate about integrity engineering and always keen to add value wherever I can."', w:'Two abstractions and a cliché. Nothing here is specific enough to remember or ask about.'},
+        {t:'"Ibim Brown, integrity. I do RBI, CUI programmes, and fitness-for-service assessment across the static asset base."', w:'Dense, accurate, and almost entirely opaque to anyone outside the function. Three acronyms in one breath.'}
+      ], a:1, take:'Four slots, four jobs — and the last two are where you are remembered.' },
+
+    { id:'sw2', el:'whole',
+      stem:'Which slot is missing? "I am Ibim. I look after pressure equipment integrity. At the moment I am trialling moisture sensors under insulation."',
+      opts:[
+        {t:'Name', w:'Present and clear.'},
+        {t:'Role', w:'Present and reasonably plain.'},
+        {t:'Value', w:'Nothing tells the listener when they would need this person. The introduction jumps from what he does to what he is tinkering with, skipping why any of it matters to them — which is the most commonly dropped slot.'},
+        {t:'Hook', w:'The sensor trial is a good hook — specific and live.'}
+      ], a:2, take:'Value is the slot people drop. It is the one that makes you useful.' },
+
+    { id:'sw3', el:'whole',
+      stem:'You have about eight seconds — a fast round-the-table. What do you cut?',
+      opts:[
+        {t:'The Hook, since it is the least professional.', w:'The hook is often the only reason anyone talks to you afterwards. Cutting it removes the follow-up.'},
+        {t:'The Value, since the Role implies it.', w:'Role rarely implies value to anyone outside your function — that assumption is exactly the curse of knowledge.'},
+        {t:'Compress Role and Value into one line, and keep a very short Hook.', w:'Role and Value can share a sentence ("I work out which pipes are degrading, so I can tell you what has to be opened"). Name and Hook are what make you findable, so protect them.'},
+        {t:'The Name, since it is usually on the screen or badge.', w:'Never cut your name. It is the one thing the whole introduction exists to attach everything else to.'}
+      ], a:2, take:'Under pressure, merge Role and Value. Never cut Name or Hook.' },
+
+    { id:'sw4', el:'whole',
+      stem:'Same person, two rooms. Which pairing shows correct adaptation?',
+      opts:[
+        {t:'To finance: "I do RBI and FFS across static equipment." To engineers: "I stop expensive surprises."', w:'Exactly backwards — jargon aimed at the non-technical room, and a vague consumer-friendly line aimed at the specialists.'},
+        {t:'To finance: "I help avoid the unplanned outages that blow the maintenance budget." To engineers: "I am modelling CUI progression from six years of inspection data."', w:'Each room gets value in its own currency: cost exposure for finance, technical specificity for peers.'},
+        {t:'Identical in both, for consistency.', w:'Consistency of self is good; identical wording is a failure to read the room.'},
+        {t:'To finance: "I keep the plant safe." To engineers: "I keep the plant safe."', w:'True, generic, and equally uninformative to both.'}
+      ], a:1, take:'Same person, same facts, different currency.' },
+
+    { id:'sw5', el:'whole',
+      stem:'Scrambled. Which order is correct?\n(1) "So when shutdown scope is argued over, I can tell you what genuinely has to be opened."\n(2) "I look after the integrity of our pressure equipment."\n(3) "I am Ibim Brown."\n(4) "Right now I am trialling sensors that can see under insulation."',
+      opts:[
+        {t:'3 → 2 → 1 → 4', w:'Name, role, value, hook. The listener learns who you are, what you do, why they would need you, and what to ask about.'},
+        {t:'3 → 1 → 2 → 4', w:'Value before role — the benefit arrives before the listener knows what activity produces it.'},
+        {t:'2 → 3 → 1 → 4', w:'Role before name. The name gets buried behind a job description.'},
+        {t:'3 → 2 → 4 → 1', w:'Hook before value, so the introduction ends on why they need you rather than on something to ask about. Workable, but it wastes the strongest closing position.'}
+      ], a:0, take:'Name, Role, Value, Hook. End on the thing they can grab.' },
+
+    { id:'sw6', el:'whole',
+      stem:'What is the most common overall failure of a self-introduction?',
+      opts:[
+        {t:'Being too long.', w:'It happens, but long introductions at least contain material. The usual failure is emptier than that.'},
+        {t:'Stopping after Name and Role, so you give a label instead of a person.', w:'The overwhelming majority of introductions are two slots long. The listener gets a category to file you under and no reason to remember or approach you.'},
+        {t:'Being too informal.', w:'Warmth almost always helps.'},
+        {t:'Talking about work outside the office.', w:'Context-dependent and rarely damaging.'}
+      ], a:1, take:'Two slots is a label. Four slots is a person.' },
+
+    { id:'sw7', el:'whole',
+      stem:'Someone follows your introduction with "say more about the sensors". What has actually happened?',
+      opts:[
+        {t:'You were talking too long and they interrupted.', w:'They asked for more, which is the opposite of wanting less.'},
+        {t:'Your Hook worked exactly as designed.', w:'A hook exists to produce precisely this. You have converted an introduction into a conversation on ground you chose.'},
+        {t:'You were too technical and they need clarification.', w:'Clarification sounds like "what do you mean?" — not "say more".'},
+        {t:'You should give a fuller version of the whole introduction.', w:'No — go where they pointed. Answer about the sensors.'}
+      ], a:1, take:'"Say more about X" means your hook did its job. Follow it.' },
+
+    { id:'sw8', el:'whole',
+      stem:'Which introduction fails despite having all four slots?',
+      opts:[
+        {t:'"I am Ibim. I look after pressure equipment. So I can tell you what has to be opened in a shutdown. Right now I am trialling under-insulation sensors."', w:'All four slots, each doing its job.'},
+        {t:'"I am Ibim Brown. I am a Senior Integrity Engineer. I add significant value to the business. I am passionate about excellence."', w:'Four slots, four empty ones: an internal title, a value claim with no content, and a hook nobody can ask a question about. Structure is necessary but not sufficient.'},
+        {t:'"Ibim. I work out which pipes are corroding. Useful when you are deciding what to inspect. Currently chasing why one line corrodes faster than its twin."', w:'Compact and complete — the puzzle at the end is a strong hook.'},
+        {t:'"I am Ibim Brown. I stop expensive surprises on a gas plant. Call me when scope is contested. I am trialling sensors that see through insulation."', w:'Punchy, plain, every slot earning its place.'}
+      ], a:1, take:'Filling four slots with abstractions is still a forgettable introduction.' }
+  ]
+};
+
+/* ============================================================
+   Chapter 4 — One-Point Clarity
+   ============================================================ */
+const CH_ONEPOINT = {
+  id:'onepoint', n:4,
+  title:'One-Point Clarity',
+  subtitle:'The One Point → Anchor → Landing',
+  blurb:'The discipline of saying one thing so well that it survives the room.',
+  idea:[
+    `Most people leave a conversation remembering one thing, if that. The only question is whether it is the thing you chose. One-Point Clarity is the discipline of deciding that in advance and then refusing to dilute it.`,
+    `It is the hardest framework in the foundations, because it is not about adding structure — it is about subtraction. You usually have four things worth saying. This framework asks you to say one, on purpose, and let the other three go.`,
+    `The test is brutal and simple: if the listener could repeat only one sentence of yours afterwards, what would you want it to be? Say that sentence, make it stick, and land it. Everything else is optional.`
+  ],
+  whenToUse:[
+    'You have very little time and a lot you could say',
+    'A message that must survive being passed on to someone else',
+    'High-stakes moments where being remembered matters more than being complete',
+    'Anytime you catch yourself preparing a list instead of a message'
+  ],
+  elements:[
+    { name:'The One Point', key:'onepoint', color:'var(--teal)',
+      job:'Choose and state the single sentence you want them to carry away.',
+      fail:'Classic failure: choosing two. The moment there are two points there are effectively none, because the listener picks one at random — or neither. Choosing is the whole discipline.' },
+    { name:'Anchor', key:'anchor', color:'var(--orange)',
+      job:'Give the one image, number or phrase that makes the point stick.',
+      fail:'Classic failure: explaining instead of anchoring. Explanation makes a point understood; an anchor makes it memorable — and those are different jobs. If it is not repeatable, it is not an anchor.' },
+    { name:'Landing', key:'landing', color:'var(--gold)',
+      job:'Return to the One Point in almost the same words and stop.',
+      fail:'Classic failure: adding your second-best point at the end "while I have you". That is the exact moment your one point gets diluted into two.' }
+  ],
+  examples:[
+    { label:'Two minutes with a decision-maker', prompt:'You have a corridor moment with the asset manager.',
+      lines:[
+        {el:'The One Point', c:'var(--teal)', t:'We need the flare line in this shutdown, not the next one.'},
+        {el:'Anchor', c:'var(--orange)', t:'It is at 22% wall loss and the next window is eighteen months away — the metal will not wait that long.'},
+        {el:'Landing', c:'var(--gold)', t:'This shutdown, not the next one. That is the whole ask.'}
+      ]},
+    { label:'A message that must be passed on', prompt:'Briefing a supervisor who will brief the crew.',
+      lines:[
+        {el:'The One Point', c:'var(--teal)', t:'Nobody breaks containment until the isolation is proven.'},
+        {el:'Anchor', c:'var(--orange)', t:'Proven means you have seen the zero reading yourself — not that someone told you it was done.'},
+        {el:'Landing', c:'var(--gold)', t:'No containment break without a proven isolation. Say it exactly like that to the crew.'}
+      ]},
+    { label:'Team meeting', prompt:'"Anything from integrity this week?"',
+      lines:[
+        {el:'The One Point', c:'var(--teal)', t:'Access planning has to move earlier in the cycle.'},
+        {el:'Anchor', c:'var(--orange)', t:'We lost four days last campaign waiting for scaffold — that is more than every other delay put together.'},
+        {el:'Landing', c:'var(--gold)', t:'Access, earlier. That is the one change that buys us the most time.'}
+      ]},
+    { label:'Outside work', prompt:'Telling your family about a decision.',
+      lines:[
+        {el:'The One Point', c:'var(--teal)', t:'We are staying put this year.'},
+        {el:'Anchor', c:'var(--orange)', t:'Moving mid-year would mean changing schools twice in eighteen months.'},
+        {el:'Landing', c:'var(--gold)', t:'So: staying put this year. We look again after Easter.'}
+      ]}
+  ],
+  weakStrong:{
+    prompt:'You get ninety seconds with the asset manager in a corridor.',
+    weak:'A few things really — the flare line is getting thin, we are also short on scaffold which is slowing the campaign, the CUI programme needs a decision at some point, oh and the sensor trial is going well. The flare line one is probably the most urgent. Anyway, whenever you have time.',
+    weakWhy:'Four points, so effectively none. The most urgent is mentioned fourth and softened ("probably"), and the close hands the urgency back ("whenever you have time"). The manager will remember that integrity has a lot going on — which is worse than nothing.',
+    strong:'One thing while I have you: we need the flare line in this shutdown, not the next one. It is at 22% wall loss and the next window is eighteen months away — the metal will not wait. This shutdown, not the next one. That is the whole ask.',
+    strongWhy:'Announcing "one thing" buys instant attention and sets expectations. One point, a single anchor that is repeatable, and a landing in nearly the same words. The manager can now repeat it accurately to someone else — which is the real test.'
+  },
+  questions:[
+    /* --- THE ONE POINT --- */
+    { id:'o1', el:'onepoint', check:true,
+      stem:'What is the test for choosing your One Point?',
+      opts:[
+        {t:'Which point is most urgent to you.', w:'Your urgency is a useful input, but the framework is about what the listener carries away — not what is loudest in your head.'},
+        {t:'If they could repeat only one sentence afterwards, which would you want it to be?', w:'It forces the choice by fast-forwarding to the only outcome that matters: the sentence that survives.'},
+        {t:'Which point is hardest to explain, since it needs the most airtime.', w:'Difficulty is a reason to prepare harder, not a reason to select.'},
+        {t:'Which point you have the most evidence for.', w:'Evidence strengthens a point. It does not make it the right one to choose.'}
+      ], a:1, take:'Pick the sentence you want repeated. That is your One Point.' },
+
+    { id:'o2', el:'onepoint', check:true,
+      stem:'Why is having two points usually worse than having one?',
+      opts:[
+        {t:'It takes twice as long.', w:'Time is rarely the binding constraint. Attention is.'},
+        {t:'The listener picks one at random, or neither — so you lose control of what survives.', w:'Two points do not double your chances; they hand the choice to the listener, and often neither is held firmly enough to survive being passed on.'},
+        {t:'It makes you seem unprepared.', w:'Two well-made points can seem very prepared. The cost is dilution, not perception.'},
+        {t:'Listeners find it confusing.', w:'Not necessarily confusing — just forgettable, which is a different and more common failure.'}
+      ], a:1, take:'Two points means the listener chooses. One means you do.' },
+
+    { id:'o3', el:'onepoint', check:true,
+      stem:'Which is a well-formed One Point?',
+      opts:[
+        {t:'"There are some integrity concerns we should probably discuss at some stage."', w:'Vague, hedged, and undated. Nothing here can be repeated or acted on.'},
+        {t:'"We need the flare line in this shutdown, not the next one."', w:'One decision, sharply bounded, and phrased so it can be repeated word for word by someone who was not there.'},
+        {t:'"Integrity is becoming a significant issue across the asset."', w:'A theme, not a point. It tells nobody what to do.'},
+        {t:'"The flare line, the CUI programme and scaffold access all need attention."', w:'Three points in one sentence, which is the classic disguised version of having none.'}
+      ], a:1, take:'A One Point is repeatable, specific and bounded.' },
+
+    { id:'o4', el:'onepoint', check:true,
+      stem:'You genuinely have three important things to raise and two minutes. Best move?',
+      opts:[
+        {t:'Cover all three briefly so nothing is missed.', w:'Three brief items in two minutes produces one vague impression that "there is a lot going on" — the most useless outcome available.'},
+        {t:'Make the most important one properly, and say the others exist.', w:'Land one fully, then: "there are two other things when you have time." The listener leaves with one clear message and the knowledge that more is queued.'},
+        {t:'Ask for a longer meeting instead.', w:'Sometimes right — but it forfeits the two minutes you already have, and the meeting may never happen.'},
+        {t:'Cover the two most urgent and drop the third.', w:'Two is still two. The dilution problem is not solved by arithmetic.'}
+      ], a:1, take:'Make one properly. Flag that the others exist.' },
+
+    { id:'o5', el:'onepoint',
+      stem:'Which opening most strengthens a One Point in a busy setting?',
+      opts:[
+        {t:'"Sorry, I know you are busy, but if you have a second…"', w:'Apology plus vagueness. You have signalled low value before saying anything.'},
+        {t:'"One thing while I have you:"', w:'It sets an explicit, small contract — one thing — which buys real attention and tells them exactly how much of their time is at stake.'},
+        {t:'"There are a few things I wanted to raise."', w:'Announces dilution before you begin. Attention drops immediately.'},
+        {t:'"Can I grab you for a quick chat?"', w:'Requests time without giving any reason to grant it.'}
+      ], a:1, take:'"One thing:" is the most under-used phrase in professional life.' },
+
+    { id:'o6', el:'onepoint',
+      stem:'Which of these is the subtlest way a One Point gets lost?',
+      opts:[
+        {t:'It is stated too quietly.', w:'Volume matters, but it is a delivery issue rather than a structural one.'},
+        {t:'It is stated clearly, then qualified into uncertainty in the next breath.', w:'"We need it this shutdown — though obviously it depends on scope, and I know the window is tight." The point was made, then dismantled by its own speaker. This is far more common than never saying it.'},
+        {t:'It is stated at the end rather than the beginning.', w:'Damaging, but at least it survives intact. Self-qualification destroys the point itself.'},
+        {t:'It is stated in technical language.', w:'A translation problem, and usually fixable by the anchor.'}
+      ], a:1, take:'Do not un-say your point in the sentence after you say it.' },
+
+    /* --- ANCHOR --- */
+    { id:'a1', el:'anchor', check:true,
+      stem:'What is the difference between an Anchor and an explanation?',
+      opts:[
+        {t:'An anchor is shorter.', w:'Usually true, but brevity is a symptom, not the distinction.'},
+        {t:'An explanation makes the point understood; an anchor makes it repeatable.', w:'Different jobs. Someone can fully understand your point and still be unable to pass it on — the anchor is what gives them something to carry.'},
+        {t:'An anchor must contain a number.', w:'Numbers are one kind of anchor. An image or a phrase can work just as well.'},
+        {t:'An anchor comes first.', w:'The point comes first. The anchor supports it.'}
+      ], a:1, take:'Understood and repeatable are two different achievements.' },
+
+    { id:'a2', el:'anchor', check:true,
+      stem:'One Point: "Access planning has to move earlier in the cycle." Which is the strongest Anchor?',
+      opts:[
+        {t:'"Access has been a recurring problem for us across several campaigns now."', w:'A summary of many events. Nothing here is graspable or repeatable.'},
+        {t:'"We lost four days last campaign waiting for scaffold — more than every other delay put together."', w:'One number plus a comparison that ranks it. "Four days, more than everything else combined" is exactly the kind of phrase that survives being passed on.'},
+        {t:'"Scaffold coordination involves multiple contractors and long lead times, which creates scheduling complexity."', w:'An explanation of why the problem exists. Useful, but there is nothing here to hold.'},
+        {t:'"Everyone agrees access is an issue."', w:'Consensus, not evidence, and nothing memorable in it.'}
+      ], a:1, take:'The best anchors rank: "more than everything else combined".' },
+
+    { id:'a3', el:'anchor', check:true,
+      stem:'Which anchor would survive being repeated by someone who was not in the room?',
+      opts:[
+        {t:'"The degradation rate is non-linear and the remaining life calculation is sensitive to the assumed corrosion allowance."', w:'Technically precise and impossible for a non-specialist to carry. It will be repeated as "something about corrosion", if at all.'},
+        {t:'"It is at 22% wall loss and the next window is eighteen months away — the metal will not wait that long."', w:'Two numbers and one vivid clause. A manager can repeat this almost verbatim to their own boss, which is what makes it powerful.'},
+        {t:'"It is quite badly corroded in places."', w:'Vague enough to be dismissed and too soft to be repeated with any urgency.'},
+        {t:'"Several inspection findings support acting sooner rather than later."', w:'Bureaucratic and unmemorable.'}
+      ], a:1, take:'Write your anchor so a stranger could repeat it accurately.' },
+
+    { id:'a4', el:'anchor', check:true,
+      stem:'You have no numbers available. What makes the best Anchor?',
+      opts:[
+        {t:'A general statement of seriousness.', w:'"This is very serious" is the least memorable sentence in professional English.'},
+        {t:'A concrete image or a sharply worded phrase.', w:'"The metal will not wait" or "we are inspecting blind under the insulation" work without a single figure. Anchors need to be vivid, not quantitative.'},
+        {t:'A longer explanation to compensate.', w:'More explanation moves you further from an anchor, not closer.'},
+        {t:'An estimated number, clearly flagged as approximate.', w:'Reasonable in some settings — but a real image usually beats a soft number, and a wrong estimate can cost you the room.'}
+      ], a:1, take:'No numbers? Use an image. Vivid beats quantitative.' },
+
+    { id:'a5', el:'anchor',
+      stem:'Which is NOT functioning as an anchor?',
+      opts:[
+        {t:'"Four days — more than every other delay combined."', w:'A number with a ranking. Strong.'},
+        {t:'"The damage happens where nobody can see it."', w:'A memorable image that carries the whole problem.'},
+        {t:'"Because scaffold erection requires permits which require isolation confirmations which depend on the operations schedule."', w:'A causal chain — it explains the mechanism thoroughly and gives the listener nothing to hold. This is the explanation-instead-of-anchor failure in its purest form.'},
+        {t:'"Eighteen months is longer than the metal has."', w:'A number turned into a phrase. Very strong.'}
+      ], a:2, take:'A chain of causes explains. It does not anchor.' },
+
+    { id:'a6', el:'anchor',
+      stem:'Which anchor is memorable but risks damaging your credibility?',
+      opts:[
+        {t:'"We are inspecting blind under the insulation."', w:'Vivid, accurate, and defensible.'},
+        {t:'"This line is basically a bomb waiting to go off."', w:'Extremely memorable and almost certainly an overstatement. If challenged you must either defend an indefensible claim or retreat — and the retreat costs you the point. Anchors must be vivid AND true.'},
+        {t:'"22% wall loss, eighteen months to the next window."', w:'Factual and repeatable.'},
+        {t:'"The metal will not wait that long."', w:'Vivid but proportionate.'}
+      ], a:1, take:'Vivid and true. Overstatement is a loan you repay with interest.' },
+
+    /* --- LANDING --- */
+    { id:'l1', el:'landing', check:true,
+      stem:'What should the Landing do?',
+      opts:[
+        {t:'Summarise everything you have said.', w:'A summary reintroduces the material you deliberately left out, which undoes the whole framework.'},
+        {t:'Return to the One Point in almost the same words, then stop.', w:'Near-identical repetition is the point. The near-repeat is what makes the sentence feel like the sentence — and stopping is what protects it.'},
+        {t:'Add your next most important point while you have their attention.', w:'This is the classic destroyer. The moment you add the second point, you have two, and the listener now carries neither cleanly.'},
+        {t:'Ask whether they agree.', w:'It can be a good next move, but it is not the landing — and asking too early invites dilution.'}
+      ], a:1, take:'Land in almost the same words. Then stop talking.' },
+
+    { id:'l2', el:'landing', check:true,
+      stem:'Why does "while I have you, there is also…" destroy a One-Point message?',
+      opts:[
+        {t:'It makes the conversation too long.', w:'Length is not the damage — a second point could be brief and still ruin it.'},
+        {t:'It converts one point into two at the exact moment the first was about to stick.', w:'The landing is when the point sets. Adding a second item at that instant means the listener leaves holding two half-messages instead of one whole one.'},
+        {t:'It is impolite.', w:'It is perfectly polite. It is just structurally fatal.'},
+        {t:'It suggests you were not prepared.', w:'It may, but the real cost is to the message rather than to your image.'}
+      ], a:1, take:'"While I have you" is where One-Point messages go to die.' },
+
+    { id:'l3', el:'landing', check:true,
+      stem:'Which Landing is strongest?',
+      opts:[
+        {t:'"So, anyway, that is the flare line. There is also the CUI programme but that can wait."', w:'Adds a second point and then dismisses it — so it dilutes the message and wastes the mention.'},
+        {t:'"This shutdown, not the next one. That is the whole ask."', w:'Near-verbatim repeat plus an explicit boundary. "That is the whole ask" tells them nothing further is coming, which makes the point feel finished and holdable.'},
+        {t:'"So hopefully that gives you a sense of where we are."', w:'Retreats from a specific ask into a vague update. The decision quietly disappears.'},
+        {t:'"Let me know your thoughts whenever."', w:'Hands back the urgency you spent the whole message building.'}
+      ], a:1, take:'"That is the whole ask" is a landing gear.' },
+
+    { id:'l4', el:'landing', check:true,
+      stem:'They interrupt just before your Landing with a question about something else. What is the best move?',
+      opts:[
+        {t:'Answer fully and let the point go — you can raise it another time.', w:'The point was nearly landed. Abandoning it there means you spent the whole conversation and banked nothing.'},
+        {t:'Answer briefly, then return and land: "…happy to come back to that. On the flare line: this shutdown, not the next."', w:'Acknowledge, answer, then reclaim the landing. Refusing to answer is rude; failing to return means you never landed.'},
+        {t:'Decline to answer until you have finished.', w:'Technically effective and socially costly. You can do both.'},
+        {t:'Land the point immediately over their question.', w:'Talking over a senior person to finish your structure is a poor trade.'}
+      ], a:1, take:'Answer briefly, then reclaim your landing.' },
+
+    { id:'l5', el:'landing',
+      stem:'Which Landing subtly weakens an otherwise strong message?',
+      opts:[
+        {t:'"This shutdown, not the next one."', w:'Clean near-repeat.'},
+        {t:'"So that is my recommendation, but obviously it is your call."', w:'Technically true and quietly corrosive: it reframes a technical judgement as a preference you are happy to see overruled. Deference at the landing dissolves the ask.'},
+        {t:'"This shutdown. I will put it in writing today."', w:'Repeat plus commitment. Strong.'},
+        {t:'"That is the one thing I wanted you to have."', w:'Explicitly marks it as the single message. Effective.'}
+      ], a:1, take:'"But it is your call" at the landing gives the point away.' },
+
+    { id:'l6', el:'landing',
+      stem:'The message must be passed on by the listener. What should the Landing emphasise?',
+      opts:[
+        {t:'Your own confidence in the point.', w:'Confidence helps you be believed; it does not help them relay you accurately.'},
+        {t:'The exact words you want repeated.', w:'When a message will travel, the landing is where you hand over the wording: "say it exactly like that." You are equipping a messenger, not just convincing a listener.'},
+        {t:'All the supporting detail, so they can answer questions.', w:'Detail is what degrades in transmission. Give them the sentence; you handle the questions.'},
+        {t:'Who else needs to be told.', w:'Useful logistics, but it is not what makes the message survive the journey.'}
+      ], a:1, take:'If it will be relayed, hand over the exact words.' },
+
+    /* --- WHOLE --- */
+    { id:'ow1', el:'whole',
+      stem:'You get ninety seconds in a corridor with the asset manager. Which is strongest?',
+      opts:[
+        {t:'"A few things — the flare line is thinning, scaffold is slowing us, CUI needs a decision, and the sensor trial is going well. The flare line is probably most urgent."', w:'Four items, the urgent one fourth and hedged. The manager leaves knowing only that integrity is busy.'},
+        {t:'"One thing while I have you: we need the flare line in this shutdown, not the next. It is at 22% wall loss and the next window is eighteen months out — the metal will not wait. This shutdown, not the next. That is the whole ask."', w:'A contract for attention, one point, a repeatable anchor, and a landing in nearly the same words. They can now relay it accurately.'},
+        {t:'"The flare line is a concern. Wall loss is progressing and we should probably look at it in an upcoming shutdown when convenient."', w:'One point, but softened into invisibility — "probably", "upcoming", "when convenient" remove every edge that would make it act.'},
+        {t:'"We need the flare line done. The corrosion mechanism is CUI, driven by moisture ingress at the supports, and the progression is non-linear with temperature."', w:'Strong point, then an anchor slot filled with technical explanation the audience cannot carry.'}
+      ], a:1, take:'Contract, point, anchor, land. Ninety seconds is plenty.' },
+
+    { id:'ow2', el:'whole',
+      stem:'What has gone wrong? "We need the flare line this shutdown. It is at 22% wall loss. Also the CUI programme needs a decision soon, and scaffold is still an issue. But mainly the flare line."',
+      opts:[
+        {t:'The One Point is unclear.', w:'It is stated clearly, twice — that is not the failure.'},
+        {t:'The Anchor is too weak.', w:'"22% wall loss" is a serviceable anchor.'},
+        {t:'Two extra points were inserted before the Landing, so the message arrives diluted.', w:'The structure was correct until the additions. "But mainly the flare line" is an attempt to repair the damage, and it does not — the listener now holds three items with a preference attached.'},
+        {t:'The Landing is missing entirely.', w:'There is an attempted landing ("but mainly the flare line"); the problem is what was let in before it.'}
+      ], a:2, take:'A landing cannot repair a message you diluted just before it.' },
+
+    { id:'ow3', el:'whole',
+      stem:'Scrambled. Which order is One-Point Clarity?\n(1) "It is at 22% wall loss and the next window is eighteen months away."\n(2) "This shutdown, not the next one. That is the whole ask."\n(3) "We need the flare line in this shutdown, not the next one."',
+      opts:[
+        {t:'3 → 1 → 2', w:'Point, anchor, landing. The point is heard, made memorable, then set.'},
+        {t:'1 → 3 → 2', w:'Anchor first — the listener gets a number before they know what it is for.'},
+        {t:'3 → 2 → 1', w:'Landing before the anchor, so the message ends on detail rather than on the ask.'},
+        {t:'1 → 2 → 3', w:'The point arrives last, after you have already landed something the listener has not heard yet.'}
+      ], a:0, take:'Point, anchor, land. Three beats, one message.' },
+
+    { id:'ow4', el:'whole',
+      stem:'When is One-Point Clarity the wrong framework?',
+      opts:[
+        {t:'When the audience is senior.', w:'Senior audiences are usually where it works best — their attention is scarcest.'},
+        {t:'When your job is genuinely to give a complete picture, such as a formal technical review.', w:'Some settings require completeness and the listener has committed the time for it. Using a one-point message there would look evasive — you would be withholding.'},
+        {t:'When you only have a short time.', w:'Short time is its natural home.'},
+        {t:'When the message will be passed on to others.', w:'Relay is exactly what it is built for.'}
+      ], a:1, take:'Use it when attention is scarce — not when completeness is the job.' },
+
+    { id:'ow5', el:'whole',
+      stem:'Which is the strongest One-Point message for a crew briefing that will be relayed?',
+      opts:[
+        {t:'"Please be careful with isolations today, it is important we all follow the procedures properly."', w:'A sentiment rather than a rule. Nothing here can be relayed as an instruction.'},
+        {t:'"Nobody breaks containment until the isolation is proven. Proven means you have seen the zero reading yourself — not that someone told you. No containment break without a proven isolation. Say it exactly like that."', w:'A hard rule, an anchor that closes the exact loophole ("someone told me"), and a landing that hands over the wording for relay.'},
+        {t:'"Isolations, permits and gas testing all need extra attention today given the scope we are working."', w:'Three priorities, so none. Under pressure the crew will pick whichever is most convenient.'},
+        {t:'"The isolation procedure has been updated — please review the revised document before starting work."', w:'Delegates the message to a document nobody will read before the job starts.'}
+      ], a:1, take:'For safety messages, the anchor should close the loophole.' },
+
+    { id:'ow6', el:'whole',
+      stem:'All four are one point with an anchor. Which is strongest?',
+      opts:[
+        {t:'"Access planning must move earlier. Access has caused problems repeatedly. So: earlier."', w:'The anchor restates the point instead of anchoring it — a circular middle.'},
+        {t:'"Access planning must move earlier. We lost four days last campaign waiting for scaffold, more than every other delay combined. Access, earlier — it is the single change that buys us the most time."', w:'A ranked number, and a landing that repeats the point while naming the payoff. Repeatable and motivating.'},
+        {t:'"Access planning must move earlier. Scaffold requires permits, permits require isolations, and isolations depend on the ops schedule. So we should move it earlier."', w:'A causal chain in the anchor slot — thorough, and impossible to carry away.'},
+        {t:'"Access planning must move earlier, and honestly the whole planning cycle could do with a review. Four days lost last campaign. So: earlier."', w:'A second, larger point smuggled into the opening, which dilutes before the anchor even arrives.'}
+      ], a:1, take:'Rank your number. "More than everything else combined" travels.' },
+
+    { id:'ow7', el:'whole',
+      stem:'A colleague says: "I had ten minutes with the director and covered everything — all six items." What is your honest assessment?',
+      opts:[
+        {t:'Efficient use of a rare opportunity.', w:'It feels efficient and is usually the opposite. Coverage and transmission are not the same thing.'},
+        {t:'They probably transmitted nothing — six items in ten minutes leaves no single message intact.', w:'The director will recall that integrity had a long list. Almost certainly not one item with enough force to act on. Covering everything is how people spend access without buying anything.'},
+        {t:'Good, provided the items were prioritised.', w:'Stating a priority does not undo dilution — the other five still competed for the same memory.'},
+        {t:'Impossible to say without knowing the items.', w:'The arithmetic of attention makes the outcome fairly predictable regardless of content.'}
+      ], a:1, take:'Covering everything is how you spend access and buy nothing.' },
+
+    { id:'ow8', el:'whole',
+      stem:'What single habit most improves One-Point Clarity?',
+      opts:[
+        {t:'Rehearsing the whole message aloud beforehand.', w:'Rehearsal helps delivery, but it will faithfully rehearse four points if that is what you brought.'},
+        {t:'Deciding the one sentence you want repeated before you open your mouth.', w:'The framework is decided before it is delivered. Almost every failure is a failure to choose in advance — once you are talking, everything feels worth saying.'},
+        {t:'Speaking more slowly.', w:'Pace aids landing but does not solve dilution.'},
+        {t:'Writing the message down first.', w:'Useful, and most people write a list rather than choose a sentence.'}
+      ], a:1, take:'Choose the sentence before you speak. That is the whole discipline.' }
+  ]
+};
+
+const CHAPTERS = [CH_PREP, CH_THREE, CH_SELFINTRO, CH_ONEPOINT];
 const COMING = [
-  'The 3-Part Answer — Intro → Body → Conclusion',
-  'Self-Introduction — Name → Role → Value → Hook',
-  'One-Point Clarity — The One Point → Anchor → Landing',
   'STAR — Situation → Task → Action → Result',
   'Stakeholder Meeting — Context → Problem → Recommendation → Next Steps',
   'Bad News — State → Reason → Plan → Support',
@@ -595,6 +1566,20 @@ const COMING = [
 const STORE = 'framework-school-v1';
 const PASS_MARK = 0.9;      // mastery exam threshold
 const EXAM_LEN  = 12;       // questions in the mastery exam
+const REVIEW_SLOTS = 3;     // exam slots reserved for earlier mastered chapters
+
+// Question ids must be globally unique (exams mix chapters), and each question
+// remembers which chapter owns it so misses are tracked against the right one.
+CHAPTERS.forEach(c => c.questions.forEach(q => {
+  if (q.id.indexOf(c.id + '-') !== 0) q.id = c.id + '-' + q.id;
+  q._ch = c.id;
+}));
+
+// A chapter opens only when the one before it is mastered.
+function unlockedCh(c){
+  const i = CHAPTERS.findIndex(x => x.id === c.id);
+  return i === 0 || P(CHAPTERS[i-1].id).mastered;
+}
 
 let S = loadState();
 function blankChapter(){ return { read:false, checks:{}, drills:{n:0,ok:0}, missed:{}, mastered:false, examBest:0 }; }
@@ -655,19 +1640,23 @@ function render(){
    VIEWS
    ============================================================ */
 function renderHome(){
-  const rows = CHAPTERS.map(c => {
+  const rows = CHAPTERS.map((c, i) => {
     const p = P(c.id), done = stagesDone(c), tot = stagesTotal(c);
     const pct = Math.round(done/tot*100);
-    const badge = p.mastered ? '<span class="pill pill-g">Mastered</span>'
+    const open = unlockedCh(c);
+    const prev = i>0 ? CHAPTERS[i-1].title : '';
+    const badge = !open ? '<span class="pill pill-m">Locked</span>'
+                : p.mastered ? '<span class="pill pill-g">Mastered</span>'
                 : done>0 ? '<span class="pill pill-o">In progress</span>'
                 : '<span class="pill pill-t">Start here</span>';
-    return `<button class="stage" onclick="go('chapter',{id:'${c.id}'})">
+    return `<button class="stage ${open?'':'locked'}" ${open?'':'disabled'} onclick="go('chapter',{id:'${c.id}'})">
       <span class="n">${c.n}</span>
       <span class="t"><b>${esc(c.title)} &nbsp;${badge}</b>
-      <span>${esc(c.subtitle)}</span>
-      <span style="margin-top:8px"><span class="bar"><i style="width:${pct}%"></i></span></span></span>
+      <span>${open ? esc(c.subtitle) : 'Master ' + esc(prev) + ' to open this'}</span>
+      ${open ? `<span style="margin-top:8px"><span class="bar"><i style="width:${pct}%"></i></span></span>` : ''}</span>
     </button>`;
   }).join('');
+  const masteredN = CHAPTERS.filter(c => P(c.id).mastered).length;
 
   const soon = COMING.map(t => `<div class="stage locked" style="cursor:default">
       <span class="n">·</span><span class="t"><b>${esc(t.split(' — ')[0])}</b><span>${esc(t.split(' — ')[1]||'')}</span></span>
@@ -676,7 +1665,7 @@ function renderHome(){
   $('#app').innerHTML = `
     <h1>Framework School</h1>
     <p class="muted">Learn each communication framework properly, then prove you have it — with tests hard enough to be worth your time. Silent, offline, no account.</p>
-    <div class="label">Chapters</div>
+    <div class="label">Chapters &nbsp;<span class="pill pill-m">${masteredN} of ${CHAPTERS.length} mastered</span></div>
     ${rows}
     <div class="label">Coming next</div>
     ${soon}
@@ -686,6 +1675,17 @@ function renderHome(){
 
 function renderChapter(id){
   const c = chapter(id), p = P(id);
+  if (!unlockedCh(c)){
+    const i = CHAPTERS.findIndex(x => x.id === id);
+    $('#app').innerHTML = `<div class="card center" style="padding:28px 18px">
+      <h2 style="margin:0 0 8px">${esc(c.title)} is locked</h2>
+      <p class="muted">Master <b>${esc(CHAPTERS[i-1].title)}</b> first. The school is sequential on purpose — each framework builds on the judgement you developed in the last one.</p>
+      <button class="btn btn-p" onclick="go('chapter',{id:'${CHAPTERS[i-1].id}'})">Go to ${esc(CHAPTERS[i-1].title)}</button>
+    </div>`;
+    return;
+  }
+  const idx = CHAPTERS.findIndex(x => x.id === id);
+  const reviewing = CHAPTERS.slice(0, idx).filter(x => P(x.id).mastered).length > 0;
   const checks = c.elements.map(e => {
     const k = e.key, done = !!p.checks[k];
     const locked = !p.read;
@@ -724,7 +1724,7 @@ function renderChapter(id){
       <span class="n">${p.mastered?'✓':'★'}</span>
       <span class="t"><b>${p.mastered?'Mastered':'Take the mastery exam'}</b>
       <span>${examLocked ? 'Finish the reading and all element checks first'
-        : `${EXAM_LEN} mixed questions · ${Math.round(PASS_MARK*100)}% to pass${p.examBest?` · best ${p.examBest}%`:''}`}</span></span>
+        : `${EXAM_LEN} mixed questions · ${Math.round(PASS_MARK*100)}% to pass${reviewing?` · includes ${REVIEW_SLOTS} from earlier chapters`:''}${p.examBest?` · best ${p.examBest}%`:''}`}</span></span>
     </button>
     ${p.mastered ? `<div class="card" style="background:var(--green-l);border-color:var(--green)">
         <b style="color:var(--green)">Chapter mastered.</b>
@@ -821,12 +1821,25 @@ function buildDrillQueue(c, p, n){
                  .concat(shuffle(rest));
   return pick.slice(0, n);
 }
-// Exam samples across every element so it cannot be gamed.
+// Exam samples across every element so it cannot be gamed — and, once you have
+// mastered earlier chapters, mixes a few of their questions back in. Mastery that
+// decays is not mastery, so old frameworks keep resurfacing.
 function buildExamQueue(c){
-  const groups = ['point','reason','example','restate','whole'];
-  let out = [];
-  groups.forEach(g => { out = out.concat(shuffle(qsFor(c,g)).slice(0, g==='whole'?4:2)); });
-  return shuffle(out).slice(0, EXAM_LEN);
+  const idx = CHAPTERS.findIndex(x => x.id === c.id);
+  const earlier = CHAPTERS.slice(0, idx).filter(x => P(x.id).mastered);
+  const reviewN = earlier.length ? REVIEW_SLOTS : 0;
+  const ownN = EXAM_LEN - reviewN;
+
+  // Guarantee at least one question per element, then fill from the whole bank.
+  let own = [];
+  c.elements.forEach(e => { own = own.concat(shuffle(qsFor(c, e.key)).slice(0, 1)); });
+  const rest = shuffle(c.questions.filter(q => own.indexOf(q) === -1));
+  own = shuffle(own.concat(rest).slice(0, ownN));
+
+  let pool = [];
+  earlier.forEach(x => { pool = pool.concat(x.questions); });
+  const review = shuffle(pool).slice(0, reviewN);
+  return shuffle(own.concat(review));
 }
 
 function renderQuiz(){
@@ -883,13 +1896,14 @@ function answer(shownIdx){
   const origIdx = Q.order[shownIdx];
   const correct = origIdx === q.a;
   const p = P(Q.id);
+  const owner = P(q._ch || Q.id);   // review questions belong to their own chapter
 
   Q.answered = true; Q.picked = shownIdx; Q.asked++;
   if (correct){
     Q.ok++;
-    if (p.missed[q.id]) p.missed[q.id]--;
+    if (owner.missed[q.id]) owner.missed[q.id]--;
   } else {
-    p.missed[q.id] = (p.missed[q.id]||0) + 1;
+    owner.missed[q.id] = (owner.missed[q.id]||0) + 1;
     if (Q.mode === 'check') Q.requeue.push(q);   // "until you get all of it"
   }
   if (Q.mode === 'drill'){ p.drills.n++; if (correct) p.drills.ok++; }

@@ -49,10 +49,24 @@ professional makes — never an obviously silly option. Question types:
 *and* why each wrong one fails. Getting it wrong plus a sharp explanation is the highest-value
 moment in the app, so that is where the teaching lives.
 
+## Progression
+
+Chapters are **sequential** — chapter N opens only when chapter N−1 is mastered. And once you
+have mastered earlier chapters, every later exam reserves **3 of its 12 slots** for questions
+drawn from them, so old frameworks keep resurfacing. Mastery that decays is not mastery.
+
 ## Status
 
-- **Chapter 1 — PREP**: complete. 40 questions.
-- Remaining 11 frameworks: listed in-app as "Coming next".
+**Foundations track complete — 4 chapters, 124 questions.**
+
+| # | Chapter | Questions |
+|---|---------|-----------|
+| 1 | PREP — Point → Reason → Example → Point | 40 |
+| 2 | The 3-Part Answer — Introduction → Body → Conclusion | 28 |
+| 3 | Self-Introduction — Name → Role → Value → Hook | 30 |
+| 4 | One-Point Clarity — The One Point → Anchor → Landing | 26 |
+
+Remaining 8 frameworks (Intermediate and Advanced tracks) are listed in-app as "Coming next".
 
 ## Where to open it
 
