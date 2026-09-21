@@ -1548,12 +1548,1328 @@ const CH_ONEPOINT = {
   ]
 };
 
-const CHAPTERS = [CH_PREP, CH_THREE, CH_SELFINTRO, CH_ONEPOINT];
+/* ============================================================
+   Chapter 5 — STAR
+   ============================================================ */
+const CH_STAR = {
+  id:'star', n:5,
+  title:'STAR',
+  subtitle:'Situation → Task → Action → Result',
+  blurb:'The shape for "tell me about a time when…" — and the one almost everyone executes backwards.',
+  idea:[
+    `STAR is how you answer "tell me about a time when…". It exists because an interviewer is trying to predict your future behaviour from your past behaviour, and the only evidence that actually works is one specific story with a specific outcome.`,
+    `The framework is easy to learn and almost universally executed badly, for a single reason: people spend most of their airtime on Situation and Task — the parts that require no skill whatsoever — and run out of time on Action and Result, which are the only parts being assessed.`,
+    `So flip it. Situation and Task are setup and should take roughly a quarter of your answer. Action and Result are the answer. If you remember one thing from this chapter, remember the ratio.`
+  ],
+  whenToUse:[
+    'Any question that begins "tell me about a time when…"',
+    'Performance reviews and promotion cases',
+    'Explaining your personal contribution to work a team did',
+    'Any moment someone is assessing your judgement from your past'
+  ],
+  elements:[
+    { name:'Situation', key:'situation', color:'var(--teal)',
+      job:'Set the scene in one or two sentences — enough for the story to make sense, and no more.',
+      fail:'Classic failure: spending most of the answer here. Scene-setting feels safe because it requires no self-assertion, which is precisely why nervous candidates hide in it. Every extra sentence of context is a sentence stolen from your evidence.' },
+    { name:'Task', key:'task', color:'var(--orange)',
+      job:'State what you specifically were responsible for.',
+      fail:'Classic failure: describing the team\'s objective instead of your own. "We needed to clear the backlog" tells the interviewer nothing about what you owned, and the whole answer then floats free of you.' },
+    { name:'Action', key:'action', color:'var(--gold)',
+      job:'Say what you did, in the first person, including the reasoning behind your choices.',
+      fail:'Classic failure: the word "we". An interviewer cannot assess a team — they can only assess you. Every sentence beginning "we" is a sentence that does not count toward your evidence.' },
+    { name:'Result', key:'result', color:'var(--blue)',
+      job:'State what happened — quantified where possible — and what you took from it.',
+      fail:'Classic failure: stopping before the result, or giving a vague one ("it went well in the end"). A story without an outcome is an anecdote, not evidence, and anecdotes do not get you promoted.' }
+  ],
+  examples:[
+    { label:'Interview — handling pressure', prompt:'"Tell me about a time you worked under pressure."',
+      lines:[
+        {el:'Situation', c:'var(--teal)', t:'Two days before a planned shutdown, a routine survey found wall loss on a line that was not in the scope.'},
+        {el:'Task', c:'var(--orange)', t:'I had to decide, as the responsible inspection engineer, whether to add it to the scope — which meant pushing back the start — or let it run another cycle.'},
+        {el:'Action', c:'var(--gold)', t:'I pulled the last three inspection records that night and modelled the corrosion rate rather than relying on the single reading. I found the rate had doubled after a process change nobody had flagged to us. I took that to the shutdown manager with two costed options rather than just a concern, and I recommended adding it.'},
+        {el:'Result', c:'var(--blue)', t:'We added it and lost half a day. When we opened it the remaining wall was below what the single reading suggested, so leaving it would very likely have meant a leak before the next window. I now pull trend data before escalating anything, rather than reacting to one reading.'}
+      ]},
+    { label:'Interview — conflict', prompt:'"Tell me about a disagreement with a colleague."',
+      lines:[
+        {el:'Situation', c:'var(--teal)', t:'A contractor lead and I disagreed on whether a weld repair needed full re-radiography.'},
+        {el:'Task', c:'var(--orange)', t:'I owned the acceptance decision, so it was my call — but I needed his crew to execute it willingly, not resentfully.'},
+        {el:'Action', c:'var(--gold)', t:'Instead of asserting the standard, I asked him to walk me through his reasoning first, and it turned out he was working from a superseded procedure. I showed him the current clause, agreed a partial re-shoot rather than the full scope he feared, and let him present that compromise to his own crew so it did not look imposed.'},
+        {el:'Result', c:'var(--blue)', t:'The repair was re-shot and accepted the same shift. He has come to me first on grey-area calls ever since. I learned that checking which version of a procedure someone is holding resolves more disputes than arguing about the content.'}
+      ]},
+    { label:'Performance review', prompt:'"What is your biggest contribution this year?"',
+      lines:[
+        {el:'Situation', c:'var(--teal)', t:'Our inspection planning was fixed-interval, so we were opening equipment on a calendar rather than on risk.'},
+        {el:'Task', c:'var(--orange)', t:'Nobody owned changing it. I took it on alongside my normal scope.'},
+        {el:'Action', c:'var(--gold)', t:'I built a corrosion-rate model from six years of our own readings, ranked every circuit by remaining life, and — because I knew the argument would be won or lost on cost, not on engineering — I framed the proposal around scaffold spend rather than integrity theory.'},
+        {el:'Result', c:'var(--blue)', t:'We moved to risk-based intervals on eleven circuits and cut about a third of the scaffold budget, with no increase in findings. The lesson for me was that a technical case has to be argued in the currency of whoever signs it off.'}
+      ]},
+    { label:'Outside work', prompt:'"Tell me about a time you led something informally."',
+      lines:[
+        {el:'Situation', c:'var(--teal)', t:'Our street had flooded twice and nobody had approached the council.'},
+        {el:'Task', c:'var(--orange)', t:'I decided to put a case together myself rather than wait for someone official to do it.'},
+        {el:'Action', c:'var(--gold)', t:'I photographed the drains after each event, collected dates from eleven households so it was a pattern rather than a complaint, and wrote a single page ending with a specific ask instead of a general grievance.'},
+        {el:'Result', c:'var(--blue)', t:'The drains were cleared within six weeks and added to a quarterly schedule. It taught me that a documented pattern plus one specific ask moves institutions that complaints do not.'}
+      ]}
+  ],
+  weakStrong:{
+    prompt:'"Tell me about a time you worked under pressure."',
+    weak:'So this was during a shutdown a couple of years ago. It was a big one — about four hundred contractors on site, lots of scopes running at once, and there had been some issues in the planning phase, plus the weather was against us. Anyway, we found a problem on a line, and we had to decide what to do. We discussed it as a team and we agreed to add it to the scope. It worked out okay in the end.',
+    weakWhy:'Three-quarters of the answer is scene-setting that demonstrates nothing. The Task is never stated as yours. The Action is "we discussed and we agreed" — the interviewer learns that a meeting happened, not that you can think. And the Result is "okay in the end", which is not an outcome.',
+    strong:'Two days before a shutdown, a survey found wall loss on a line outside the scope. As the responsible inspection engineer, the call was mine: add it and delay the start, or let it run. I pulled three years of records that night and modelled the rate rather than trusting one reading — it had doubled after an unflagged process change. I took the shutdown manager two costed options and recommended adding it. We lost half a day; when we opened it, the wall was thinner than the single reading suggested, so leaving it would likely have meant a leak. I now pull trend data before escalating anything.',
+    strongWhy:'Setup in two sentences. The task is explicitly owned. The Action is first-person and shows reasoning, not just activity — including the judgement to bring options rather than a problem. The Result is concrete, states the counterfactual, and ends on a transferable lesson.'
+  },
+  questions:[
+    /* --- SITUATION --- */
+    { id:'s1', el:'situation', check:true,
+      stem:'What proportion of a STAR answer should the Situation take?',
+      opts:[
+        {t:'About half — the listener needs full context to judge the story.', w:'This is the instinct that ruins most STAR answers. Context is not what is being assessed, and half your airtime spent on it leaves nothing for what is.'},
+        {t:'One or two sentences — enough for the story to make sense.', w:'Setup should be minimal. Situation and Task together are roughly a quarter of the answer; Action and Result are the rest.'},
+        {t:'As long as needed — there is no rule.', w:'There is no hard rule, but "as long as needed" is how candidates talk themselves into three minutes of preamble.'},
+        {t:'It can be skipped entirely.', w:'Without any scene the story floats. One or two sentences is the target, not zero.'}
+      ], a:1, take:'Setup is a quarter. Action and Result are the answer.' },
+
+    { id:'s2', el:'situation', check:true,
+      stem:'Why do nervous candidates over-invest in the Situation?',
+      opts:[
+        {t:'They think detail demonstrates thoroughness.', w:'Some believe this, but it is not the underlying driver.'},
+        {t:'Scene-setting requires no self-assertion, so it feels safe.', w:'Describing circumstances makes no claim about you, so there is nothing to be judged on. It is the comfortable part — which is exactly why it expands to fill the time you needed for evidence.'},
+        {t:'They have not prepared the rest of the answer.', w:'Sometimes true, but well-prepared candidates do it too.'},
+        {t:'Interviewers usually ask for more context.', w:'They rarely do. Interviewers almost always want you to get to the action faster.'}
+      ], a:1, take:'You hide in the Situation because nothing there can be judged.' },
+
+    { id:'s3', el:'situation', check:true,
+      stem:'Which Situation is correctly sized?',
+      opts:[
+        {t:'"It was a large shutdown — four hundred contractors, multiple scopes, planning had been difficult, and the weather was poor that month."', w:'Four pieces of colour, none of which the story will use. Detail that never becomes relevant is pure cost.'},
+        {t:'"Two days before a planned shutdown, a routine survey found wall loss on a line that was not in the scope."', w:'One sentence establishing timing, stakes and the specific trigger. Everything in it is load-bearing.'},
+        {t:'"There was a problem during a shutdown."', w:'Too thin — no stakes, no timing, nothing to make the story land.'},
+        {t:'"I should explain a bit about how our inspection planning cycle works first."', w:'A preamble to the preamble. If the framework needs explaining, weave it into the Action instead.'}
+      ], a:1, take:'Every sentence of setup must be used later. If not, cut it.' },
+
+    { id:'s4', el:'situation', check:true,
+      stem:'The interviewer says "you can skip the background, just tell me what you did." What has happened?',
+      opts:[
+        {t:'They are being rude and you should continue as planned.', w:'They are not being rude — they are telling you exactly how to score better. Ignoring it wastes a gift.'},
+        {t:'They are telling you your Situation has run long and the assessable part has not started.', w:'That sentence is a scoring signal. The interviewer needs Action and Result to fill their form, and you have not given them any yet. Jump immediately.'},
+        {t:'They already know the context from your CV.', w:'Occasionally true, but the instruction is about your pacing, not their knowledge.'},
+        {t:'They are short of time in the interview overall.', w:'Sometimes — but the fix is the same, and the message is about where your answer is weighted.'}
+      ], a:1, take:'"Just tell me what you did" means: you are still in the setup.' },
+
+    { id:'s5', el:'situation',
+      stem:'Which detail belongs in the Situation of a story about a disputed weld repair?',
+      opts:[
+        {t:'The contractor company\'s full name and contract history.', w:'Irrelevant to the judgement being assessed, and it burns your scarce setup sentences.'},
+        {t:'That you owned the acceptance decision but needed his crew to execute willingly.', w:'This is the tension the whole story turns on — though strictly it belongs in the Task slot, where the ownership is stated.'},
+        {t:'That a contractor lead and you disagreed on whether a repair needed full re-radiography.', w:'One sentence, names the conflict, sets up everything that follows. Exactly the right size and content.'},
+        {t:'A summary of the relevant radiography standard.', w:'Technical background the listener does not need to follow the human story.'}
+      ], a:2, take:'Setup names the tension. It does not explain the industry.' },
+
+    /* --- TASK --- */
+    { id:'t1', el:'task', check:true,
+      stem:'Which is a correctly stated Task?',
+      opts:[
+        {t:'"We needed to decide whether to add the line to the shutdown scope."', w:'The team\'s objective. The interviewer still does not know what you personally owned, which is the only thing the slot exists to establish.'},
+        {t:'"As the responsible inspection engineer, the call was mine: add it and delay the start, or let it run."', w:'Names your role, your ownership, and the specific decision — so everything in the Action now clearly belongs to you.'},
+        {t:'"The task was to make sure the shutdown was safe and successful."', w:'A mission statement rather than a task. Nothing here distinguishes your responsibility from anyone else\'s.'},
+        {t:'"There was a lot riding on getting it right."', w:'Stakes, not task. It says the situation mattered, not what you were accountable for.'}
+      ], a:1, take:'Task = what YOU owned, stated explicitly.' },
+
+    { id:'t2', el:'task', check:true,
+      stem:'What is the difference between Situation and Task?',
+      opts:[
+        {t:'Situation is background; Task is your specific responsibility within it.', w:'Situation is the world. Task is your job in that world — and the shift from third person to first person should happen right here.'},
+        {t:'Situation is what happened; Task is what you did about it.', w:'What you did is the Action. Task is what you were responsible for before you did anything.'},
+        {t:'Situation is long; Task is short.', w:'Both should be short. Length is not the distinction.'},
+        {t:'They are interchangeable in practice.', w:'Collapsing them is the common shortcut, and it is how ownership disappears from the answer.'}
+      ], a:0, take:'Situation is the world. Task is your job in it.' },
+
+    { id:'t3', el:'task', check:true,
+      stem:'You were one of four people working on something. How should the Task be stated?',
+      opts:[
+        {t:'"The four of us were tasked with delivering the review."', w:'Honest and useless for assessment. A quarter share of an unspecified task is unmeasurable.'},
+        {t:'"I owned the corrosion assessment; the other three covered process, mechanical and cost."', w:'Honest about the team AND specific about your slice. Naming what others owned makes your own boundary credible rather than boastful.'},
+        {t:'"I led the whole review."', w:'If untrue, this is the fastest way to be caught — one follow-up question about a colleague\'s workstream and it collapses.'},
+        {t:'"We each had our own areas of responsibility."', w:'Names the structure without naming yours. The interviewer still cannot assess you.'}
+      ], a:1, take:'Name your slice — and what others owned. It makes you credible.' },
+
+    { id:'t4', el:'task', check:true,
+      stem:'Which Task statement quietly weakens the whole answer?',
+      opts:[
+        {t:'"I had to decide whether to escalate it."', w:'Clear ownership of a real decision.'},
+        {t:'"I was asked to look into it and report back."', w:'Technically a task, but framed as pure instruction-following: no judgement, no discretion, no accountability. Everything you describe afterwards will read as compliance rather than initiative — which is why it is the subtle one.'},
+        {t:'"I was accountable for the sign-off, so the risk sat with me."', w:'Strong — names accountability and consequence.'},
+        {t:'"Nobody owned it, so I took it on alongside my normal scope."', w:'Excellent — initiative plus ownership.'}
+      ], a:1, take:'"Asked to look into it" frames you as an errand, not an engineer.' },
+
+    { id:'t5', el:'task',
+      stem:'When is it legitimate to spend a little longer on the Task?',
+      opts:[
+        {t:'When the task itself was unusually difficult to define.', w:'When the real work was working out what the job even was, the Task slot is carrying genuine content — an ambiguous brief you had to shape is itself evidence of seniority.'},
+        {t:'When you want to show how senior you are.', w:'Seniority shows through the Action. Inflating the Task reads as positioning.'},
+        {t:'When the Situation was short.', w:'Budget does not transfer between slots. A short Situation should leave more room for Action.'},
+        {t:'When the result was disappointing.', w:'Padding the setup to soften a weak outcome is transparent and makes it worse.'}
+      ], a:0, take:'If defining the task WAS the work, say so — that is senior evidence.' },
+
+    /* --- ACTION --- */
+    { id:'a1', el:'action', check:true,
+      stem:'What is the single most damaging word in the Action slot?',
+      opts:[
+        {t:'"Tried" — it implies you failed.', w:'"Tried" is weak, but honest attempts are perfectly assessable.'},
+        {t:'"We" — the interviewer cannot assess a team.', w:'Every "we" hides the boundary between your contribution and everyone else\'s. Interviewers score individuals, so a "we" sentence contributes almost nothing to your evidence.'},
+        {t:'"Just" — it minimises your contribution.', w:'A real hedge, but it damages tone rather than erasing evidence.'},
+        {t:'"Quickly" — it suggests you rushed.', w:'Usually reads as decisive, not careless.'}
+      ], a:1, take:'Count your "we"s. Each one is a sentence that did not score.' },
+
+    { id:'a2', el:'action', check:true,
+      stem:'Which Action is strongest?',
+      opts:[
+        {t:'"We got the team together, discussed the options, and agreed on the best way forward."', w:'A meeting happened. No decision is attributable, no reasoning is visible, and the candidate could have been silent throughout.'},
+        {t:'"I pulled three years of records that night and modelled the rate rather than trusting the single reading, because one point cannot show a trend. When it showed the rate had doubled, I took the manager two costed options and recommended one."', w:'First person, specific, and it shows the reasoning behind each choice — including the judgement to arrive with options rather than a problem. That is what "thinks like a senior engineer" looks like in evidence.'},
+        {t:'"I immediately escalated it to my manager as per procedure."', w:'Correct and utterly uninformative. Following a procedure shows compliance, not judgement.'},
+        {t:'"I worked extremely hard on it, often late into the evening, to make sure it was right."', w:'Effort, not action. Hours worked is not a decision made.'}
+      ], a:1, take:'Show the reasoning, not just the activity. Reasoning is what is being scored.' },
+
+    { id:'a3', el:'action', check:true,
+      stem:'You genuinely did the work as part of a team. How do you avoid dishonesty while still using "I"?',
+      opts:[
+        {t:'Use "we" throughout — honesty matters more than scoring.', w:'A false dichotomy. You can be scrupulously honest and still specify your own contribution.'},
+        {t:'Attribute the team\'s work to yourself for the interview.', w:'Dishonest and fragile — one probing follow-up exposes it.'},
+        {t:'Say "we" for the shared frame, then "I" for your specific contributions within it.', w:'"We agreed to re-sequence; I built the model that showed which circuits to drop." Accurate about the team, precise about you. Honesty and evidence are not in conflict.'},
+        {t:'Avoid pronouns by using passive voice.', w:'"It was decided that…" removes agency entirely and is worse than "we".'}
+      ], a:2, take:'"We" for the frame, "I" for your moves inside it.' },
+
+    { id:'a4', el:'action', check:true,
+      stem:'Which Action detail is most worth including?',
+      opts:[
+        {t:'The chronological order of every step you took.', w:'A sequence of activities. Interviewers glaze over and learn nothing about your thinking.'},
+        {t:'The one choice where you could have gone another way, and why you chose as you did.', w:'The decision point is the entire assessable moment. Anyone can follow a process — what distinguishes you is the fork and the reasoning at it.'},
+        {t:'How many hours you put in.', w:'Effort, not judgement.'},
+        {t:'Which software or tools you used.', w:'Occasionally relevant for a technical screen, rarely the thing being assessed.'}
+      ], a:1, take:'Find the fork in the story and explain why you went right.' },
+
+    { id:'a5', el:'action',
+      stem:'Your Action involved a mistake you later corrected. Include it?',
+      opts:[
+        {t:'No — never volunteer errors in an interview.', w:'This instinct costs strong candidates a lot. A corrected mistake is usually the most convincing part of a story, because it is the part nobody invents.'},
+        {t:'Yes, if you also show how you detected and corrected it.', w:'It demonstrates self-monitoring, which is genuinely hard to fake and highly valued. The evidence is not "I never err" — it is "I catch it".'},
+        {t:'Only if the interviewer asks directly.', w:'Waiting to be asked means it reads as an admission rather than as self-awareness.'},
+        {t:'Yes, and attribute it to circumstances beyond your control.', w:'Deflecting the cause destroys the very credibility the admission would have earned.'}
+      ], a:1, take:'A caught-and-corrected mistake is evidence nobody can fake.' },
+
+    /* --- RESULT --- */
+    { id:'r1', el:'result', check:true,
+      stem:'Which Result is strongest?',
+      opts:[
+        {t:'"It worked out well and everyone was happy with the outcome."', w:'Nothing measurable, nothing checkable. This is the most common STAR ending and it scores close to zero.'},
+        {t:'"We lost half a day. When we opened it, the wall was thinner than the single reading suggested — leaving it would very likely have meant a leak before the next window."', w:'A quantified cost, a concrete finding, and the counterfactual that proves the decision was right. The counterfactual is what turns an outcome into vindication.'},
+        {t:'"The shutdown was completed successfully."', w:'Reports that the project ended, not what your action achieved.'},
+        {t:'"My manager was very pleased with how I handled it."', w:'Second-hand praise instead of an outcome. It also puts your evidence in someone else\'s mouth.'}
+      ], a:1, take:'State the counterfactual: what would have happened if you had not acted.' },
+
+    { id:'r2', el:'result', check:true,
+      stem:'You have no numbers for the Result. What is the best substitute?',
+      opts:[
+        {t:'Say it went well and move on.', w:'The weakest possible ending — and it is where most unquantified answers land.'},
+        {t:'A concrete observable change, or the counterfactual.', w:'"He has come to me first on grey-area calls ever since" is unquantified and entirely concrete. So is "leaving it would have meant a leak". Specificity, not arithmetic.'},
+        {t:'Estimate a number so it sounds rigorous.', w:'Never invent figures. One challenged number destroys the whole answer.'},
+        {t:'Describe how the team felt afterwards.', w:'Sentiment is the softest available evidence and usually reads as filler.'}
+      ], a:1, take:'No numbers? Use a concrete change — or the counterfactual.' },
+
+    { id:'r3', el:'result', check:true,
+      stem:'What should follow the outcome in a strong Result?',
+      opts:[
+        {t:'A brief statement of what you now do differently.', w:'The lesson converts one story into a claim about your future behaviour — which is the thing the interviewer is actually trying to predict. It is the highest-value sentence in the whole answer.'},
+        {t:'An acknowledgement of who else helped.', w:'Gracious, and it dilutes the one moment the answer is entirely yours. Credit others in the Action.'},
+        {t:'A summary of the situation to close the loop.', w:'Re-stating context at the end wastes the strongest position in the answer.'},
+        {t:'An offer to give another example.', w:'Let the interviewer manage their own agenda.'}
+      ], a:0, take:'End on what you do differently now. That is the predictive bit.' },
+
+    { id:'r4', el:'result', check:true,
+      stem:'The outcome was genuinely poor. What is the best Result?',
+      opts:[
+        {t:'Choose a different story with a better outcome.', w:'Often sensible — but "tell me about a failure" exists precisely to see this, and dodging it is visible.'},
+        {t:'State the poor outcome plainly, then what you changed as a result.', w:'Interviewers trust a candidate who can name a bad outcome without flinching far more than one whose every story succeeded. The learning is the payload; the failure is the setup for it.'},
+        {t:'Emphasise the factors outside your control.', w:'Every sentence of mitigation reduces the credibility of the lesson that follows.'},
+        {t:'Focus on the quality of your process despite the outcome.', w:'Occasionally valid, but it usually reads as refusing to own the result.'}
+      ], a:1, take:'Own the bad outcome plainly. The lesson is what you are selling.' },
+
+    { id:'r5', el:'result',
+      stem:'Which Result quietly undermines an otherwise strong STAR answer?',
+      opts:[
+        {t:'"We cut about a third of the scaffold budget with no increase in findings."', w:'Quantified and bounded. Strong.'},
+        {t:'"It saved the company millions and completely transformed how we work."', w:'Unbounded superlatives invite disbelief and a hostile follow-up. An implausible number is worse than no number, because it makes the interviewer doubt everything before it.'},
+        {t:'"Eleven circuits moved to risk-based intervals."', w:'Specific and verifiable.'},
+        {t:'"He has come to me first on grey-area calls ever since."', w:'Unquantified but concrete and credible.'}
+      ], a:1, take:'An inflated number costs you the whole answer\'s credibility.' },
+
+    /* --- WHOLE --- */
+    { id:'w1', el:'whole',
+      stem:'Which answer is strongest?',
+      opts:[
+        {t:'"It was a big shutdown, four hundred contractors, lots going on. We found a problem on a line and had to decide what to do. We talked it through as a team and agreed to add it. It worked out okay."', w:'Three-quarters setup, no owned task, "we" throughout, and a non-result. Every slot fails in the standard way.'},
+        {t:'"Two days before a shutdown, a survey found wall loss outside the scope. The call was mine. I modelled three years of records rather than trusting one reading; the rate had doubled after an unflagged process change. I brought the manager two costed options and recommended adding it. We lost half a day — and the wall was thinner than the reading suggested, so leaving it would likely have meant a leak. I now pull trend data before escalating anything."', w:'Tight setup, owned task, first-person action with visible reasoning, quantified result with a counterfactual and a lesson.'},
+        {t:'"I was responsible for inspection during a shutdown. I identified an issue, escalated it appropriately, and followed the correct procedure throughout. The outcome was satisfactory."', w:'Correct, first-person, and entirely abstract. No specifics means no evidence — this is a job description, not a story.'},
+        {t:'"I found wall loss on a line, modelled the corrosion rate, took options to the manager and we added it to scope. It was the right call."', w:'Genuinely decent and compact — but the Result asserts rightness instead of demonstrating it, and there is no lesson. Good, not strongest.'}
+      ], a:1, take:'Specificity is evidence. Abstraction is a job description.' },
+
+    { id:'w2', el:'whole',
+      stem:'An answer spends 20 seconds on Situation, 5 on Task, 15 on Action and 5 on Result. What is the main problem?',
+      opts:[
+        {t:'The Task is too short.', w:'Five seconds can state ownership adequately.'},
+        {t:'The weighting is inverted — most time goes to the parts that demonstrate nothing.', w:'Situation takes more airtime than Action, and Result gets least of all. The two assessable slots share less than half the answer. This is the signature STAR failure.'},
+        {t:'The answer is too short overall.', w:'Forty-five seconds is a perfectly reasonable length. The distribution is the fault.'},
+        {t:'The Result is too short.', w:'It is too short — but it is a symptom of the same weighting problem.'}
+      ], a:1, take:'Watch the clock: if setup beats Action, the answer has failed.' },
+
+    { id:'w3', el:'whole',
+      stem:'Scrambled. Which order is STAR?\n(1) "I modelled three years of readings rather than trusting the single data point."\n(2) "As responsible engineer, the decision to add it to scope was mine."\n(3) "We lost half a day, and the wall proved thinner than the reading suggested."\n(4) "Two days before the shutdown, a survey found wall loss outside the scope."',
+      opts:[
+        {t:'4 → 2 → 1 → 3', w:'Scene, ownership, what you did, what happened. Correct.'},
+        {t:'4 → 1 → 2 → 3', w:'Action before Task, so you describe doing something before establishing it was yours to do.'},
+        {t:'2 → 4 → 1 → 3', w:'Ownership before scene — the listener hears you owned a decision before knowing what about.'},
+        {t:'4 → 2 → 3 → 1', w:'Result before Action, which leaves the answer ending on method rather than outcome.'}
+      ], a:0, take:'Scene, ownership, your move, the outcome.' },
+
+    { id:'w4', el:'whole',
+      stem:'Which is NOT a STAR answer, despite sounding polished?',
+      opts:[
+        {t:'"A survey found wall loss outside scope. The call was mine. I modelled the trend and recommended adding it. We lost half a day but avoided a likely leak."', w:'Complete STAR in four sentences.'},
+        {t:'"I believe strongly in evidence-based decisions. When data is ambiguous I always model the trend rather than react to single readings, and I bring options rather than problems to managers."', w:'A statement of philosophy, not a story. There is no specific occasion, no outcome, and nothing that happened — so nothing can be verified. Confident generalities are the most common STAR substitute.'},
+        {t:'"During a shutdown I had to decide on an out-of-scope line. I pulled the records, found the rate had doubled, recommended adding it, and we found it was thinner than expected."', w:'Compressed but complete.'},
+        {t:'"I disagreed with a contractor on re-radiography. I owned the acceptance. I asked his reasoning first, found a superseded procedure, and agreed a partial re-shoot. It was accepted that shift."', w:'STAR, cleanly executed.'}
+      ], a:1, take:'"I always…" is philosophy. "That Tuesday…" is evidence.' },
+
+    { id:'w5', el:'whole',
+      stem:'What should you do if you realise mid-answer that your Situation has run too long?',
+      opts:[
+        {t:'Finish the setup properly, then speed up the rest.', w:'Compressing the assessable parts to protect the setup is exactly backwards.'},
+        {t:'Cut to the action explicitly: "—anyway, the decision was mine, and what I did was…"', w:'A visible self-correction costs a second and recovers the whole answer. Interviewers read it as self-awareness, not as fumbling.'},
+        {t:'Apologise for the long introduction.', w:'The apology spends more time and draws attention to the flaw.'},
+        {t:'Ask the interviewer if they want more context.', w:'Handing the steering wheel over mid-answer reads as uncertainty.'}
+      ], a:1, take:'Cut to the action out loud. It reads as control.' },
+
+    { id:'w6', el:'whole',
+      stem:'"Tell me about a time you failed." Which structure is strongest?',
+      opts:[
+        {t:'Choose a failure that was really a success in disguise.', w:'Interviewers have heard "my weakness is perfectionism" a thousand times. A disguised success answers a different question and signals evasion.'},
+        {t:'Full STAR on a genuine failure, with the heaviest weight on Action and the lesson.', w:'The framework does not change — a real failure, what you actually did, the honest outcome, and what changed in your practice. The lesson is the payload.'},
+        {t:'Describe the failure but attribute it to circumstances.', w:'Mitigation undermines the credibility the admission was supposed to buy.'},
+        {t:'Keep it brief and move on quickly.', w:'Rushing signals discomfort and wastes a question designed to let you show self-awareness.'}
+      ], a:1, take:'Real failure, honest outcome, changed practice. No disguises.' },
+
+    { id:'w7', el:'whole',
+      stem:'All four are complete STAR answers. Which is strongest?',
+      opts:[
+        {t:'One where you followed procedure correctly and the outcome was fine.', w:'Compliance with a good outcome shows reliability but no judgement — there was no fork in the road.'},
+        {t:'One where you faced a genuine fork, chose against the easier option for a stated reason, and the outcome validated it.', w:'A real decision point, visible reasoning, and a result that tests the reasoning. That combination is the most assessable evidence you can offer.'},
+        {t:'One with the largest quantified result.', w:'Size impresses briefly, but a huge result from a decision you did not make demonstrates less than a modest one you did.'},
+        {t:'One involving the most senior stakeholders.', w:'Proximity to seniority is not the same as exercising judgement.'}
+      ], a:1, take:'The best STAR story has a fork in it — and you explain the turn.' },
+
+    { id:'w8', el:'whole',
+      stem:'Why is STAR the right framework for a promotion case, not just interviews?',
+      opts:[
+        {t:'Because promotion panels expect a formal structure.', w:'They expect evidence; the structure is just how you deliver it.'},
+        {t:'Because a promotion case is also an argument that your past behaviour predicts future performance at the next level.', w:'A promotion is a bet on your future conduct, and STAR is purpose-built to supply behavioural evidence for exactly that bet — which is why "I did X, alone, and it produced Y" beats any list of responsibilities.'},
+        {t:'Because it keeps the case short.', w:'It disciplines length, but brevity is not why it fits.'},
+        {t:'Because it avoids talking about other people.', w:'It does not — it clarifies your contribution within a team.'}
+      ], a:1, take:'Promotion is a bet on your future. STAR is the evidence for it.' }
+  ]
+};
+
+/* ============================================================
+   Chapter 6 — Stakeholder Meeting
+   ============================================================ */
+const CH_STAKE = {
+  id:'stake', n:6,
+  title:'Stakeholder Meeting',
+  subtitle:'Context → Problem → Recommendation → Next Steps',
+  blurb:'How to walk into a room with a problem and walk out with a decision.',
+  idea:[
+    `This is the shape for taking something to people who can act on it. Its job is not to inform — it is to convert a problem you own into a decision someone else makes, inside one meeting.`,
+    `Most technical people get two things wrong here. They over-build the Context, because they are used to audiences who need the background. And they arrive with options rather than a recommendation, because offering a menu feels respectful and neutral.`,
+    `Both are mistakes. Senior people are paid to decide between recommendations, not to do your analysis for you. Presenting three balanced options without a view is not humility — it is handing back the part of the job you were meant to do.`
+  ],
+  whenToUse:[
+    'Taking an issue to management that needs a decision',
+    'Any meeting you called yourself',
+    'Asking for budget, people, time or a scope change',
+    'Escalating something that has stalled at your level'
+  ],
+  elements:[
+    { name:'Context', key:'context', color:'var(--teal)',
+      job:'Establish only the shared ground needed for the problem to make sense.',
+      fail:'Classic failure: briefing the room on things they already know, or on things the decision does not depend on. Context is the slot where technical people lose the room before the problem has even been stated.' },
+    { name:'Problem', key:'problem', color:'var(--orange)',
+      job:'Make the problem specific and felt — what is at stake, in their terms.',
+      fail:'Classic failure: an abstract problem ("we have integrity challenges") that nobody feels. If the room does not experience the cost, they will not fund the fix.' },
+    { name:'Recommendation', key:'recommendation', color:'var(--gold)',
+      job:'Say clearly what you think should happen.',
+      fail:'Classic failure: presenting options with no view. It feels balanced and reads as abdication. The second failure is hedging the recommendation until it is deniable.' },
+    { name:'Next Steps', key:'nextsteps', color:'var(--blue)',
+      job:'Name who does what, by when — starting with what you need from them right now.',
+      fail:'Classic failure: ending on "so, thoughts?" A meeting that closes without an owner and a date has not produced a decision; it has produced a conversation.' }
+  ],
+  examples:[
+    { label:'Asking for a scope change', prompt:'Meeting with the shutdown manager.',
+      lines:[
+        {el:'Context', c:'var(--teal)', t:'The shutdown scope was frozen last month, and the flare line was not in it.'},
+        {el:'Problem', c:'var(--orange)', t:'Our latest survey puts it at 22% wall loss and accelerating. The next window is eighteen months out, and on the current rate it will be below retirement limit before then — which turns a planned two-day job into an unplanned outage.'},
+        {el:'Recommendation', c:'var(--gold)', t:'I recommend we add it to this shutdown. It costs us about half a day and 180 thousand; deferring risks a seven-figure unplanned event.'},
+        {el:'Next Steps', c:'var(--blue)', t:'What I need from you today is approval in principle. If I have that, I will have the work pack and the costed plan with you by Thursday, and Ops can re-sequence around it next week.'}
+      ]},
+    { label:'Escalating a stalled issue', prompt:'Meeting with your department head.',
+      lines:[
+        {el:'Context', c:'var(--teal)', t:'We agreed in June to move eleven circuits onto risk-based intervals.'},
+        {el:'Problem', c:'var(--orange)', t:'It has not moved since, because the change needs sign-off from two functions and neither has an owner for it. Meanwhile we are still paying for scaffold on circuits we have already agreed do not need opening — about 40 thousand a quarter.'},
+        {el:'Recommendation', c:'var(--gold)', t:'I recommend you assign a single owner for the sign-off, and I would suggest it sits with Integrity rather than Planning, because we hold the data.'},
+        {el:'Next Steps', c:'var(--blue)', t:'If you name the owner this week, I will run the first five circuits through by month end and bring you the saving. Otherwise I would rather we formally park it than keep paying for a decision nobody is making.'}
+      ]},
+    { label:'Asking for people', prompt:'Meeting with the asset manager.',
+      lines:[
+        {el:'Context', c:'var(--teal)', t:'We picked up two additional lines in the tie-in last year, and the inspection headcount did not change.'},
+        {el:'Problem', c:'var(--orange)', t:'We are now deferring roughly one inspection a month to stay within the hours available. Last quarter one of the deferred ones came back at 22% wall loss — we were lucky, and luck is not a plan.'},
+        {el:'Recommendation', c:'var(--gold)', t:'I recommend one additional inspection engineer. The cost is roughly a fifth of a single unplanned outage.'},
+        {el:'Next Steps', c:'var(--blue)', t:'I need a yes or no on principle before the budget cycle closes on the 30th. If yes, I will write the role brief this week.'}
+      ]},
+    { label:'Outside work', prompt:'Raising something with a landlord.',
+      lines:[
+        {el:'Context', c:'var(--teal)', t:'The boiler was serviced in March and has failed twice since.'},
+        {el:'Problem', c:'var(--orange)', t:'Both failures were in cold weeks, and we were without heating for four days each time with two young children in the house.'},
+        {el:'Recommendation', c:'var(--gold)', t:'I think it needs replacing rather than another repair — three call-outs will cost more than the unit.'},
+        {el:'Next Steps', c:'var(--blue)', t:'Could you confirm this week whether you will replace it? If it is another repair, I would like the engineer\'s report so we know what we are dealing with.'}
+      ]}
+  ],
+  weakStrong:{
+    prompt:'You have fifteen minutes with the shutdown manager about an out-of-scope line.',
+    weak:'So, some background on how we do inspection planning — we work on a risk-based approach, and there is a whole methodology behind the intervals which I can explain. Anyway, we have found some corrosion on a flare line. It is CUI, which is corrosion under insulation, a well-known mechanism. It is fairly progressed. We could add it to this shutdown, or wait for the next one, or do a temporary repair — each has pros and cons. So, thoughts?',
+    weakWhy:'Two minutes of methodology nobody asked for, a problem stated in technical language with no cost attached, three options with no view, and a close that hands the entire decision back. The manager now has your problem and none of your expertise.',
+    strong:'The scope was frozen last month and the flare line was not in it. Our latest survey puts it at 22% wall loss and accelerating; the next window is eighteen months out, so on current rate it drops below retirement limit before then — a planned half-day job becomes an unplanned outage. I recommend we add it now: half a day and 180 thousand, against a seven-figure risk. What I need today is approval in principle; if I have that, the work pack and costed plan are with you Thursday.',
+    strongWhy:'One sentence of context, the problem quantified in consequence rather than mechanism, a clear recommendation with the trade priced, and a close that names exactly what he must do today and what you will do next.'
+  },
+  questions:[
+    /* --- CONTEXT --- */
+    { id:'c1', el:'context', check:true,
+      stem:'What is the Context slot for?',
+      opts:[
+        {t:'Demonstrating that you understand the subject thoroughly.', w:'Context used to establish your own credibility is the most common reason it runs long. Credibility comes from the recommendation.'},
+        {t:'Establishing only the shared ground the problem depends on.', w:'The test is dependency: if the problem still makes sense without a piece of context, cut it.'},
+        {t:'Explaining the technical background so the problem is understood.', w:'Usually unnecessary. The room needs to understand the consequence, not the mechanism.'},
+        {t:'Reminding everyone of the history so nobody is surprised.', w:'History is where technical briefings go to die. Include only what the decision turns on.'}
+      ], a:1, take:'If the problem survives without it, it is not context — it is padding.' },
+
+    { id:'c2', el:'context', check:true,
+      stem:'Which Context is correctly sized for a fifteen-minute meeting with a shutdown manager?',
+      opts:[
+        {t:'"Let me first explain how risk-based inspection planning works and the methodology behind our intervals."', w:'A methodology lecture to someone who needs a decision. You will lose the room before reaching the problem.'},
+        {t:'"The shutdown scope was frozen last month, and the flare line was not in it."', w:'One sentence, and everything that follows depends on it. Perfectly sized.'},
+        {t:'"As you know, we have had a challenging year with several competing priorities across the asset."', w:'Generic scene-setting that could precede any topic. It establishes nothing specific.'},
+        {t:'"I want to talk to you about corrosion on the flare line."', w:'That is an agenda announcement, not context — and it spends a sentence telling him what he is about to hear.'}
+      ], a:1, take:'Context is the fact the problem depends on. Usually one sentence.' },
+
+    { id:'c3', el:'context', check:true,
+      stem:'Your audience already knows the background. What should Context become?',
+      opts:[
+        {t:'Repeat it anyway to be safe.', w:'Repeating known material spends the scarcest resource in the room on zero information.'},
+        {t:'A single anchoring sentence that points at the shared fact, then move on.', w:'"The scope was frozen last month" takes three seconds and orients everyone. You are anchoring, not briefing.'},
+        {t:'Skip straight to the recommendation.', w:'Skipping the problem entirely means the recommendation lands without a reason to accept it.'},
+        {t:'Give more detail than usual, since they can follow it.', w:'Capability to follow detail is not a reason to supply it.'}
+      ], a:1, take:'With a knowing audience, anchor in one line — do not brief.' },
+
+    { id:'c4', el:'context', check:true,
+      stem:'Which is the subtlest Context failure?',
+      opts:[
+        {t:'Making it too long.', w:'The most common failure, but also the most obvious and easiest to catch.'},
+        {t:'Making it too short.', w:'Rare, and usually self-correcting when someone asks a question.'},
+        {t:'Including context that is genuinely interesting but that the decision does not depend on.', w:'Interesting-but-irrelevant is dangerous precisely because it feels like good material. It passes your own filter, holds attention, and still spends time the decision needed — and it often triggers a tangent that eats the meeting.'},
+        {t:'Using technical language in it.', w:'A real problem, but a translation issue rather than a structural one.'}
+      ], a:2, take:'"Interesting" is not the test. "The decision depends on it" is.' },
+
+    { id:'c5', el:'context',
+      stem:'The meeting is with someone who has never met you or your function. Does Context change?',
+      opts:[
+        {t:'Yes — add a sentence locating you and why this sits with you.', w:'With a stranger, part of the shared ground missing is you. One clause ("I own inspection for the static equipment") licenses everything that follows without becoming a self-introduction.'},
+        {t:'No — the framework is the same regardless of audience.', w:'The shape holds, but what counts as shared ground is audience-dependent by definition.'},
+        {t:'Yes — give a full background briefing since they know nothing.', w:'Unfamiliarity with you is not unfamiliarity with the business. Do not confuse the two.'},
+        {t:'Yes — move the recommendation later so you can build credibility first.', w:'Delaying the recommendation to earn standing usually loses both.'}
+      ], a:0, take:'With a stranger, one clause of who-you-are is part of the context.' },
+
+    /* --- PROBLEM --- */
+    { id:'p1', el:'problem', check:true,
+      stem:'Which Problem statement is strongest for a non-technical decision-maker?',
+      opts:[
+        {t:'"We have CUI on the flare line and the wall loss is progressing."', w:'Accurate and inert. It states a mechanism, and the listener has no idea whether to care.'},
+        {t:'"22% wall loss and accelerating. The next window is eighteen months out, so on current rate it drops below retirement limit before then — a planned half-day job becomes an unplanned outage."', w:'It converts a technical finding into a consequence the listener can feel and price. That conversion is the entire job of this slot.'},
+        {t:'"There are significant integrity concerns on that line."', w:'Abstract and unquantified. "Significant" is doing work that a number should be doing.'},
+        {t:'"The line is in poor condition and I am not comfortable with it."', w:'Your discomfort is not a business problem. It also invites the response "well, what would make you comfortable?"'}
+      ], a:1, take:'State the consequence, not the mechanism.' },
+
+    { id:'p2', el:'problem', check:true,
+      stem:'Why must the Problem be felt, not just understood?',
+      opts:[
+        {t:'Because decision-makers are emotional rather than rational.', w:'A cynical and inaccurate framing. This is about salience, not manipulation.'},
+        {t:'Because a problem nobody feels the cost of does not get funded, however well it is understood.', w:'Understanding produces agreement; felt cost produces action. Budgets and priorities move on the second, which is why every unfunded technical concern in history was "understood".'},
+        {t:'Because technical audiences respond better to stories.', w:'True but beside the point — this applies to every audience.'},
+        {t:'Because it makes the meeting more memorable.', w:'Memorability is a side effect, not the mechanism.'}
+      ], a:1, take:'Understood gets you agreement. Felt gets you funded.' },
+
+    { id:'p3', el:'problem', check:true,
+      stem:'Which Problem framing is most likely to trigger defensiveness and cost you the decision?',
+      opts:[
+        {t:'"We are deferring about one inspection a month to stay within available hours."', w:'A factual consequence of a resourcing state. Neutral.'},
+        {t:'"Planning have repeatedly failed to resource this properly despite being told."', w:'True or not, it converts a resourcing problem into an accusation. The meeting now becomes about whether Planning is at fault, and your decision never gets made. Blame is the fastest way to lose a stakeholder meeting.'},
+        {t:'"The headcount did not change when we took on two additional lines."', w:'States the same underlying fact without attributing fault.'},
+        {t:'"One of the deferred inspections came back at 22% wall loss."', w:'A consequence with evidence. Strong and blameless.'}
+      ], a:1, take:'State the consequence. Naming a culprit hijacks your own meeting.' },
+
+    { id:'p4', el:'problem', check:true,
+      stem:'You own part of the cause of the problem. How should the Problem be stated?',
+      opts:[
+        {t:'Omit your part — it will undermine your recommendation.', w:'If it surfaces later, and it usually does, you lose the recommendation and your credibility together.'},
+        {t:'Name your part briefly and factually, then move to the recommendation.', w:'Owning your share costs one clause and buys enormous credibility — a person who names their own contribution is trusted on the rest of the analysis. And it removes the weapon from anyone who would have raised it.'},
+        {t:'Lead with a full account of your responsibility.', w:'Over-owning turns the meeting into a post-mortem about you rather than a decision.'},
+        {t:'Frame it as a collective failure.', w:'"We all" is a way of saying nobody, and experienced people hear it.'}
+      ], a:1, take:'Own your share in one clause. It buys the rest of the room.' },
+
+    { id:'p5', el:'problem',
+      stem:'Which is the best way to price a risk you cannot quantify precisely?',
+      opts:[
+        {t:'Avoid numbers entirely and describe it qualitatively.', w:'Purely qualitative risk gets deprioritised against quantified costs every time.'},
+        {t:'Give a bounded comparison: "a planned half-day job versus an unplanned outage."', w:'A comparison prices the risk in structure rather than in a fake figure — the listener supplies their own magnitude, and you have said nothing you cannot defend.'},
+        {t:'Use the highest plausible figure to convey seriousness.', w:'Anchoring high works until someone tests it, and then you lose the whole case.'},
+        {t:'Say it is impossible to quantify.', w:'True perhaps, and it reads as an excuse not to have done the analysis.'}
+      ], a:1, take:'When you cannot price it, compare it. Planned versus unplanned.' },
+
+    /* --- RECOMMENDATION --- */
+    { id:'rc1', el:'recommendation', check:true,
+      stem:'Why is presenting three balanced options with no view a failure?',
+      opts:[
+        {t:'It takes too long.', w:'Options can be stated quickly. Time is not the problem.'},
+        {t:'It hands back the analysis you were meant to do, and reads as abdication rather than humility.', w:'You hold the data and the expertise. Declining to say what should happen is not neutrality — it is returning the hardest part of your job to someone with less information than you.'},
+        {t:'Decision-makers dislike having choices.', w:'They like choices — accompanied by your view of which one is right.'},
+        {t:'It makes you look uncertain about the data.', w:'That can be a side effect, but the core failure is structural.'}
+      ], a:1, take:'Options plus a recommendation. Never options alone.' },
+
+    { id:'rc2', el:'recommendation', check:true,
+      stem:'Which Recommendation is strongest?',
+      opts:[
+        {t:'"We could add it to this shutdown, defer it, or do a temporary repair. Each has trade-offs."', w:'A menu. The room now has to do your job, with less information than you have.'},
+        {t:'"I recommend we add it to this shutdown: half a day and 180 thousand, against a seven-figure unplanned risk."', w:'A clear position with the trade priced, so the decision-maker can accept or challenge on the numbers rather than re-derive the analysis.'},
+        {t:'"I would suggest that perhaps adding it might be the safest approach, if that works."', w:'Four hedges in one sentence. It is deniable by design, which means it is not a recommendation.'},
+        {t:'"It is probably best to add it, though I can see arguments the other way."', w:'Makes a recommendation and immediately weakens it. The counter-arguments belong in your answer to a challenge, not in the recommendation itself.'}
+      ], a:1, take:'Name the option, price the trade, own the view.' },
+
+    { id:'rc3', el:'recommendation', check:true,
+      stem:'When are options genuinely appropriate?',
+      opts:[
+        {t:'When you are unsure which is right.', w:'Being unsure is a reason to do more analysis or to say what you would do given what you know — not to abdicate.'},
+        {t:'When the choice turns on a value judgement that is genuinely theirs, such as risk appetite.', w:'If the decision depends on how much risk the business will carry — their call, not yours — then options with your technical read on each is exactly right. Even then you say which you would choose and why.'},
+        {t:'When the decision is politically sensitive.', w:'Sensitivity is a reason to be careful in how you recommend, not to stop recommending.'},
+        {t:'When there is more than one workable solution.', w:'There usually is. Your job is to say which one you would pick.'}
+      ], a:1, take:'Options only when the trade-off is genuinely theirs to make.' },
+
+    { id:'rc4', el:'recommendation', check:true,
+      stem:'Which recommendation is most likely to be accepted by a cost-focused decision-maker?',
+      opts:[
+        {t:'"I recommend we add it — the integrity risk is unacceptable."', w:'States your professional standard as if it settles the matter. To a cost-focused listener it reads as engineering preference with no price attached.'},
+        {t:'"I recommend we add it — half a day and 180 thousand now, against a likely seven-figure unplanned outage within the year."', w:'Puts the recommendation in their currency, so accepting it is the financially rational move rather than a concession to engineering.'},
+        {t:'"I recommend we add it — this is standard practice in our industry."', w:'Appeal to convention. It invites "our situation is different".'},
+        {t:'"I recommend we add it — the team feel strongly about this one."', w:'Internal sentiment carries no weight against budget.'}
+      ], a:1, take:'Recommend in their currency, not yours.' },
+
+    { id:'rc5', el:'recommendation',
+      stem:'They push back hard on your recommendation. What is the strongest response?',
+      opts:[
+        {t:'Restate it more firmly.', w:'Repetition under challenge reads as having nothing further.'},
+        {t:'Offer a compromise immediately to keep things moving.', w:'Conceding at the first push teaches the room that your recommendations are opening positions.'},
+        {t:'Name what would change your mind, then address their specific objection.', w:'"If the survey were three years old I would agree with you — it is three weeks old" shows your view is evidence-based rather than positional, and answers the actual objection instead of defending pride.'},
+        {t:'Withdraw it and offer to do more analysis.', w:'Sometimes right, but as a reflex it is how well-founded recommendations die.'}
+      ], a:2, take:'Naming what would change your mind is the strongest defence there is.' },
+
+    /* --- NEXT STEPS --- */
+    { id:'n1', el:'nextsteps', check:true,
+      stem:'Which Next Steps close is strongest?',
+      opts:[
+        {t:'"So — thoughts?"', w:'The single most common ending, and it converts a decision meeting into a discussion. You have done the work and then declined to ask for anything.'},
+        {t:'"What I need from you today is approval in principle. If I have that, the work pack and costed plan are with you Thursday."', w:'Names precisely what they must do now, and what you will do in return. The meeting cannot end ambiguously.'},
+        {t:'"Let me know if you would like me to take this further."', w:'Puts the next move on the busiest person in the room, where it will be forgotten.'},
+        {t:'"I will circulate a summary and we can pick it up later."', w:'Defers the decision to a future meeting that may not happen. Momentum lost.'}
+      ], a:1, take:'Name what you need from them today. Today is the word.' },
+
+    { id:'n2', el:'nextsteps', check:true,
+      stem:'What must every Next Step contain?',
+      opts:[
+        {t:'A named owner and a date.', w:'An action without an owner belongs to nobody, and one without a date belongs to no time. Both, every time.'},
+        {t:'A cost estimate.', w:'Useful in the recommendation, not a requirement of every action.'},
+        {t:'A risk assessment.', w:'Belongs in the problem or the recommendation.'},
+        {t:'An escalation path.', w:'Occasionally valuable, rarely essential.'}
+      ], a:0, take:'Owner and date. An action with neither is a wish.' },
+
+    { id:'n3', el:'nextsteps', check:true,
+      stem:'The decision-maker says "leave it with me". What is the best response?',
+      opts:[
+        {t:'Accept it — pressing further would be disrespectful.', w:'"Leave it with me" is where most escalations quietly die. Accepting it unqualified usually means starting again in a month.'},
+        {t:'"Of course. So I can plan around it — could I check back Thursday if I have not heard?"', w:'Fully respectful, and it converts an open-ended deferral into a dated one. You have attached a clock without applying pressure.'},
+        {t:'"I really do need an answer today."', w:'Sometimes necessary and usually costly. Save hard insistence for genuine deadlines.'},
+        {t:'"No problem, I will send you the details."', w:'Adds reading to their pile and no date to yours.'}
+      ], a:1, take:'Turn "leave it with me" into a date, politely.' },
+
+    { id:'n4', el:'nextsteps', check:true,
+      stem:'Which Next Steps failure is subtlest?',
+      opts:[
+        {t:'Not naming a date.', w:'Common and damaging, but easy to spot in the moment.'},
+        {t:'Listing several actions clearly, but none of them requiring anything of the decision-maker.', w:'It looks like a tidy, well-run close — every action owned and dated, all of them yours. But nothing has been decided, and you have simply volunteered more work while the actual blocker remains untouched.'},
+        {t:'Ending with "thoughts?"', w:'A real failure, and a conspicuous one.'},
+        {t:'Making the steps too detailed.', w:'Minor. Detail can be trimmed.'}
+      ], a:1, take:'If every action is yours, nothing was decided.' },
+
+    { id:'n5', el:'nextsteps',
+      stem:'The answer is genuinely no. What is the best Next Step?',
+      opts:[
+        {t:'Accept it and move on — there is nothing to be gained.', w:'Sometimes right, but it leaves the risk sitting with you and no record of the decision.'},
+        {t:'Confirm the decision and where the risk now sits: "Understood — I will record that we accepted the deferral and note the exposure."', w:'It is not a threat, it is good governance: the decision is documented, the risk is consciously owned rather than drifting, and everyone knows where it sits. This is exactly how a Lead handles a no.'},
+        {t:'Ask them to reconsider at the next meeting.', w:'Re-litigating without new information erodes your credibility.'},
+        {t:'Escalate to their manager.', w:'Occasionally warranted, and it burns relationship capital fast.'}
+      ], a:1, take:'A no is still a decision. Record it and where the risk sits.' },
+
+    /* --- WHOLE --- */
+    { id:'sw1', el:'whole',
+      stem:'Which version is strongest?',
+      opts:[
+        {t:'"Some background on our inspection methodology first… anyway, we have found CUI on a flare line, it is fairly progressed. We could add it now, wait, or do a temporary repair. Thoughts?"', w:'Unrequested methodology, a mechanism instead of a consequence, a menu with no view, and a close that returns the whole decision.'},
+        {t:'"Scope was frozen last month and the flare line was not in it. It is at 22% wall loss and accelerating — the next window is eighteen months out, so a planned half-day job becomes an unplanned outage. I recommend adding it: half a day and 180 thousand against a seven-figure risk. What I need today is approval in principle; work pack with you Thursday."', w:'All four slots doing their own job, and the meeting cannot end without a decision.'},
+        {t:'"The flare line needs adding to scope. It is at 22% wall loss. I recommend we add it. Let me know what you think."', w:'A real recommendation, but no consequence is established — so there is no reason to say yes — and the close hands it back.'},
+        {t:'"We have a problem with the flare line and I think it is serious. I would like to talk through the options with you and get your steer on the best path forward."', w:'Announces a problem, supplies no evidence, and explicitly requests that they do the analysis.'}
+      ], a:1, take:'Context, felt problem, priced recommendation, dated ask.' },
+
+    { id:'sw2', el:'whole',
+      stem:'Scrambled. Which order is correct?\n(1) "I recommend we add it now — half a day against a seven-figure risk."\n(2) "The scope was frozen last month and this line was not in it."\n(3) "What I need today is approval in principle; work pack Thursday."\n(4) "It is at 22% wall loss and the next window is eighteen months out."',
+      opts:[
+        {t:'2 → 4 → 1 → 3', w:'Shared ground, the felt problem, the recommendation, then the dated ask.'},
+        {t:'4 → 2 → 1 → 3', w:'Problem before context, so the number arrives before the listener knows why this line is being discussed at all.'},
+        {t:'2 → 1 → 4 → 3', w:'Recommendation before the problem — you are asking for a decision before establishing why one is needed.'},
+        {t:'2 → 4 → 3 → 1', w:'Next steps before the recommendation, so you ask for approval of something you have not yet proposed.'}
+      ], a:0, take:'Ground, problem, recommendation, ask. In that order.' },
+
+    { id:'sw3', el:'whole',
+      stem:'You have five minutes instead of fifteen. What do you cut?',
+      opts:[
+        {t:'The Next Steps, since you can follow up by email.', w:'The close is the only slot that converts the meeting into a decision. Cutting it wastes the other four minutes.'},
+        {t:'Most of the Context, and compress the Problem to its sharpest number.', w:'Context is almost always the compressible slot, and a felt problem can be one sentence with one number. Recommendation and Next Steps must survive intact.'},
+        {t:'The Recommendation, and just present the problem for now.', w:'A problem with no recommendation is exactly the thing this framework exists to prevent.'},
+        {t:'The Problem, since the recommendation implies it.', w:'Without the problem, the recommendation has no reason to be accepted.'}
+      ], a:1, take:'Under time pressure, cut context. Never cut the ask.' },
+
+    { id:'sw4', el:'whole',
+      stem:'Which of these is NOT a stakeholder meeting, despite being well structured?',
+      opts:[
+        {t:'"Scope was frozen; the line is at 22% and accelerating; I recommend adding it; I need approval today."', w:'Complete and correct.'},
+        {t:'"Here is what we found, here is how we found it, here is what it means technically, and here are the implications for the integrity case."', w:'A well-ordered technical briefing. It informs thoroughly and never asks for anything — so no decision can result. Structure without an ask is a report, not a stakeholder meeting.'},
+        {t:'"We agreed this in June; nothing has moved because there is no owner; I recommend you assign one; can you name them this week?"', w:'An escalation, correctly structured.'},
+        {t:'"Headcount did not change when scope grew; we are deferring one inspection a month; I recommend one more engineer; I need a yes or no before the 30th."', w:'A resourcing case, correctly structured.'}
+      ], a:1, take:'No ask means no decision. That is a report, not a meeting.' },
+
+    { id:'sw5', el:'whole',
+      stem:'The meeting goes off on a tangent about a different line. What is the best recovery?',
+      opts:[
+        {t:'Follow the tangent — it is what they want to discuss.', w:'Sometimes the tangent is the real business. Usually it is how your item quietly fails to get decided.'},
+        {t:'"Happy to come back to that — before we run out of time, can I get your steer on the flare line?"', w:'Acknowledges without dismissing, names the time constraint as shared, and steers back to the ask. This is one of the most useful sentences in professional life.'},
+        {t:'Wait for the tangent to finish and hope there is time.', w:'There usually is not, and you have surrendered the agenda.'},
+        {t:'Say the tangent is out of scope for this meeting.', w:'Accurate, and it reads as rigid — especially if raised by someone senior.'}
+      ], a:1, take:'"Before we run out of time…" is how you reclaim a meeting.' },
+
+    { id:'sw6', el:'whole',
+      stem:'What is the most common reason a well-prepared stakeholder meeting produces nothing?',
+      opts:[
+        {t:'The analysis was not strong enough.', w:'Analysis is rarely the binding constraint — technical people usually over-prepare it.'},
+        {t:'It ended without a named decision, owner and date.', w:'Almost every failed escalation is a good case that finished on "thoughts?" or "leave it with me". The work was done and then not converted.'},
+        {t:'The wrong people were in the room.', w:'It happens, and it is much rarer than a soft close.'},
+        {t:'There was not enough time.', w:'Time pressure usually reveals a weak close rather than causing one.'}
+      ], a:1, take:'Good cases fail at the close, not the analysis.' },
+
+    { id:'sw7', el:'whole',
+      stem:'All four bring a recommendation. Which is strongest?',
+      opts:[
+        {t:'"I recommend adding it. It is the right thing to do from an integrity standpoint."', w:'A professional judgement asserted as self-evident, with no cost and no ask.'},
+        {t:'"I recommend adding it: half a day and 180 thousand against a seven-figure unplanned risk. If the survey were older I would say differently, but it is three weeks old. I need approval in principle today."', w:'Priced, pre-empts the obvious challenge by naming what would change the view, and closes with a dated ask. Very hard to defer.'},
+        {t:'"I recommend adding it, and I have costed three variants depending on how much scope you want to take."', w:'Thorough, but it reintroduces a menu at the moment of decision and dilutes the recommendation.'},
+        {t:'"I recommend adding it, though ultimately this is your call on risk appetite."', w:'Recommends and then quietly retracts. "Ultimately your call" invites the deferral.'}
+      ], a:1, take:'Price it, pre-empt the challenge, and put a date on the ask.' },
+
+    { id:'sw8', el:'whole',
+      stem:'Why do technical specialists find this framework hardest?',
+      opts:[
+        {t:'Because it requires numbers they may not have.', w:'They usually have more numbers than anyone.'},
+        {t:'Because their training rewards completeness and neutrality, and this framework requires compression and a position.', w:'Good technical work is exhaustive and even-handed. This framework demands the opposite — cut the context, price the consequence, and commit to a view. The skill is not knowing more; it is being willing to choose.'},
+        {t:'Because they are uncomfortable speaking to senior people.', w:'Sometimes true, but the structural conflict is about habits of thought, not nerves.'},
+        {t:'Because the framework is technically imprecise.', w:'It is not imprecise — it is differently targeted.'}
+      ], a:1, take:'Completeness and neutrality are virtues here. This slot needs neither.' }
+  ]
+};
+
+/* ============================================================
+   Chapter 7 — Bad News
+   ============================================================ */
+const CH_BADNEWS = {
+  id:'badnews', n:7,
+  title:'Bad News',
+  subtitle:'State → Reason → Plan → Support',
+  blurb:'How to deliver something nobody wants to hear without making it worse.',
+  idea:[
+    `Delivering bad news badly is one of the most expensive communication failures there is, and almost all of the damage comes from a single instinct: delay. People cushion, contextualise and circle, believing they are being kind.`,
+    `They are not. The listener senses what is coming from your first sentence and spends the entire cushion braced, unable to hear anything. Worse, the delay itself communicates that you think they cannot handle it — and when the news finally lands, it arrives with the added insult of having been managed.`,
+    `Say it early, say it clearly, and then do the work. The Plan is what separates bad news from a wound: news with a plan is a situation being handled, and news without one is just damage delivered by a messenger. The Support slot is what keeps you human while you do it.`
+  ],
+  whenToUse:[
+    'Telling someone a deadline, budget or commitment will not be met',
+    'Delivering an unwelcome decision you did not make',
+    'Reporting a failure, defect or incident upward',
+    'Any conversation you have been putting off'
+  ],
+  elements:[
+    { name:'State', key:'state', color:'var(--teal)',
+      job:'Say the bad news plainly, early, in one sentence.',
+      fail:'Classic failure: the cushion. Two minutes of context, praise or scene-setting before the news, during which the listener braces and absorbs nothing. The opposite failure — blurting it cruelly — is real but far rarer.' },
+    { name:'Reason', key:'reason', color:'var(--orange)',
+      job:'Explain briefly and factually why, without excuses or blame.',
+      fail:'Classic failure: over-explaining to relieve your own discomfort. Long justification serves you, not them — and every extra sentence sounds more like an excuse than the one before it.' },
+    { name:'Plan', key:'plan', color:'var(--gold)',
+      job:'Say what happens now — what you are doing, and what is being protected.',
+      fail:'Classic failure: no plan at all, which leaves the listener holding damage with nothing to do about it. This is the difference between "a problem is being handled" and "a problem has been transferred to you".' },
+    { name:'Support', key:'support', color:'var(--blue)',
+      job:'Acknowledge the impact on them, and offer something specific.',
+      fail:'Classic failure: the hollow offer — "let me know if you need anything" — which places the burden of asking on the person you just hurt. Specific beats generous.' }
+  ],
+  examples:[
+    { label:'Missing a commitment', prompt:'Telling a project manager the inspection report will be late.',
+      lines:[
+        {el:'State', c:'var(--teal)', t:'The inspection report will not be with you Friday. It will be Wednesday.'},
+        {el:'Reason', c:'var(--orange)', t:'Two of the fourteen circuits needed scaffold that only went up yesterday, so the field data is three days behind.'},
+        {el:'Plan', c:'var(--gold)', t:'I will send you the eleven completed circuits on Friday as planned, so you can start the review, and the final three follow Wednesday. Nothing in the eleven is likely to change.'},
+        {el:'Support', c:'var(--blue)', t:'I know that squeezes your sign-off window. If it helps, I will do the Wednesday walk-through with your team directly so you are not re-reading it cold.'}
+      ]},
+    { label:'Unwelcome decision you did not make', prompt:'Telling your team a budget request was refused.',
+      lines:[
+        {el:'State', c:'var(--teal)', t:'We did not get the second inspection engineer. The answer was no for this cycle.'},
+        {el:'Reason', c:'var(--orange)', t:'The headcount envelope was cut across the whole asset, not just us. It was not a judgement about our case.'},
+        {el:'Plan', c:'var(--gold)', t:'So we cannot keep absorbing it quietly. I am taking the deferral list to the asset manager monthly, in writing, so the risk sits where the decision was made rather than with us. And I am re-ranking the schedule so what we do cover is the highest-consequence equipment.'},
+        {el:'Support', c:'var(--blue)', t:'I know this lands on you as more pressure. I am not asking anyone to work longer to close the gap — if something slips because we are short, that is mine to carry, not yours.'}
+      ]},
+    { label:'Reporting a failure upward', prompt:'Telling your manager an inspection was missed.',
+      lines:[
+        {el:'State', c:'var(--teal)', t:'We missed an inspection due last month on V-2103. It was not deferred — it was overlooked.'},
+        {el:'Reason', c:'var(--orange)', t:'It moved between two schedules during the re-ranking and fell out of both. That is my process, and I own it.'},
+        {el:'Plan', c:'var(--gold)', t:'It was inspected on Tuesday and it is fit for service, so there is no live risk. I have reconciled the two schedules and found one other item in the same state, which is booked for next week. I have added a monthly cross-check so the gap cannot reopen.'},
+        {el:'Support', c:'var(--blue)', t:'If this needs to go into the monthly report, I would rather write it up myself and take the questions.'}
+      ]},
+    { label:'Outside work', prompt:'Cancelling on a friend late.',
+      lines:[
+        {el:'State', c:'var(--teal)', t:'I am not going to make Saturday.'},
+        {el:'Reason', c:'var(--orange)', t:'I am on call and the cover fell through this morning.'},
+        {el:'Plan', c:'var(--gold)', t:'I have put two dates in for the following week and I will book the table this time.'},
+        {el:'Support', c:'var(--blue)', t:'I know you arranged it around me and that is annoying. Genuinely sorry.'}
+      ]}
+  ],
+  weakStrong:{
+    prompt:'The inspection report will be three working days late.',
+    weak:'So, first, I want to say the team have worked incredibly hard on this and the quality is going to be really good. It has been a difficult campaign — access problems, the scaffold contractor was short-staffed, weather did not help. We have done fourteen circuits which is a big scope. Obviously there have been some delays along the way, and the reporting has been affected somewhat by that, so the timeline may need to shift a little from what we originally discussed. I am sorry about that.',
+    weakWhy:'The news never actually arrives — "the timeline may need to shift a little" is as close as it gets, and it is both vague and passive. The listener spent the whole cushion braced, still does not know the new date, and has been given four excuses and no plan.',
+    strong:'The report will not be with you Friday — it will be Wednesday. Two circuits needed scaffold that only went up yesterday, so the field data is three days behind. I will send the eleven completed circuits Friday as planned so you can start reviewing, and the last three follow Wednesday; nothing in the eleven is likely to change. I know that squeezes your sign-off window — if it helps, I will walk your team through the final three directly.',
+    strongWhy:'News in the first sentence with the new date attached. One factual reason, no blame. A plan that protects most of what the listener needed. And support that is specific enough to actually reduce their problem.'
+  },
+  questions:[
+    /* --- STATE --- */
+    { id:'st1', el:'state', check:true,
+      stem:'Why is cushioning bad news usually unkind rather than kind?',
+      opts:[
+        {t:'It wastes the listener\'s time.', w:'True but trivial next to the real cost.'},
+        {t:'The listener senses it coming and spends the cushion braced, absorbing nothing.', w:'Tone and preamble telegraph bad news instantly. Everything you say in the cushion is heard through dread — so the kindness is not received, and the news lands anyway, just later and with more anxiety attached.'},
+        {t:'It makes you look unprofessional.', w:'A cost to you, not the reason it fails the listener.'},
+        {t:'It gives them time to prepare an angry response.', w:'This framing treats the listener as an adversary, which is the wrong instinct entirely.'}
+      ], a:1, take:'They already know it is coming. The cushion only extends the dread.' },
+
+    { id:'st2', el:'state', check:true,
+      stem:'Which State is best?',
+      opts:[
+        {t:'"There may need to be some movement on the timeline we discussed."', w:'Passive, vague, and it never says what is actually happening. The listener has to interrogate you to extract the news.'},
+        {t:'"The report will not be with you Friday — it will be Wednesday."', w:'The news and the new position in one sentence. The listener can start thinking about the real situation immediately.'},
+        {t:'"I have some bad news about the report, I am afraid."', w:'Announces bad news without delivering it, which creates a beat of pure dread. If you have started, finish the sentence.'},
+        {t:'"The report is late."', w:'Direct, but it withholds the one thing they need most — the new date — so it invites an anxious question instead of resolving one.'}
+      ], a:1, take:'State the news and the new position in the same sentence.' },
+
+    { id:'st3', el:'state', check:true,
+      stem:'Is there any case for warming up before bad news?',
+      opts:[
+        {t:'No — always lead with the news, in every circumstance.', w:'Nearly always right, but stated as an absolute it fails for genuinely serious personal news.'},
+        {t:'A brief signal that a difficult conversation is starting can help — but it must be seconds, not minutes.', w:'"I need to tell you something difficult" gives one beat to sit down and pay attention. The failure is not the signal; it is the two minutes of praise and context that usually follow it.'},
+        {t:'Yes — always establish rapport first so the news lands softly.', w:'This is precisely the instinct that produces the cushion.'},
+        {t:'Yes, if the news is your fault.', w:'When it is your fault, delay looks like evasion, which makes it worse.'}
+      ], a:1, take:'A one-beat signal is fine. A two-minute cushion is not.' },
+
+    { id:'st4', el:'state', check:true,
+      stem:'Which is the subtlest State failure?',
+      opts:[
+        {t:'Delivering it too bluntly.', w:'Real, but comparatively rare — and at least the listener knows where they stand.'},
+        {t:'Stating it clearly but in the passive voice: "the deadline has been missed."', w:'It sounds like a clean statement of fact, but the passive removes the agent — nobody missed it, it simply happened. The listener hears both the news and an evasion, and the evasion is what they remember.'},
+        {t:'Using the word "unfortunately".', w:'Mildly softening, not structurally damaging.'},
+        {t:'Stating it by email rather than in person.', w:'A channel question, and sometimes email is correct.'}
+      ], a:1, take:'"Mistakes were made" is not a statement. Name the agent.' },
+
+    { id:'st5', el:'state',
+      stem:'The news is genuinely uncertain — it might be late. How should you State it?',
+      opts:[
+        {t:'Wait until you know for certain before saying anything.', w:'The most common and most damaging choice. Late warning removes the listener\'s ability to do anything about it, and they will ask why they were not told sooner.'},
+        {t:'State the risk plainly, with your best estimate and when you will know: "there is a real chance this slips to Wednesday; I will know for certain Thursday morning."', w:'Early warning with a named date for certainty lets them plan. Flagging risk is not crying wolf — it is the whole point of early warning.'},
+        {t:'Mention it casually so it does not alarm anyone.', w:'Under-signalling means they do not act, and then the surprise is your fault twice.'},
+        {t:'Say it will probably be fine but you are watching it.', w:'Reassurance that removes their ability to plan, and destroys your credibility if it slips.'}
+      ], a:1, take:'Warn early with a date for certainty. Do not wait to be sure.' },
+
+    /* --- REASON --- */
+    { id:'rn1', el:'reason', check:true,
+      stem:'How long should the Reason be?',
+      opts:[
+        {t:'As long as needed to make them understand fully.', w:'Full understanding is rarely what they want, and the pursuit of it is how the slot becomes a defence.'},
+        {t:'Brief and factual — usually one or two sentences.', w:'Enough to make the news comprehensible and no more. Length in this slot is almost always about your discomfort, not their need.'},
+        {t:'Long enough to show it was not your fault.', w:'The moment the Reason is aimed at absolving you, it becomes an excuse and the listener hears it as one.'},
+        {t:'It can be omitted entirely.', w:'Without a reason the news feels arbitrary, which breeds suspicion.'}
+      ], a:1, take:'If the Reason is getting longer, it is serving you, not them.' },
+
+    { id:'rn2', el:'reason', check:true,
+      stem:'Which Reason is strongest?',
+      opts:[
+        {t:'"Access was a nightmare, the scaffold contractor was short, the weather was against us, and permits took longer than they should have."', w:'Four causes reads as four excuses. It also suggests nothing was under your control, which invites the question of what you were doing.'},
+        {t:'"Two of the fourteen circuits needed scaffold that only went up yesterday, so the field data is three days behind."', w:'One proximate cause, specific and verifiable, with a clear line to the delay. Nothing defensive in it.'},
+        {t:'"There were a number of factors outside our control."', w:'Vague and defensive in a single stroke. It tells them nothing and signals you would rather not say.'},
+        {t:'"Honestly, we underestimated the scope at planning stage."', w:'Admirably honest and a legitimate choice — but as the whole reason it is about your process failure rather than their situation. Own it, in fewer words, then move to the plan.'}
+      ], a:1, take:'One proximate cause. Four causes sound like four excuses.' },
+
+    { id:'rn3', el:'reason', check:true,
+      stem:'The delay genuinely was another team\'s fault. Do you name them?',
+      opts:[
+        {t:'Yes — accuracy matters and the listener deserves the truth.', w:'It is accurate and it usually costs you more than it gains. The room hears blame-shifting, and the other team hears it within a day.'},
+        {t:'State the factual cause without the accusatory frame: "the scaffold went up three days late."', w:'Same facts, no verdict. Anyone who needs to know whose scaffold it was can ask — and you have stayed factual without becoming the person who blames.'},
+        {t:'No — take responsibility for it yourself.', w:'Absorbing blame that is not yours distorts the record and stores up trouble.'},
+        {t:'Mention it indirectly so they work it out.', w:'Implied blame with deniability is worse than direct blame.'}
+      ], a:1, take:'Name the cause, not the culprit.' },
+
+    { id:'rn4', el:'reason', check:true,
+      stem:'When it genuinely is your fault, what should the Reason do?',
+      opts:[
+        {t:'Own it in one plain sentence, then move to the plan.', w:'"It moved between two schedules and fell out of both — that is my process and I own it." Clean ownership takes one sentence and buys you the right to be trusted with the fix.'},
+        {t:'Explain the circumstances that contributed, so it is understood in context.', w:'Context offered alongside your own fault is heard as mitigation, however fairly you mean it.'},
+        {t:'Apologise at length to show you understand the seriousness.', w:'Extended apology makes the listener manage your feelings on top of their own problem.'},
+        {t:'Focus on the plan and skip the ownership.', w:'Skipping ownership is noticed, and it undermines the plan.'}
+      ], a:0, take:'Own it in one sentence. Then spend your words on the plan.' },
+
+    { id:'rn5', el:'reason',
+      stem:'Which Reason quietly makes things worse?',
+      opts:[
+        {t:'"The scaffold went up three days late."', w:'Factual and neutral.'},
+        {t:'"To be fair, this was always going to be tight given what we were asked to do in the time."', w:'It reframes the failure as the listener\'s unreasonable expectation. Even when true, delivering it now is heard as a counter-accusation at the moment they are absorbing bad news — so you lose the sympathy the plan needed.'},
+        {t:'"We underestimated the scaffold lead time."', w:'Honest ownership.'},
+        {t:'"Two circuits needed access we did not have until yesterday."', w:'Neutral and specific.'}
+      ], a:1, take:'"To be fair" before a reason usually means you are about to blame them.' },
+
+    /* --- PLAN --- */
+    { id:'pl1', el:'plan', check:true,
+      stem:'Why is the Plan the most important slot?',
+      opts:[
+        {t:'It shows you are competent.', w:'It does, but that is a side effect rather than the function.'},
+        {t:'It converts damage into a situation being handled, rather than a problem transferred to the listener.', w:'Without a plan you have handed them a problem. With one, you have handed them a status update on something you are managing — which is an entirely different conversation.'},
+        {t:'It shortens the conversation.', w:'Often true, and not the reason it matters.'},
+        {t:'It prevents them from getting angry.', w:'It usually reduces anger, but anger management is not its purpose.'}
+      ], a:1, take:'No plan means you did not deliver news — you transferred a problem.' },
+
+    { id:'pl2', el:'plan', check:true,
+      stem:'Which Plan is strongest?',
+      opts:[
+        {t:'"We are doing everything we can to catch up."', w:'Effort with no content. It reassures nobody because it commits to nothing.'},
+        {t:'"I will send the eleven completed circuits Friday so you can start reviewing, and the final three Wednesday. Nothing in the eleven is likely to change."', w:'It protects most of what the listener actually needed, gives them something to do now, and reduces their exposure rather than just describing yours.'},
+        {t:'"I will keep you updated as things develop."', w:'Promises information later instead of action now.'},
+        {t:'"We have escalated it internally and are awaiting guidance."', w:'Describes internal process and leaves the listener with nothing.'}
+      ], a:1, take:'The best plans protect what the listener needed most.' },
+
+    { id:'pl3', el:'plan', check:true,
+      stem:'You genuinely do not have a plan yet. What is the best move?',
+      opts:[
+        {t:'Delay the conversation until you do.', w:'Delaying bad news to prepare a plan is how people find out from someone else, which is far worse.'},
+        {t:'State the news, then commit to a plan by a named time: "I do not have a recovery plan yet — I will have one with you by four."', w:'A dated commitment to a plan is itself a plan. It gives the listener certainty about when uncertainty ends, which is most of what they need in the moment.'},
+        {t:'Offer a provisional plan you are not confident in.', w:'A plan you do not believe will fail publicly, and then you have spent your credibility as well.'},
+        {t:'Ask them what they would like you to do.', w:'Occasionally appropriate, but as a default it hands your job back at the worst moment.'}
+      ], a:1, take:'"A plan by four" is a plan. Never delay the news to build one.' },
+
+    { id:'pl4', el:'plan', check:true,
+      stem:'What should a Plan always make clear?',
+      opts:[
+        {t:'Who is to blame for the original problem.', w:'Blame belongs nowhere in this framework, least of all here.'},
+        {t:'What is being protected, and what the listener can rely on.', w:'Bad news makes people uncertain about everything. Naming what still holds ("the eleven circuits are unaffected") restores footing faster than anything else you can say.'},
+        {t:'How hard the team is working.', w:'Effort is not reassurance.'},
+        {t:'The full technical detail of the recovery.', w:'Detail can come later; certainty is needed now.'}
+      ], a:1, take:'Say what still holds. That is what stops the spiral.' },
+
+    { id:'pl5', el:'plan',
+      stem:'The bad news is a decision you did not make and cannot change. What is the Plan?',
+      opts:[
+        {t:'There is no plan — the decision is final, so you simply deliver it.', w:'This is why relayed bad news is so often delivered badly. Even when the decision is fixed, how you operate under it is not.'},
+        {t:'What you will do differently under the new constraint, and how the consequences will be made visible.', w:'"I am taking the deferral list up monthly in writing, and re-ranking by consequence" is a real plan. You cannot change the decision, but you can decide how the team works within it and ensure the cost is seen where the decision was made.'},
+        {t:'A commitment to appeal the decision.', w:'Usually unrealistic, and it sets up a second disappointment.'},
+        {t:'Reassurance that it will not affect the team much.', w:'If untrue, it destroys trust the moment it turns out to be untrue.'}
+      ], a:1, take:'You cannot change the decision. You can decide how you operate under it.' },
+
+    /* --- SUPPORT --- */
+    { id:'su1', el:'support', check:true,
+      stem:'What is wrong with "let me know if you need anything"?',
+      opts:[
+        {t:'It is too informal.', w:'Register is not the issue.'},
+        {t:'It places the burden of asking on the person you have just given bad news to.', w:'They now have to identify what would help, decide whether it is reasonable, and ask you for it — work you have offloaded onto them at their worst moment. It is generous in form and empty in function.'},
+        {t:'It sounds insincere.', w:'It is usually entirely sincere, which is why the failure is easy to miss.'},
+        {t:'It is too vague to be professional.', w:'Vagueness is the symptom; the transferred burden is the cost.'}
+      ], a:1, take:'A real offer names the thing. "Anything" names nothing.' },
+
+    { id:'su2', el:'support', check:true,
+      stem:'Which Support is strongest?',
+      opts:[
+        {t:'"Let me know if there is anything I can do to help."', w:'The hollow offer. Well-meant, and it does nothing.'},
+        {t:'"I know that squeezes your sign-off window. If it helps, I will walk your team through the final three directly so you are not re-reading it cold."', w:'It names the specific harm and offers a specific action that reduces it. They can accept with one word.'},
+        {t:'"I really am very sorry about this, genuinely."', w:'Apology is not support. Repeated apology asks them to comfort you.'},
+        {t:'"I understand this is frustrating for you."', w:'Acknowledgement without an offer. A good first half of a Support slot with the second half missing.'}
+      ], a:1, take:'Name the harm, then offer one specific thing.' },
+
+    { id:'su3', el:'support', check:true,
+      stem:'What are the two halves of a good Support slot?',
+      opts:[
+        {t:'An apology and a promise it will not recur.', w:'Promises about recurrence belong in the Plan, and often cannot be honestly made.'},
+        {t:'Acknowledging the specific impact on them, and offering something specific in return.', w:'Acknowledgement makes them feel seen; the specific offer gives them something to accept. Either alone is half a slot.'},
+        {t:'Explaining your position and asking for understanding.', w:'That asks for support rather than offering it.'},
+        {t:'Reassurance and optimism.', w:'Premature optimism reads as minimising what just happened.'}
+      ], a:1, take:'Acknowledge the specific harm, then offer a specific thing.' },
+
+    { id:'su4', el:'support', check:true,
+      stem:'You are delivering bad news to your own team. What does Support look like?',
+      opts:[
+        {t:'Reassure them that everything will work out.', w:'Unfounded reassurance from a manager is remembered as either naive or dishonest.'},
+        {t:'Name where the burden will and will not fall — especially what you are carrying yourself.', w:'"I am not asking anyone to work longer to close the gap — if something slips, that is mine to carry" tells them exactly what to expect and puts the load where the authority is. That is what support means from someone with power over them.'},
+        {t:'Ask how they feel about it.', w:'Well-intentioned, but without first saying what you are doing it can feel like a survey rather than leadership.'},
+        {t:'Emphasise that the decision was not yours.', w:'Distancing yourself from a decision you must now implement reads as weakness and leaves the team with nobody accountable.'}
+      ], a:1, take:'To a team, support means naming what you will carry yourself.' },
+
+    { id:'su5', el:'support',
+      stem:'The listener reacts with visible anger. What is the best response?',
+      opts:[
+        {t:'Defend the reason again, more thoroughly.', w:'Re-arguing the cause into anger escalates reliably.'},
+        {t:'Let it land, acknowledge it plainly, and hold the plan: "that is fair — here is what I am doing about it."', w:'Anger usually needs to be received rather than answered. Acknowledging without collapsing, then returning to the plan, gives it somewhere to go.'},
+        {t:'Apologise repeatedly until they calm down.', w:'Repeated apology often reads as pleading and can prolong the reaction.'},
+        {t:'Suggest discussing it when they are calmer.', w:'Occasionally necessary, and usually heard as a dismissal.'}
+      ], a:1, take:'Receive the anger, then return to the plan. Do not re-argue the cause.' },
+
+    /* --- WHOLE --- */
+    { id:'bw1', el:'whole',
+      stem:'Which delivery is strongest?',
+      opts:[
+        {t:'"The team have worked incredibly hard, it has been a difficult campaign with access and weather problems, and inevitably the reporting timeline may need to shift somewhat from what we discussed."', w:'The news never actually arrives, and the listener has absorbed nothing but dread and excuses.'},
+        {t:'"The report will not be with you Friday — it will be Wednesday. Two circuits needed scaffold that only went up yesterday. I will send the eleven completed circuits Friday so you can start, and the last three Wednesday. I know that squeezes your sign-off; I will walk your team through the final three directly."', w:'News first with the new date, one factual reason, a plan that protects most of their need, and specific support.'},
+        {t:'"The report is going to be late, I am afraid. It is a combination of things really. We will get it to you as soon as we possibly can."', w:'News delivered, then vagueness on both cause and recovery. The listener still cannot plan anything.'},
+        {t:'"Report is late. Scaffold. Wednesday."', w:'Admirably direct, and the absent Support makes it read as indifference to an impact you caused.'}
+      ], a:1, take:'News, one reason, a plan that protects them, specific support.' },
+
+    { id:'bw2', el:'whole',
+      stem:'Scrambled. Which order is correct?\n(1) "Two circuits needed scaffold that only went up yesterday."\n(2) "I know that squeezes your sign-off — I will walk your team through the last three."\n(3) "The report will not be with you Friday; it will be Wednesday."\n(4) "I will send the eleven completed circuits Friday so you can start reviewing."',
+      opts:[
+        {t:'3 → 1 → 4 → 2', w:'News, reason, plan, support. Correct.'},
+        {t:'1 → 3 → 4 → 2', w:'Reason before news — this is the cushion in miniature. The listener hears about scaffold while braced for something worse.'},
+        {t:'3 → 4 → 1 → 2', w:'Plan before reason leaves the listener wondering why, and the reason then sounds like an afterthought defence.'},
+        {t:'3 → 1 → 2 → 4', w:'Support before plan, so you sympathise before saying what you are doing — which reads as consolation instead of competence.'}
+      ], a:0, take:'News, reason, plan, support. Never reason first.' },
+
+    { id:'bw3', el:'whole',
+      stem:'Which slot is missing? "The report will be Wednesday, not Friday. Two circuits needed late scaffold. I know that squeezes your sign-off window and I am sorry about that."',
+      opts:[
+        {t:'State', w:'Present, clear, with the new date.'},
+        {t:'Reason', w:'Present and appropriately brief.'},
+        {t:'Plan', w:'Nothing is said about what happens now — no partial delivery, no protection of what they need, no mitigation. The listener is left holding the delay with nothing to work with, which is exactly the gap that turns news into a wound.'},
+        {t:'Support', w:'Present — the impact is acknowledged, though it would be stronger with a specific offer.'}
+      ], a:2, take:'Sympathy without a plan is just a well-mannered problem transfer.' },
+
+    { id:'bw4', el:'whole',
+      stem:'Why does bad news delivered by email so often go wrong?',
+      opts:[
+        {t:'Email is inherently impersonal.', w:'Email is often the right channel, especially for a record.'},
+        {t:'Writers cushion far more in writing, and the reader cannot ask the question that would resolve their worst assumption.', w:'People pad more when they cannot see a face, and the reader is left alone with ambiguity and no way to test it. If you must write it, be even more direct and pre-empt the obvious question.'},
+        {t:'It creates a permanent record.', w:'A record is usually an advantage.'},
+        {t:'The reader may forward it.', w:'A real consideration, and not why the delivery itself fails.'}
+      ], a:1, take:'In writing, be MORE direct — they cannot ask a clarifying question.' },
+
+    { id:'bw5', el:'whole',
+      stem:'What is the most common overall failure in delivering bad news?',
+      opts:[
+        {t:'Being too blunt.', w:'It happens, and it is far rarer than people fear — which is precisely why they over-correct.'},
+        {t:'Delay: cushioning, contextualising, and circling before the news arrives.', w:'Almost every bad delivery is a variant of not saying it soon enough. Everything else — vagueness, excuses, passive voice — tends to be a symptom of the same avoidance.'},
+        {t:'Not apologising enough.', w:'Over-apologising is the more common error.'},
+        {t:'Giving too much detail about the plan.', w:'Rarely a problem; the plan is usually too thin.'}
+      ], a:1, take:'Nearly every failure here is a delay dressed as kindness.' },
+
+    { id:'bw6', el:'whole',
+      stem:'You must deliver bad news you personally disagree with. What is the right approach?',
+      opts:[
+        {t:'Make clear it was not your decision so they know where you stand.', w:'Comfortable for you and corrosive for them — it leaves the team with a decision nobody will own and a manager who has stepped outside the chain.'},
+        {t:'Deliver it as a decision that now stands, own how you will operate under it, and take your disagreement upward, not downward.', w:'You can be honest that you argued differently without distancing yourself from implementation. The team needs someone accountable in front of them; the place for your objection is where the decision gets made.'},
+        {t:'Pretend to agree with it fully.', w:'Feigned enthusiasm is usually transparent and costs your credibility.'},
+        {t:'Deliver it neutrally with no personal position at all.', w:'Workable, but pure neutrality can read as detachment when people are looking for leadership.'}
+      ], a:1, take:'Disagree upward. Own implementation downward.' },
+
+    { id:'bw7', el:'whole',
+      stem:'All four lead with the news. Which is strongest overall?',
+      opts:[
+        {t:'"We missed an inspection on V-2103 — overlooked, not deferred. It fell between two schedules. That is my process and I own it."', w:'Excellent State and Reason with clean ownership — but it stops before any plan, leaving the manager holding an unresolved risk.'},
+        {t:'"We missed an inspection on V-2103 — overlooked, not deferred. It fell between two schedules; that is my process and I own it. It was inspected Tuesday and is fit for service, and I found one other item in the same state, booked next week. I have added a monthly cross-check. If it needs to go in the monthly report, I would rather write it up and take the questions."', w:'News, ownership, a plan that closes the live risk AND the systemic gap, plus support that takes the exposure rather than passing it on. This is how a Lead reports a failure.'},
+        {t:'"We missed an inspection on V-2103. These things happen with the volume we are carrying. It has been done now and it is fine."', w:'Leads well and then minimises — "these things happen" is an excuse, and "it is fine" closes down a conversation the manager may need to have.'},
+        {t:'"We missed an inspection on V-2103. I am extremely sorry, it should not have happened and I take full responsibility. I feel terrible about it."', w:'Heavy on apology and ownership, entirely absent on plan — so the manager must now reassure you and solve the problem.'}
+      ], a:1, take:'Close the live risk AND the systemic gap. That is seniority.' },
+
+    { id:'bw8', el:'whole',
+      stem:'Which single change most improves most people\'s bad-news delivery?',
+      opts:[
+        {t:'Apologise more sincerely.', w:'Most people already over-apologise.'},
+        {t:'Move the news to the first sentence and put the saved time into the plan.', w:'Two failures share one cure. The cushion is where the time goes, and the plan is where it is missing — moving it from one to the other fixes the majority of bad deliveries in a single stroke.'},
+        {t:'Deliver it in person rather than in writing.', w:'Often better, but channel choice is secondary to structure.'},
+        {t:'Give more detail about the causes.', w:'More cause detail almost always makes it worse.'}
+      ], a:1, take:'Move the news to sentence one. Spend the saved time on the plan.' }
+  ]
+};
+
+/* ============================================================
+   Chapter 8 — Technical Briefing
+   ============================================================ */
+const CH_TECH = {
+  id:'tech', n:8,
+  title:'Technical Briefing',
+  subtitle:'Thesis → Architecture → Demo → Takeaway',
+  blurb:'Presenting technical work to people who will not follow the technical detail.',
+  idea:[
+    `This is the shape for presenting technical work to an audience that cannot — and should not have to — follow your method. Its central skill is altitude control: choosing the level of resolution that serves this particular room, and holding it.`,
+    `Technical specialists fail here in a predictable way. They present in the order they did the work: method, then analysis, then findings, then implications. That is the logical order of the investigation and precisely the wrong order for the audience, who need the conclusion first and will judge whether to keep listening from your opening sentence.`,
+    `The other failure is treating detail as proof of rigour. It is not — it is the most common way to lose a room. Rigour is demonstrated by one well-chosen piece of evidence and by your ability to answer the questions that follow, not by showing all your working.`
+  ],
+  whenToUse:[
+    'Presenting findings to management or a review board',
+    'Explaining a technical recommendation to non-specialists',
+    'Handing over work to another discipline',
+    'Any moment your expertise must become someone else\'s decision'
+  ],
+  elements:[
+    { name:'Thesis', key:'thesis', color:'var(--teal)',
+      job:'State what the work means and what it requires — the conclusion, first.',
+      fail:'Classic failure: opening with what you did instead of what you found. "We carried out a survey of fourteen circuits using UT" tells the room about your activity; they wanted your verdict.' },
+    { name:'Architecture', key:'architecture', color:'var(--orange)',
+      job:'Give only the structure needed to make the thesis credible — at the right altitude for this room.',
+      fail:'Classic failure: the full method. This slot is not a description of your work; it is the minimum scaffolding that lets a non-specialist trust your conclusion.' },
+    { name:'Demo', key:'demo', color:'var(--gold)',
+      job:'Show one concrete thing — a reading, an image, a case — that makes it real.',
+      fail:'Classic failure: no demonstration at all, leaving the thesis as assertion; or a demo that proves something adjacent to your thesis rather than the thesis itself.' },
+    { name:'Takeaway', key:'takeaway', color:'var(--blue)',
+      job:'State what the audience should now do, decide, or carry away.',
+      fail:'Classic failure: ending on technical detail or on "happy to take questions", leaving the room to work out the implication themselves — which they will do wrongly, or not at all.' }
+  ],
+  examples:[
+    { label:'Findings to management', prompt:'Ten minutes at the monthly review.',
+      lines:[
+        {el:'Thesis', c:'var(--teal)', t:'One of our flare lines needs intercepting in this shutdown rather than the next, and I am asking for that decision today.'},
+        {el:'Architecture', c:'var(--orange)', t:'We track wall thickness on a fixed grid and trend it between campaigns. Most lines are stable. This one is not: the rate roughly doubled after a process change last year, and the trend is what matters here rather than any single reading.'},
+        {el:'Demo', c:'var(--gold)', t:'At the worst point we are at 22% wall loss. Eighteen months at the current rate puts it below our retirement limit — and here is the same location in the previous two campaigns, so you can see the acceleration rather than take my word for it.'},
+        {el:'Takeaway', c:'var(--blue)', t:'So: intercept now for about half a day and 180 thousand, or accept a materially higher chance of an unplanned outage inside a year. I recommend the former, and I need approval in principle today.'}
+      ]},
+    { label:'Handover to another discipline', prompt:'Briefing the process team.',
+      lines:[
+        {el:'Thesis', c:'var(--teal)', t:'The corrosion rate on this circuit is being driven by your operating change, not by the coating.'},
+        {el:'Architecture', c:'var(--orange)', t:'We compared the trend before and after the temperature increase last March, across three circuits with the same coating spec — one changed, two did not.'},
+        {el:'Demo', c:'var(--gold)', t:'The two unchanged circuits are flat. The changed one doubled. Same coating, same age, same environment — the only variable that moved is the operating temperature.'},
+        {el:'Takeaway', c:'var(--blue)', t:'So the decision is yours rather than mine: either we accept a shorter inspection interval on that circuit and I re-plan around it, or process reviews whether the temperature gain is worth it. I need to know which by the end of the month.'}
+      ]},
+    { label:'Explaining to a finance audience', prompt:'Justifying inspection spend.',
+      lines:[
+        {el:'Thesis', c:'var(--teal)', t:'We can cut about a third of our scaffold spend without increasing risk.'},
+        {el:'Architecture', c:'var(--orange)', t:'Today we inspect on a calendar — every circuit, every interval, regardless of condition. The alternative is to rank circuits by how fast they are actually degrading and inspect accordingly.'},
+        {el:'Demo', c:'var(--gold)', t:'Of the eleven circuits we opened last campaign, seven had not moved measurably in six years. That is scaffold, permits and downtime spent confirming what the data already told us.'},
+        {el:'Takeaway', c:'var(--blue)', t:'So: approve the move to risk-based intervals on those eleven, and the saving lands this budget year. The integrity case is already written; what I need is the decision.'}
+      ]},
+    { label:'Briefing a new team member', prompt:'Explaining what you do.',
+      lines:[
+        {el:'Thesis', c:'var(--teal)', t:'Our job is to know which equipment is degrading faster than planned, before it matters.'},
+        {el:'Architecture', c:'var(--orange)', t:'There are three pieces: a grid of measurement points, a history of readings, and a rate calculated between them. Almost everything we do is keeping those three honest.'},
+        {el:'Demo', c:'var(--gold)', t:'Here is one circuit where the rate doubled after a process change — nobody told us the temperature had moved, and the metal noticed before we did.'},
+        {el:'Takeaway', c:'var(--blue)', t:'So the habit to build is this: when a reading surprises you, look for what changed in the process before you doubt the reading.'}
+      ]}
+  ],
+  weakStrong:{
+    prompt:'Ten minutes with management on a corroding flare line.',
+    weak:'So we carried out our scheduled UT survey across fourteen circuits this campaign using the standard grid with a 5 MHz dual-element probe. Coverage was good other than two circuits where we had access constraints. The data was processed through our usual trending routine and compared against the previous three campaigns. Methodology is per the inspection basis document. Looking at the results, circuit 12 shows a wall loss progression that is above what we would model for the coating condition and service, likely CUI driven given the support locations and the insulation condition observed. Happy to take questions.',
+    weakWhy:'Presented in the order the work was done. Four sentences of method before any finding, the finding itself buried in technical language, no consequence, no ask, and a close that hands an unstructured room a request for questions they cannot formulate.',
+    strong:'One of our flare lines needs intercepting in this shutdown rather than the next, and I am asking for that decision today. We trend wall thickness between campaigns; most lines are stable, this one is not — the rate roughly doubled after last year\'s process change. At the worst point we are at 22% wall loss, and eighteen months at that rate puts us below the retirement limit. So: half a day and 180 thousand now, or a materially higher chance of an unplanned outage within the year. I recommend intercepting, and I need approval in principle today.',
+    strongWhy:'Conclusion and ask in the first sentence. Just enough architecture for a non-specialist to trust the number. One demonstration that makes it real. A takeaway framed as the decision the room actually has to make.'
+  },
+  questions:[
+    /* --- THESIS --- */
+    { id:'th1', el:'thesis', check:true,
+      stem:'Which opening is a Thesis rather than an activity report?',
+      opts:[
+        {t:'"We carried out our scheduled UT survey across fourteen circuits this campaign."', w:'What you did. The room now knows you were busy and nothing about what it means.'},
+        {t:'"One of our flare lines needs intercepting in this shutdown rather than the next."', w:'What the work means and what it requires. Everything after it becomes support for a conclusion already landed.'},
+        {t:'"I want to update you on the results of this campaign\'s inspection programme."', w:'An agenda announcement — it describes the talk instead of delivering its conclusion.'},
+        {t:'"There are some findings from the survey I think you should be aware of."', w:'Signals that something matters without saying what. It creates suspense where you wanted clarity.'}
+      ], a:1, take:'Open with what it means, never with what you did.' },
+
+    { id:'th2', el:'thesis', check:true,
+      stem:'Why do technical specialists so consistently open with method?',
+      opts:[
+        {t:'They are trying to establish credibility before making a claim.', w:'Partly true, and it is a side effect of something deeper.'},
+        {t:'They present in the order they did the work, which is the logical order of an investigation but the wrong order for an audience.', w:'Method, analysis, finding, implication is how the work was done and how technical papers are written. It is exactly inverted for a decision-making room, who need the conclusion first to know whether and how to listen.'},
+        {t:'They are more comfortable with method than with conclusions.', w:'Sometimes, but plenty of confident specialists still do it.'},
+        {t:'They assume the audience wants the detail.', w:'Some do assume this. The ordering habit runs deeper than the assumption.'}
+      ], a:1, take:'The order you did the work is the wrong order to present it.' },
+
+    { id:'th3', el:'thesis', check:true,
+      stem:'Your findings are genuinely ambiguous. What should the Thesis be?',
+      opts:[
+        {t:'Present the data and let the audience draw conclusions.', w:'Handing raw ambiguity to non-specialists guarantees they conclude something — usually the least conservative thing.'},
+        {t:'State the ambiguity as the finding, with its consequence: "we cannot yet tell whether this is coating failure or a process effect, and the two need different responses."', w:'Ambiguity is a legitimate thesis when you also say what it costs and what would resolve it. That is a conclusion about the state of knowledge, not an absence of one.'},
+        {t:'Present the most likely interpretation as if it were settled.', w:'Overstating confidence is how technical credibility is lost permanently.'},
+        {t:'Delay the briefing until you know more.', w:'Sometimes right — but if a decision depends on it, they need your honest current read.'}
+      ], a:1, take:'"We do not yet know, and here is what that costs" is a thesis.' },
+
+    { id:'th4', el:'thesis', check:true,
+      stem:'Which Thesis is subtly weak?',
+      opts:[
+        {t:'"This line needs intercepting in this shutdown, and I am asking for that decision today."', w:'Conclusion plus ask. Strong.'},
+        {t:'"Circuit 12 shows a wall loss progression above what we would model for the coating condition and service."', w:'It is a genuine finding rather than an activity report — so it passes the obvious test — but it is stated in specialist language with no consequence attached. The room cannot tell whether this is routine or serious, so a correct thesis still fails.'},
+        {t:'"We can cut about a third of our scaffold spend without increasing risk."', w:'A conclusion in the audience\'s currency.'},
+        {t:'"The corrosion rate on this circuit is being driven by your operating change, not the coating."', w:'A clear, contestable conclusion aimed at the right audience.'}
+      ], a:1, take:'A finding in specialist language is still not a thesis.' },
+
+    { id:'th5', el:'thesis',
+      stem:'What is the best way to open when the room will resist your conclusion?',
+      opts:[
+        {t:'Build the evidence first so the conclusion is unavoidable by the time you state it.', w:'The classic instinct, and it usually fails: a room that does not know where you are heading cannot tell which evidence matters, and resistant listeners fill the gap with their own conclusion.'},
+        {t:'State the thesis anyway, and add what would change your mind.', w:'Leading with the conclusion and naming your own falsification condition makes you sound confident and non-defensive at once — and it invites challenge on the evidence rather than on your motives.'},
+        {t:'Soften the thesis so it provokes less resistance.', w:'A softened thesis gets softened again by the room, and ends up meaning nothing.'},
+        {t:'Ask the room what they think first.', w:'This surrenders the frame and turns your briefing into their debate.'}
+      ], a:1, take:'Lead with it anyway — and name what would change your mind.' },
+
+    /* --- ARCHITECTURE --- */
+    { id:'ar1', el:'architecture', check:true,
+      stem:'What is the Architecture slot for?',
+      opts:[
+        {t:'Explaining your method so the work can be assessed.', w:'Full method belongs in a document. This slot exists for the audience in front of you.'},
+        {t:'Giving only the structure needed to make the thesis credible to this particular room.', w:'It is the minimum scaffolding for trust — and "minimum" is audience-dependent, which is why altitude control is the core skill of the chapter.'},
+        {t:'Demonstrating the rigour of your approach.', w:'Rigour shows in one well-chosen piece of evidence and in your answers under questioning, not in volume of method.'},
+        {t:'Providing background on the technical domain.', w:'Domain tutorials are where briefings die.'}
+      ], a:1, take:'Minimum scaffolding for trust. Not a description of your work.' },
+
+    { id:'ar2', el:'architecture', check:true,
+      stem:'Which Architecture is pitched correctly for management?',
+      opts:[
+        {t:'"We use a 5 MHz dual-element probe on a fixed grid per the inspection basis, processed through our standard trending routine."', w:'Equipment and procedure detail that changes nothing about their decision — and signals you have misjudged who you are talking to.'},
+        {t:'"We track wall thickness at fixed points and trend it between campaigns. Most lines are stable; this one is not."', w:'Two sentences that make the conclusion intelligible without a single specialist term. They can now follow the argument.'},
+        {t:'"The methodology is documented in the inspection basis if anyone wants to review it."', w:'Points at a document instead of supplying the scaffolding, so the thesis remains unsupported in the room.'},
+        {t:'"Corrosion under insulation is a well-known degradation mechanism driven by moisture ingress at supports."', w:'A mechanism tutorial. Interesting, and it does not help them judge your conclusion.'}
+      ], a:1, take:'Two plain sentences usually beat any amount of method.' },
+
+    { id:'ar3', el:'architecture', check:true,
+      stem:'What is "altitude control"?',
+      opts:[
+        {t:'Speaking at the right volume and pace for the room.', w:'That is delivery, not altitude.'},
+        {t:'Choosing the level of technical resolution that serves this audience, and holding it consistently.', w:'Every subject can be described at many levels of detail. Altitude control is picking the right one deliberately and not drifting down into detail mid-briefing.'},
+        {t:'Keeping the briefing at a high level throughout.', w:'High altitude is not automatically right — a peer review needs low altitude. The skill is choosing, not defaulting.'},
+        {t:'Avoiding technical terms entirely.', w:'With a technical audience, avoiding terms wastes everyone\'s time.'}
+      ], a:1, take:'Pick your altitude deliberately — then hold it.' },
+
+    { id:'ar4', el:'architecture', check:true,
+      stem:'Mid-briefing you notice you have drifted into detail and are losing the room. Best recovery?',
+      opts:[
+        {t:'Finish the detail quickly, then move on.', w:'Rushing detail nobody wanted is still spending their attention on it.'},
+        {t:'Stop, name the altitude, and climb: "—I am going too deep. The short version is that the rate doubled, and that is the whole point."', w:'An explicit climb costs one sentence and recovers the room. Naming it also signals self-awareness rather than confusion.'},
+        {t:'Ask if everyone is following.', w:'This usually produces polite nods from people who have stopped following.'},
+        {t:'Apologise for the technical content.', w:'Apologising for your own expertise undercuts you; just change altitude.'}
+      ], a:1, take:'"The short version is…" is the fastest recovery in technical speaking.' },
+
+    { id:'ar5', el:'architecture',
+      stem:'Which Architecture failure is most damaging with a hostile or sceptical audience?',
+      opts:[
+        {t:'Too little detail, so the thesis looks unsupported.', w:'A real risk with sceptics — though usually recoverable under questioning.'},
+        {t:'So much detail that the briefing looks like an attempt to overwhelm scrutiny.', w:'With a sceptical room, volume of method reads as obfuscation — they conclude you are burying something. Excess detail converts scepticism into suspicion, which is far harder to reverse.'},
+        {t:'Using analogies rather than precise terms.', w:'Analogies usually help, provided they are accurate.'},
+        {t:'Presenting the architecture before the thesis.', w:'A structural error, and not specific to hostile rooms.'}
+      ], a:1, take:'To a sceptic, too much method looks like hiding.' },
+
+    /* --- DEMO --- */
+    { id:'dm1', el:'demo', check:true,
+      stem:'What is the Demo slot for?',
+      opts:[
+        {t:'Presenting the complete dataset so the audience can verify the finding.', w:'Complete data belongs in the appendix. Nobody verifies anything live.'},
+        {t:'Showing one concrete thing that makes the thesis real and checkable.', w:'A single vivid, specific piece of evidence does more than a dataset — it converts your claim from assertion into something the audience has seen for themselves.'},
+        {t:'Demonstrating the tools and techniques used.', w:'Tools are Architecture at best, and usually irrelevant.'},
+        {t:'Summarising all findings from the campaign.', w:'A summary of everything proves nothing in particular.'}
+      ], a:1, take:'One concrete thing beats the whole dataset.' },
+
+    { id:'dm2', el:'demo', check:true,
+      stem:'Thesis: "the rate doubled after the process change." Which Demo proves that thesis?',
+      opts:[
+        {t:'"Here is the full thickness dataset for all fourteen circuits across four campaigns."', w:'Everything, therefore nothing. The audience cannot extract your specific claim from a wall of data.'},
+        {t:'"Here are three circuits with the same coating and age — two unchanged and flat, and the one that changed, which doubled."', w:'A controlled comparison that isolates the single variable your thesis names. It does not merely illustrate the claim; it tests it.'},
+        {t:'"Here is a photograph of the corrosion at the support."', w:'Vivid and it proves corrosion exists, not that the rate changed or why.'},
+        {t:'"Here is the industry literature on temperature effects on corrosion rate."', w:'Supports plausibility in general, and says nothing about your circuit.'}
+      ], a:1, take:'The best demo isolates the variable your thesis names.' },
+
+    { id:'dm3', el:'demo', check:true,
+      stem:'Which Demo failure is subtlest?',
+      opts:[
+        {t:'Having no demo at all.', w:'Common and damaging — but obvious, and usually noticed immediately.'},
+        {t:'A vivid, memorable demo that proves something adjacent to your thesis rather than the thesis itself.', w:'A dramatic corrosion photograph shown to support a claim about rate change will be remembered and will not have proved anything you said. It feels like strong evidence to you and to the room, which is exactly why it slips through.'},
+        {t:'A demo that is too technical.', w:'A real problem and an obvious one.'},
+        {t:'Spending too long on the demo.', w:'Costly, but easy to notice and correct.'}
+      ], a:1, take:'Check your demo proves your thesis — not something next to it.' },
+
+    { id:'dm4', el:'demo', check:true,
+      stem:'You have no image, sample or artefact. What makes the best Demo?',
+      opts:[
+        {t:'Skip the demo and rely on the architecture.', w:'The thesis then stands as assertion, which is precisely what the slot exists to prevent.'},
+        {t:'One specific, named instance with numbers: "at the worst point we are at 22%, against 14% in the same place two campaigns ago."', w:'A demo need not be visual. A precise comparison at a named location is concrete, checkable and does the same work.'},
+        {t:'A general statement of the pattern across the asset.', w:'Generalities are the opposite of a demonstration.'},
+        {t:'An analogy that conveys the seriousness.', w:'Analogies aid understanding; they do not demonstrate that something is true.'}
+      ], a:1, take:'A demo can be two numbers and a location. It must be specific.' },
+
+    { id:'dm5', el:'demo',
+      stem:'Someone challenges your Demo as unrepresentative. Best response?',
+      opts:[
+        {t:'Defend that particular example more forcefully.', w:'Defending one data point under challenge concedes the frame that your case rests on it.'},
+        {t:'Concede the limit, then show the pattern: "on its own it would not be — that is why I looked at all three circuits, and the pattern holds."', w:'Accepting the valid part of the objection and immediately widening the evidence is far stronger than defending the single case. You have answered the real concern rather than the words.'},
+        {t:'Offer to send the full dataset afterwards.', w:'Defers the decision and suggests you cannot answer now.'},
+        {t:'Point out that it is the worst case and therefore the relevant one.', w:'Sometimes a fair answer, and it can read as dodging the representativeness question.'}
+      ], a:1, take:'Concede the narrow point, then widen the evidence.' },
+
+    /* --- TAKEAWAY --- */
+    { id:'tk1', el:'takeaway', check:true,
+      stem:'Which Takeaway is strongest?',
+      opts:[
+        {t:'"Happy to take any questions."', w:'The default ending for technical briefings and a wasted slot. The room must now work out the implication themselves, which they will do badly or not at all.'},
+        {t:'"So: half a day and 180 thousand now, or a materially higher chance of an unplanned outage within the year. I recommend intercepting, and I need approval in principle today."', w:'Frames the decision the room actually has, gives your recommendation, and names what you need from them now.'},
+        {t:'"In summary, the wall loss progression on circuit 12 exceeds the modelled rate for the coating condition."', w:'Ends on a technical restatement, leaving the audience holding a fact with no decision attached.'},
+        {t:'"I will circulate the full report and we can discuss next steps."', w:'Defers everything to a document and a future conversation.'}
+      ], a:1, take:'End on their decision, not on your finding.' },
+
+    { id:'tk2', el:'takeaway', check:true,
+      stem:'What should the Takeaway contain?',
+      opts:[
+        {t:'A summary of the technical findings.', w:'Recapping findings re-buries the implication under detail.'},
+        {t:'What the audience should now do, decide or carry away.', w:'The briefing exists to convert your expertise into their action. This slot is where the conversion happens.'},
+        {t:'An acknowledgement of the limitations of the work.', w:'Caveats belong in the architecture or in answers to questions, not in the closing position.'},
+        {t:'A restatement of the thesis in more detail.', w:'More detail at the close moves away from the decision.'}
+      ], a:1, take:'The briefing converts your expertise into their action.' },
+
+    { id:'tk3', el:'takeaway', check:true,
+      stem:'The decision genuinely is not yours to recommend — it turns on risk appetite. What is the Takeaway?',
+      opts:[
+        {t:'Present both options neutrally and let them choose.', w:'Pure neutrality wastes your technical read on each option, which is the part they cannot supply.'},
+        {t:'Frame the choice precisely, give your technical read on each, and name the decision as theirs.', w:'"Either accept a shorter interval and I re-plan, or review whether the temperature gain is worth it — that trade is yours, and here is what each costs technically." You supply everything only you can, and leave the judgement where it belongs.'},
+        {t:'Recommend the conservative option regardless.', w:'Defaulting to conservative is a way of avoiding the framing work, and it erodes trust when the cost is high.'},
+        {t:'Ask them what their risk appetite is before concluding.', w:'A reasonable question, and a weak place to end — it closes on an unanswered question rather than a framed decision.'}
+      ], a:1, take:'Frame the trade precisely, read each side, hand over the judgement.' },
+
+    { id:'tk4', el:'takeaway', check:true,
+      stem:'Which Takeaway failure is most common among strong technical presenters?',
+      opts:[
+        {t:'Recommending too forcefully.', w:'Rare. Under-recommending is the epidemic.'},
+        {t:'Ending on the finding rather than the implication, because the finding feels like the achievement.', w:'The finding is what you worked for, so it feels like the natural climax. But to the room it is an input. Ending there leaves the actual conversion undone by the person best placed to do it.'},
+        {t:'Making the takeaway too simple.', w:'Simplicity in this slot is a virtue.'},
+        {t:'Forgetting to thank the audience.', w:'Irrelevant to whether the briefing worked.'}
+      ], a:1, take:'Your finding is your achievement. Their decision is the point.' },
+
+    { id:'tk5', el:'takeaway',
+      stem:'Time runs out and you have covered Thesis, Architecture and Demo. What do you do?',
+      opts:[
+        {t:'Stop, since the substance has been delivered.', w:'Stopping before the takeaway leaves the room without the decision — and the substance was only ever the means to it.'},
+        {t:'Take fifteen seconds for the Takeaway even if it means cutting the demo short.', w:'The takeaway is the only slot that cannot be recovered later. Evidence can go in a follow-up; an unasked decision usually just does not happen.'},
+        {t:'Offer to send the conclusions by email.', w:'A decision that could have been made in the room now depends on someone reading an email.'},
+        {t:'Ask for more time.', w:'Occasionally granted, and you should not need it — the takeaway is fifteen seconds.'}
+      ], a:1, take:'Never run out of time before the takeaway. Cut evidence instead.' },
+
+    /* --- WHOLE --- */
+    { id:'tw1', el:'whole',
+      stem:'Which briefing is strongest for a management audience?',
+      opts:[
+        {t:'"We carried out UT across fourteen circuits using the standard grid. Coverage was good apart from two access-constrained circuits. Processing was per the inspection basis. Circuit 12 shows progression above the modelled rate, likely CUI given support locations. Happy to take questions."', w:'Presented in work order: method, coverage, procedure, then a finding in specialist language, and no ask. Every slot is either misused or missing.'},
+        {t:'"A flare line needs intercepting this shutdown, not next, and I need that decision today. We trend thickness between campaigns; most lines are stable, this one doubled after last year\'s process change. At the worst point we are at 22%, and eighteen months at that rate puts us below retirement limit. So: half a day and 180 thousand now, or a higher chance of an unplanned outage within the year — I recommend now."', w:'Conclusion and ask first, minimum architecture, one concrete demonstration, and a takeaway framed as their decision.'},
+        {t:'"Circuit 12 has a corrosion problem. The wall loss is at 22% which is above our threshold for concern. This is consistent with CUI. We should consider intercepting it at some point."', w:'Opens with a finding rather than an activity — so it is better than most — but the language stays technical, there is no trend evidence, and "consider at some point" is not an ask.'},
+        {t:'"I am asking for approval to intercept a flare line this shutdown. The technical case is in the report I circulated. I am happy to go through any of the detail you would like."', w:'Strong thesis and ask, then outsources the entire argument to a document most of the room has not read.'}
+      ], a:1, take:'Conclusion first, minimum scaffolding, one demo, their decision.' },
+
+    { id:'tw2', el:'whole',
+      stem:'Scrambled. Which order is correct?\n(1) "At the worst point we are at 22% wall loss; eighteen months at that rate is below retirement limit."\n(2) "We trend wall thickness between campaigns — most lines are stable, this one is not."\n(3) "So: half a day and 180 thousand now, or a higher chance of an unplanned outage. I recommend now."\n(4) "This flare line needs intercepting in this shutdown rather than the next."',
+      opts:[
+        {t:'4 → 2 → 1 → 3', w:'Thesis, architecture, demo, takeaway. Correct.'},
+        {t:'2 → 1 → 4 → 3', w:'Method, evidence, then conclusion — the work order, and the most common real-world mistake.'},
+        {t:'4 → 1 → 2 → 3', w:'Demo before architecture, so the number arrives before the listener has any frame for judging it.'},
+        {t:'4 → 2 → 3 → 1', w:'Takeaway before the demo leaves the briefing ending on evidence rather than on the decision.'}
+      ], a:0, take:'Thesis, architecture, demo, takeaway. Never work order.' },
+
+    { id:'tw3', el:'whole',
+      stem:'The same finding, three audiences. Which pairing is wrong?',
+      opts:[
+        {t:'To finance: "We can cut a third of scaffold spend without increasing risk."', w:'Their currency. Correct.'},
+        {t:'To the process team: "Your operating change is driving this rate, not the coating."', w:'Aimed at the decision they own. Correct.'},
+        {t:'To fellow inspection engineers: "There is some corrosion we should probably look at."', w:'Correctly avoids jargon for a room that wants jargon. With peers, low altitude is the right altitude — this is vague to the point of uselessness for them.'},
+        {t:'To management: "This line needs intercepting this shutdown; I need the decision today."', w:'Conclusion plus ask. Correct.'}
+      ], a:2, take:'With peers, go DOWN in altitude. Plain language is not always right.' },
+
+    { id:'tw4', el:'whole',
+      stem:'Which is NOT a technical briefing, despite being clear and well organised?',
+      opts:[
+        {t:'"This line needs intercepting now. The rate doubled after the process change. We are at 22%, below limit within eighteen months. Approve it today."', w:'Complete briefing.'},
+        {t:'"Here is how corrosion under insulation works: moisture gets trapped against the steel at supports, the coating fails, and the metal corrodes where nobody can see it."', w:'A clear, well-pitched explanation — a good piece of teaching. But there is no finding about this asset, no evidence from your work, and nothing for anyone to decide. Explaining a mechanism is not briefing on a result.'},
+        {t:'"We can cut a third of scaffold spend. Seven of eleven circuits had not moved in six years. Approve risk-based intervals and it lands this budget year."', w:'Compact briefing with a clear ask.'},
+        {t:'"Your temperature change is driving the rate. Two unchanged circuits are flat, the changed one doubled. I need your decision by month end."', w:'Briefing with an owned decision.'}
+      ], a:1, take:'Explaining a mechanism is teaching, not briefing.' },
+
+    { id:'tw5', el:'whole',
+      stem:'What does it mean when a management audience asks a lot of method questions?',
+      opts:[
+        {t:'They are genuinely interested in the technical detail.', w:'Occasionally true, and rarely the explanation when the questions come from non-specialists.'},
+        {t:'They usually do not trust the conclusion, and are probing for the weakness.', w:'Method questions from a non-technical room are almost always a proxy for doubt. The fix is not more method — it is to surface the real concern: "is the worry that the data is not representative?"'},
+        {t:'Your architecture was too brief.', w:'Sometimes, and answering with more method usually deepens the suspicion rather than resolving it.'},
+        {t:'They want to demonstrate their own understanding.', w:'It happens, and it is the less common driver.'}
+      ], a:1, take:'Method questions from non-specialists usually mean "I do not trust this".' },
+
+    { id:'tw6', el:'whole',
+      stem:'Which single habit most improves technical briefings?',
+      opts:[
+        {t:'Preparing more thorough supporting material.', w:'Most technical people already over-prepare material. It is rarely the constraint.'},
+        {t:'Writing the takeaway first, then building backwards to the thesis.', w:'Starting from the decision you need forces every other slot to earn its place — architecture and demo become whatever supports that decision, and nothing else survives. It also prevents the work-order default.'},
+        {t:'Rehearsing the delivery more.', w:'Rehearsal polishes a badly ordered briefing into a well-delivered badly ordered briefing.'},
+        {t:'Including more data to pre-empt questions.', w:'More data invites more questions and signals lack of confidence in the argument.'}
+      ], a:1, take:'Write the takeaway first. Build backwards from the decision.' },
+
+    { id:'tw7', el:'whole',
+      stem:'Why is this framework the hardest for genuinely expert people?',
+      opts:[
+        {t:'Because they know too much to simplify accurately.', w:'Deep knowledge makes accurate simplification easier, not harder.'},
+        {t:'Because expertise makes the detail feel necessary, and cutting it feels like misrepresenting the work.', w:'The expert can see every caveat and dependency, so omitting them feels dishonest rather than kind. Learning that selective, accurate compression is not distortion is the real hurdle — and it is why the most knowledgeable person often gives the worst briefing.'},
+        {t:'Because they are usually poor presenters.', w:'No correlation, and a lazy explanation.'},
+        {t:'Because they are not usually asked to brief management.', w:'Senior technical people are asked constantly.'}
+      ], a:1, take:'Compression is not distortion. That is the lesson to internalise.' },
+
+    { id:'tw8', el:'whole',
+      stem:'You have five minutes and the full case takes twenty. What survives?',
+      opts:[
+        {t:'Thesis and architecture — the audience needs to understand the basis.', w:'Understanding without evidence or a decision produces interest and no action.'},
+        {t:'Thesis, one demo, takeaway — and architecture compressed to a single sentence.', w:'The conclusion, one concrete thing that makes it real, and the decision. Architecture is the compressible slot; the other three each do something nothing else can.'},
+        {t:'Architecture and demo — the evidence is what convinces.', w:'Evidence with no conclusion and no ask is a pile of facts.'},
+        {t:'Thesis and takeaway only.', w:'Better than most, but with nothing concrete in between it is assertion bracketed by a request.'}
+      ], a:1, take:'Compress architecture. Thesis, demo and takeaway each do unique work.' }
+  ]
+};
+
+const CHAPTERS = [CH_PREP, CH_THREE, CH_SELFINTRO, CH_ONEPOINT, CH_STAR, CH_STAKE, CH_BADNEWS, CH_TECH];
 const COMING = [
-  'STAR — Situation → Task → Action → Result',
-  'Stakeholder Meeting — Context → Problem → Recommendation → Next Steps',
-  'Bad News — State → Reason → Plan → Support',
-  'Technical Briefing — Thesis → Architecture → Demo → Takeaway',
   'AIDA — Attention → Interest → Desire → Action',
   'Impromptu (ABT) — And → But → Therefore',
   'Q&A Mastery — Listen → Clarify → Pause → Answer → Bridge',

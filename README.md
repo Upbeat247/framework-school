@@ -57,7 +57,7 @@ drawn from them, so old frameworks keep resurfacing. Mastery that decays is not 
 
 ## Status
 
-**Foundations track complete — 4 chapters, 124 questions.**
+**Foundations and Intermediate tracks complete — 8 chapters, 236 questions.**
 
 | # | Chapter | Questions |
 |---|---------|-----------|
@@ -65,8 +65,13 @@ drawn from them, so old frameworks keep resurfacing. Mastery that decays is not 
 | 2 | The 3-Part Answer — Introduction → Body → Conclusion | 28 |
 | 3 | Self-Introduction — Name → Role → Value → Hook | 30 |
 | 4 | One-Point Clarity — The One Point → Anchor → Landing | 26 |
+| 5 | STAR — Situation → Task → Action → Result | 28 |
+| 6 | Stakeholder Meeting — Context → Problem → Recommendation → Next Steps | 28 |
+| 7 | Bad News — State → Reason → Plan → Support | 28 |
+| 8 | Technical Briefing — Thesis → Architecture → Demo → Takeaway | 28 |
 
-Remaining 8 frameworks (Intermediate and Advanced tracks) are listed in-app as "Coming next".
+Remaining 4 frameworks (Advanced track) are listed in-app as "Coming next":
+AIDA, Impromptu (ABT), Q&A Mastery, Executive Presence.
 
 ## Where to open it
 
