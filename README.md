@@ -89,6 +89,16 @@ copy/paste sync code (still zero network) is the fallback if it ever becomes wor
 | 11 | Q&A Mastery — Listen → Clarify → Pause → Answer → Bridge | 33 |
 | 12 | Executive Presence — Credibility → Vision → Call to Action | 26 |
 
+## Link to SpeakMaster
+
+The home screen and every passed mastery exam carry a link to
+**https://speakmaster.netlify.app** (opens in a new tab), so framework practice can hand
+straight over to speaking practice.
+
+The link is a plain `href` — inert until clicked — so this page still makes **no network
+requests of its own**. Note that the destination does: SpeakMaster uses the microphone and
+calls an AI endpoint, so it is a personal-device app, not a work-laptop one.
+
 ## Where to open it
 
 - **Work laptop:** https://upbeat247.github.io/framework-school/ — `github.io` generally passes
