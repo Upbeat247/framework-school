@@ -51,9 +51,24 @@ moment in the app, so that is where the teaching lives.
 
 ## Progression
 
-Chapters are **sequential** — chapter N opens only when chapter N−1 is mastered. And once you
-have mastered earlier chapters, every later exam reserves **3 of its 12 slots** for questions
-drawn from them, so old frameworks keep resurfacing. Mastery that decays is not mastery.
+Chapters are written to build in order, but **nothing is locked** — open whichever one you are
+actually on. Progress is stored per browser (`localStorage`) with no sync, so a device that has
+not seen your earlier work must not stand between you and the chapter you were on. The home
+screen still points at where to go next ("Start here" / "Continue here"), following your real
+progress rather than the prescribed order.
+
+Once you have mastered earlier chapters **on that device**, every later exam reserves **3 of its
+12 slots** for questions drawn from them, so old frameworks keep resurfacing. Mastery that decays
+is not mastery.
+
+To restore strict sequential unlocking, set `GATED = true` in `index.html`.
+
+### On cross-device sync
+
+Deliberately not built. Sync would mean recurring outbound requests from a managed laptop to an
+external service — which is data egress, not browsing, and is exactly the traffic shape that gets
+flagged. The zero-network property is worth more than automatic sync for state this small. A
+copy/paste sync code (still zero network) is the fallback if it ever becomes worth the friction.
 
 ## Status
 

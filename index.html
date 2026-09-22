@@ -2891,8 +2891,13 @@ CHAPTERS.forEach(c => c.questions.forEach(q => {
   q._ch = c.id;
 }));
 
-// A chapter opens only when the one before it is mastered.
+// Chapters are written to build in order, but nothing is gated.
+// Progress lives in localStorage per browser, so a device that has not seen your
+// earlier work must still let you open whatever chapter you were actually on.
+// Flip GATED to true to restore strict sequential unlocking.
+const GATED = false;
 function unlockedCh(c){
+  if (!GATED) return true;
   const i = CHAPTERS.findIndex(x => x.id === c.id);
   return i === 0 || P(CHAPTERS[i-1].id).mastered;
 }
@@ -2956,20 +2961,26 @@ function render(){
    VIEWS
    ============================================================ */
 function renderHome(){
+  // Suggest where to go next without blocking anything: the first chapter you
+  // have started but not finished, else the first you have not started.
+  const started = CHAPTERS.findIndex(c => !P(c.id).mastered && stagesDone(c) > 0);
+  const nextIdx = started !== -1 ? started : CHAPTERS.findIndex(c => !P(c.id).mastered);
+
   const rows = CHAPTERS.map((c, i) => {
     const p = P(c.id), done = stagesDone(c), tot = stagesTotal(c);
     const pct = Math.round(done/tot*100);
     const open = unlockedCh(c);
-    const prev = i>0 ? CHAPTERS[i-1].title : '';
     const badge = !open ? '<span class="pill pill-m">Locked</span>'
                 : p.mastered ? '<span class="pill pill-g">Mastered</span>'
-                : done>0 ? '<span class="pill pill-o">In progress</span>'
-                : '<span class="pill pill-t">Start here</span>';
+                : i === nextIdx ? (done > 0 ? '<span class="pill pill-o">Continue here</span>'
+                                            : '<span class="pill pill-t">Start here</span>')
+                : done > 0 ? '<span class="pill pill-o">In progress</span>'
+                : '';
     return `<button class="stage ${open?'':'locked'}" ${open?'':'disabled'} onclick="go('chapter',{id:'${c.id}'})">
       <span class="n">${c.n}</span>
-      <span class="t"><b>${esc(c.title)} &nbsp;${badge}</b>
-      <span>${open ? esc(c.subtitle) : 'Master ' + esc(prev) + ' to open this'}</span>
-      ${open ? `<span style="margin-top:8px"><span class="bar"><i style="width:${pct}%"></i></span></span>` : ''}</span>
+      <span class="t"><b>${esc(c.title)}${badge?' &nbsp;'+badge:''}</b>
+      <span>${esc(c.subtitle)}</span>
+      <span style="margin-top:8px"><span class="bar"><i style="width:${pct}%"></i></span></span></span>
     </button>`;
   }).join('');
   const masteredN = CHAPTERS.filter(c => P(c.id).mastered).length;
@@ -2981,6 +2992,7 @@ function renderHome(){
   $('#app').innerHTML = `
     <h1>Framework School</h1>
     <p class="muted">Learn each communication framework properly, then prove you have it — with tests hard enough to be worth your time. Silent, offline, no account.</p>
+    <p class="tiny muted" style="margin-top:-6px">Chapters build in order, but nothing is locked — open whichever one you are actually on. Progress is saved per device.</p>
     <div class="label">Chapters &nbsp;<span class="pill pill-m">${masteredN} of ${CHAPTERS.length} mastered</span></div>
     ${rows}
     <div class="label">Coming next</div>
