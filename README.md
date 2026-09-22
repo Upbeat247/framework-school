@@ -72,7 +72,7 @@ copy/paste sync code (still zero network) is the fallback if it ever becomes wor
 
 ## Status
 
-**Foundations and Intermediate tracks complete — 8 chapters, 236 questions.**
+**Complete — 12 chapters, 349 questions.**
 
 | # | Chapter | Questions |
 |---|---------|-----------|
@@ -84,9 +84,10 @@ copy/paste sync code (still zero network) is the fallback if it ever becomes wor
 | 6 | Stakeholder Meeting — Context → Problem → Recommendation → Next Steps | 28 |
 | 7 | Bad News — State → Reason → Plan → Support | 28 |
 | 8 | Technical Briefing — Thesis → Architecture → Demo → Takeaway | 28 |
-
-Remaining 4 frameworks (Advanced track) are listed in-app as "Coming next":
-AIDA, Impromptu (ABT), Q&A Mastery, Executive Presence.
+| 9 | AIDA — Attention → Interest → Desire → Action | 28 |
+| 10 | Impromptu (ABT) — And → But → Therefore | 26 |
+| 11 | Q&A Mastery — Listen → Clarify → Pause → Answer → Bridge | 33 |
+| 12 | Executive Presence — Credibility → Vision → Call to Action | 26 |
 
 ## Where to open it
 

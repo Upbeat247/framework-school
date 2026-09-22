@@ -2868,13 +2868,1326 @@ const CH_TECH = {
   ]
 };
 
-const CHAPTERS = [CH_PREP, CH_THREE, CH_SELFINTRO, CH_ONEPOINT, CH_STAR, CH_STAKE, CH_BADNEWS, CH_TECH];
-const COMING = [
-  'AIDA — Attention → Interest → Desire → Action',
-  'Impromptu (ABT) — And → But → Therefore',
-  'Q&A Mastery — Listen → Clarify → Pause → Answer → Bridge',
-  'Executive Presence — Credibility → Vision → Call to Action'
-];
+/* ============================================================
+   Chapter 9 — AIDA
+   ============================================================ */
+const CH_AIDA = {
+  id:'aida', n:9,
+  title:'AIDA',
+  subtitle:'Attention → Interest → Desire → Action',
+  blurb:'How a good idea actually gets adopted instead of merely understood.',
+  idea:[
+    `AIDA comes from advertising, and technical people often recoil from it for exactly that reason. It is worth confronting that directly: the framework is not a trick. It is the order in which people actually decide — you earn attention, establish relevance, create genuine want, then ask.`,
+    `Used on something you do not believe in, that is manipulation. Used on something you do believe in, it is the difference between a good idea being adopted and a good idea being politely ignored. The engineers whose proposals go nowhere are rarely wrong; they are usually just stopping two slots early.`,
+    `Because that is the analytical failure mode: you get attention, you establish interest, you explain thoroughly — and then you stop, assuming a sound case sells itself. It does not. Desire and Action are where adoption happens, and they are the two slots that feel least comfortable to people trained in rigour.`
+  ],
+  whenToUse:[
+    'Pitching a change nobody asked for',
+    'Bidding for budget, headcount or time',
+    'Getting a stalled idea taken seriously',
+    'Any moment being right is not enough'
+  ],
+  elements:[
+    { name:'Attention', key:'attention', color:'var(--teal)',
+      job:'Earn the right to be heard with your first line.',
+      fail:'Classic failure: opening with pleasantries, credentials or an agenda. "I wanted to talk to you about our inspection strategy" is a title, not a hook — and the room decides whether to listen before you reach sentence two.' },
+    { name:'Interest', key:'interest', color:'var(--orange)',
+      job:'Connect it to their world — why this matters to them specifically.',
+      fail:'Classic failure: mistaking more detail about your idea for interest. Interest is not depth about your thing; it is relevance to their thing.' },
+    { name:'Desire', key:'desire', color:'var(--gold)',
+      job:'Make them want the after-state — what the world looks like once this is true.',
+      fail:'Classic failure: listing features instead of describing the changed world. "It uses risk-based intervals" is a property; "you stop paying for scaffold on equipment that does not need opening" is a want.' },
+    { name:'Action', key:'action', color:'var(--blue)',
+      job:'Ask for something specific, small enough to say yes to, now.',
+      fail:'Classic failure: no ask at all — the commonest ending to a good pitch. The second failure is an ask so large it is easier to defer than to grant.' }
+  ],
+  examples:[
+    { label:'Proposing a change nobody asked for', prompt:'Pitching risk-based inspection to the asset manager.',
+      lines:[
+        {el:'Attention', c:'var(--teal)', t:'Seven of the eleven circuits we opened last campaign had not moved measurably in six years.'},
+        {el:'Interest', c:'var(--orange)', t:'That is scaffold, permits and downtime spent confirming what our own data already told us — and it comes out of the maintenance budget you are defending every quarter.'},
+        {el:'Desire', c:'var(--gold)', t:'If we inspect by how fast things are actually degrading rather than by the calendar, you get about a third of that spend back, and the inspections we do run land on the equipment that can actually hurt us.'},
+        {el:'Action', c:'var(--blue)', t:'I am not asking to change the whole programme. Give me those eleven circuits for one cycle, and I will bring you the numbers before the next budget round.'}
+      ]},
+    { label:'Asking for a tool', prompt:'Pitching under-insulation sensors.',
+      lines:[
+        {el:'Attention', c:'var(--teal)', t:'Every serious corrosion surprise we have had in five years happened under insulation, where we cannot see.'},
+        {el:'Interest', c:'var(--orange)', t:'We currently manage that by removing insulation on a sample basis — expensive, slow, and it still leaves most of the line unlooked-at.'},
+        {el:'Desire', c:'var(--gold)', t:'Sensors under the cladding would mean we stop sampling blind: we would know which supports are wet before the metal does, and scope shutdowns from evidence rather than from guesswork.'},
+        {el:'Action', c:'var(--blue)', t:'There is a trial unit for about four thousand. Let me put six on the worst circuit for one cycle — if the readings do not track what we find when we open it, we drop it.'}
+      ]},
+    { label:'Internal idea with no budget', prompt:'Proposing a change to handover format.',
+      lines:[
+        {el:'Attention', c:'var(--teal)', t:'We have lost a finding at handover twice this year.'},
+        {el:'Interest', c:'var(--orange)', t:'Both times it was because three teams write reports in three formats, and the review board reconciles them by eye at the point everyone is most tired.'},
+        {el:'Desire', c:'var(--gold)', t:'One format means the board stops doing translation work and starts doing review work — and nobody has to trust that a free-text note got read.'},
+        {el:'Action', c:'var(--blue)', t:'Can I take the next campaign as a trial? One template, my team writes it, and you judge whether the reviews get easier.'}
+      ]},
+    { label:'Outside work', prompt:'Persuading the family on a holiday plan.',
+      lines:[
+        {el:'Attention', c:'var(--teal)', t:'We have not all been away together since 2024.'},
+        {el:'Interest', c:'var(--orange)', t:'Everyone keeps saying the problem is cost and timing, and both of those get harder every year, not easier.'},
+        {el:'Desire', c:'var(--gold)', t:'Imagine ten days where nobody is on call and the children are not being dropped somewhere — we have not had that in two years.'},
+        {el:'Action', c:'var(--blue)', t:'All I want tonight is for us to pick a week. I will do the rest.'}
+      ]}
+  ],
+  weakStrong:{
+    prompt:'Pitching risk-based inspection intervals.',
+    weak:'I wanted to talk to you about our inspection strategy. At the moment we use fixed intervals, which is the traditional approach. Risk-based inspection is an alternative methodology where intervals are set according to calculated remaining life and consequence of failure. It is well established in the industry and supported by several standards. It would require some changes to our planning process and a data review, but the methodology is sound and I think it is worth considering. Anyway, let me know your thoughts.',
+    weakWhy:'An agenda announcement instead of a hook, an explanation of the method rather than relevance to him, features rather than an after-state, and a close that asks for nothing. Every slot is filled with the content of the adjacent, weaker slot.',
+    strong:'Seven of the eleven circuits we opened last campaign had not moved measurably in six years. That is scaffold, permits and downtime spent confirming what our data already told us — out of the budget you defend every quarter. If we inspect by actual degradation rather than the calendar, you get about a third of that back, and the inspections we do run land on equipment that can hurt us. I am not asking to change the whole programme — give me those eleven circuits for one cycle and I will bring you the numbers before the next budget round.',
+    strongWhy:'A fact that makes him look up. Relevance in his currency. An after-state he can want. And an ask small enough that refusing it costs more than granting it.'
+  },
+  questions:[
+    /* --- ATTENTION --- */
+    { id:'at1', el:'attention', check:true,
+      stem:'Which opening earns attention?',
+      opts:[
+        {t:'"I wanted to talk to you about our inspection strategy."', w:'A title, not a hook. It tells them the topic and gives them no reason to lean in — and the decision to listen is made before your second sentence.'},
+        {t:'"Seven of the eleven circuits we opened last campaign had not moved measurably in six years."', w:'A concrete, slightly uncomfortable fact that implies waste without asserting it. The listener does the arithmetic themselves, which is why it lands.'},
+        {t:'"As you know, I have led our integrity programme for nine years."', w:'Credentials in the attention slot. Standing is established by what you say next, not by claiming it first.'},
+        {t:'"I have a proposal I think could save us quite a lot of money."', w:'Announces that something interesting is coming rather than being interesting. It also promises a benefit without evidence, which invites scepticism.'}
+      ], a:1, take:'A fact that makes them look up beats any announcement of one.' },
+
+    { id:'at2', el:'attention', check:true,
+      stem:'Why is the Attention slot so often wasted by technical people?',
+      opts:[
+        {t:'They lack confidence to open strongly.', w:'Sometimes, and plenty of confident specialists still open with an agenda.'},
+        {t:'They treat the opening as orientation — telling the listener what the topic is — rather than as the moment that earns the hearing.', w:'Orientation feels courteous and organised. But the listener is deciding how much attention to spend in those few seconds, and "here is my topic" gives them nothing to spend it on.'},
+        {t:'They do not know what their strongest fact is.', w:'They usually do — they simply hold it back until later in the argument.'},
+        {t:'They are worried about sounding dramatic.', w:'A real inhibition, and less common than the orientation habit.'}
+      ], a:1, take:'The opening is not orientation. It is the audition.' },
+
+    { id:'at3', el:'attention', check:true,
+      stem:'Which is the best source of an Attention line?',
+      opts:[
+        {t:'A dramatic hypothetical about what could go wrong.', w:'Hypotheticals are discountable — the listener can simply decide it will not happen.'},
+        {t:'A specific fact from your own data that the listener has not seen.', w:'Something true, local and new is undismissable. They cannot argue with it, and they did not already know it, so it buys real attention.'},
+        {t:'An industry statistic about the scale of the problem.', w:'Generic and borrowed. It prompts "our situation is different".'},
+        {t:'A statement of how important the topic is.', w:'Asserting importance is the weakest way to create it.'}
+      ], a:1, take:'True, local, and new to them. That is the hook.' },
+
+    { id:'at4', el:'attention', check:true,
+      stem:'Which Attention opening risks backfiring?',
+      opts:[
+        {t:'"Seven of eleven circuits had not moved in six years."', w:'Factual, neutral, and it implies the conclusion without stating it.'},
+        {t:'"We are wasting a fortune on inspections nobody needs."', w:'The same underlying point, delivered as an accusation about decisions the room may have made. You get attention and defensiveness in the same breath, and you spend the rest of the meeting on the second one.'},
+        {t:'"Every corrosion surprise we have had in five years was under insulation."', w:'Striking and blameless.'},
+        {t:'"We have lost a finding at handover twice this year."', w:'Uncomfortable but factual and unattributed.'}
+      ], a:1, take:'Let the fact imply the waste. Do not announce the verdict.' },
+
+    { id:'at5', el:'attention',
+      stem:'You have already got their attention — they called the meeting and want this topic. What happens to the slot?',
+      opts:[
+        {t:'Skip it and go straight to Interest.', w:'When attention is already granted, spending a line to win it wastes the goodwill. Go to why it matters to them.'},
+        {t:'Use it anyway for consistency.', w:'A framework applied regardless of circumstances is a script, not a skill.'},
+        {t:'Use a stronger hook, since expectations are higher.', w:'Escalating a hook for an already-attentive room reads as theatrical.'},
+        {t:'Use it to establish your credentials instead.', w:'Credentials still belong nowhere near the opening.'}
+      ], a:0, take:'Attention already granted? Do not spend a line buying it again.' },
+
+    /* --- INTEREST --- */
+    { id:'in1', el:'interest', check:true,
+      stem:'What is the Interest slot actually for?',
+      opts:[
+        {t:'Explaining your proposal in more depth.', w:'This is the classic substitution — depth about your thing in place of relevance to their thing. It is why thorough pitches lose rooms.'},
+        {t:'Connecting the opening fact to something the listener already cares about.', w:'Interest is a bridge from your fact to their world. Without it, they have heard something true that is not yet their problem.'},
+        {t:'Establishing the technical validity of your approach.', w:'Validity matters and belongs later. Nobody assesses the validity of something they have not yet decided concerns them.'},
+        {t:'Building rapport before the ask.', w:'Rapport is not the mechanism here.'}
+      ], a:1, take:'Interest is relevance to them, not depth about you.' },
+
+    { id:'in2', el:'interest', check:true,
+      stem:'Which is the strongest Interest line for a budget-holder?',
+      opts:[
+        {t:'"Risk-based inspection is well established and supported by several standards."', w:'Validates the method to someone who has not yet decided they care. Authority answers a question they have not asked.'},
+        {t:'"That is scaffold, permits and downtime spent confirming what our data already told us — out of the budget you defend every quarter."', w:'Takes the opening fact and lands it precisely in the thing this listener is personally accountable for.'},
+        {t:'"The methodology involves calculating remaining life against consequence of failure."', w:'Method detail in the relevance slot.'},
+        {t:'"I think there is a real opportunity here for the department."', w:'Vague benefit, no mechanism, and "the department" is not as motivating as "the budget you defend".'}
+      ], a:1, take:'Name the thing they are personally accountable for.' },
+
+    { id:'in3', el:'interest', check:true,
+      stem:'Same proposal, different listeners. Which Interest line is mismatched?',
+      opts:[
+        {t:'To finance: "it comes out of the maintenance budget you defend every quarter."', w:'Their accountability. Correct.'},
+        {t:'To operations: "it means fewer shutdown days spent opening equipment that was fine."', w:'Their pain. Correct.'},
+        {t:'To your own integrity team: "it would reduce our scaffold spend considerably."', w:'Budget is not what an integrity team is accountable for — they care about coverage, confidence and risk. Pitching cost savings to them is aiming at someone else\'s concern, which is the subtle version of this failure.'},
+        {t:'To safety: "it puts our inspection effort on the equipment most likely to hurt someone."', w:'Their mandate. Correct.'}
+      ], a:2, take:'Aim Interest at what THIS listener is judged on.' },
+
+    { id:'in4', el:'interest', check:true,
+      stem:'You do not know what the listener cares about. What is the best move?',
+      opts:[
+        {t:'Cover several angles so one lands.', w:'A scattergun reads as a pitch that has not been thought about, and dilutes all of them.'},
+        {t:'Ask before you pitch, or open on the concern their role makes almost certain.', w:'Either find out, or use role as the best available proxy — a budget-holder defends budget, an ops manager defends uptime. Guessing from role beats guessing at random, and asking beats both.'},
+        {t:'Default to cost, since everyone cares about money.', w:'Not everyone is measured on cost, and it can read as ignoring their actual mandate.'},
+        {t:'Skip Interest and rely on the strength of the idea.', w:'This is precisely how sound ideas die.'}
+      ], a:1, take:'Ask first. Failing that, pitch to what their role is judged on.' },
+
+    { id:'in5', el:'interest',
+      stem:'Which Interest failure is hardest to notice in yourself?',
+      opts:[
+        {t:'Being too brief.', w:'Easy to spot and rarely fatal.'},
+        {t:'Describing why the problem matters to you and your team, in a way that feels like relevance.', w:'"It is really frustrating for my team" is genuine, specific and emotionally real — so it passes your own test — but it is your relevance, not theirs. Sincerity disguises the substitution.'},
+        {t:'Using technical language.', w:'Obvious once you look for it.'},
+        {t:'Making it too long.', w:'Visible in the room.'}
+      ], a:1, take:'Your frustration is not their interest. Check whose world you are in.' },
+
+    /* --- DESIRE --- */
+    { id:'de1', el:'desire', check:true,
+      stem:'What is Desire meant to do?',
+      opts:[
+        {t:'Establish that the proposal will work.', w:'That is evidence, which belongs to Interest or to the questions afterwards.'},
+        {t:'Make them want the after-state — what the world is like once this is true.', w:'Desire is about the changed world, not the change. People act to reach a state they can picture wanting.'},
+        {t:'Overcome objections in advance.', w:'Useful tactically, and not what this slot is for.'},
+        {t:'Show enthusiasm so it becomes contagious.', w:'Your enthusiasm is not their want, and can read as pressure.'}
+      ], a:1, take:'Sell the after-state. Not the thing that gets you there.' },
+
+    { id:'de2', el:'desire', check:true,
+      stem:'Which is a Desire line rather than a feature list?',
+      opts:[
+        {t:'"It uses calculated remaining life and consequence ranking to set intervals."', w:'Properties of the method. Nobody has ever wanted a ranking algorithm.'},
+        {t:'"You get about a third of that spend back, and the inspections we do run land on equipment that can actually hurt us."', w:'Two after-states — money returned and effort aimed where it matters. Both are conditions the listener can picture and want.'},
+        {t:'"It is fully compliant with the relevant standards."', w:'Compliance removes an objection; it does not create want.'},
+        {t:'"It is a much more modern approach than fixed intervals."', w:'Modernity is a property, and to a cautious listener a slightly alarming one.'}
+      ], a:1, take:'"You get X back" is desire. "It uses Y" is a spec sheet.' },
+
+    { id:'de3', el:'desire', check:true,
+      stem:'Why do analytical people skip or weaken Desire?',
+      opts:[
+        {t:'They think it is manipulative, or that a sound case should not need it.', w:'There is a genuine discomfort here: creating want feels like salesmanship rather than engineering. But declining to make a good idea attractive does not make you rigorous — it just makes you ignorable.'},
+        {t:'They are unable to describe outcomes.', w:'They describe outcomes constantly; they just describe them as data rather than as states.'},
+        {t:'It takes too long to do well.', w:'It is usually one or two sentences.'},
+        {t:'Their audiences do not respond to it.', w:'Every audience responds to it, including technical ones.'}
+      ], a:0, take:'Refusing to make a good idea attractive is not rigour.' },
+
+    { id:'de4', el:'desire', check:true,
+      stem:'Which Desire line is strongest?',
+      opts:[
+        {t:'"Imagine how much easier everything would be."', w:'An invitation to imagine with nothing supplied. The listener has to do the work and generally will not.'},
+        {t:'"We would know which supports are wet before the metal does, and scope shutdowns from evidence rather than guesswork."', w:'A specific, pictureable change in how the work would feel — and it contrasts implicitly with the guesswork they live with now.'},
+        {t:'"It would significantly improve our integrity management maturity."', w:'An abstraction from a maturity model. Nobody wants a maturity level.'},
+        {t:'"Things would be a lot better than they are now."', w:'True of every proposal ever made.'}
+      ], a:1, take:'Make the after-state pictureable, or it is not desire.' },
+
+    { id:'de5', el:'desire',
+      stem:'When does Desire tip into manipulation?',
+      opts:[
+        {t:'Whenever you appeal to emotion at all.', w:'Emotion is how people weigh what matters. Using it is not the line.'},
+        {t:'When you create want for an outcome you do not actually believe the proposal delivers.', w:'The test is truthfulness, not technique. Making a real benefit vivid is communication; making an unreal one vivid is deception — and the same sentence can be either depending on whether it is true.'},
+        {t:'When you use the word "imagine".', w:'A stylistic device, neutral in itself.'},
+        {t:'When the listener ends up agreeing with you.', w:'Agreement is the goal of any honest argument.'}
+      ], a:1, take:'The line is truth, not technique.' },
+
+    /* --- ACTION --- */
+    { id:'ac1', el:'action', check:true,
+      stem:'Which Action is strongest?',
+      opts:[
+        {t:'"Let me know if you would like to explore this further."', w:'The most common pitch ending and a non-ask. It transfers the next move to the busiest person, where it will quietly expire.'},
+        {t:'"Give me those eleven circuits for one cycle, and I will bring you the numbers before the next budget round."', w:'Small, bounded, reversible, and it carries a return date. Saying yes costs almost nothing, which is exactly why yes is achievable.'},
+        {t:'"I would like approval to move our entire inspection programme to risk-based intervals."', w:'The full prize asked for at once. It is easier to defer a large irreversible decision than to grant it — so you get "let me think about it", which means no.'},
+        {t:'"I will send you a proposal document to review."', w:'Converts a live conversation into homework for them. Momentum lost.'}
+      ], a:1, take:'Ask for the smallest yes that starts the thing.' },
+
+    { id:'ac2', el:'action', check:true,
+      stem:'What makes an ask easy to grant?',
+      opts:[
+        {t:'It is inexpensive.', w:'Cost matters, and it is not the whole picture — cheap irreversible things still get refused.'},
+        {t:'It is small, bounded and reversible, so the cost of being wrong is low.', w:'People refuse risk more than they refuse cost. A one-cycle trial on eleven circuits can be stopped; a programme change cannot. Reversibility is what makes yes cheap.'},
+        {t:'It is presented with enthusiasm.', w:'Tone does not change the risk calculus.'},
+        {t:'It comes with a detailed plan.', w:'Detail helps credibility and can make the ask feel larger.'}
+      ], a:1, take:'People refuse risk more than cost. Make the yes reversible.' },
+
+    { id:'ac3', el:'action', check:true,
+      stem:'Which is the subtlest Action failure?',
+      opts:[
+        {t:'Not asking at all.', w:'The most common failure, and conspicuous once you know to look.'},
+        {t:'Asking clearly, then immediately adding "but no pressure, whenever suits you."', w:'The ask is properly made and then unmade in the same breath. You have supplied the excuse to defer, and it feels like politeness rather than self-sabotage — which is why people do it constantly.'},
+        {t:'Asking for too much.', w:'A real failure and a visible one.'},
+        {t:'Asking too early in the conversation.', w:'Occasionally awkward, rarely fatal.'}
+      ], a:1, take:'Do not hand them the excuse to defer. Ask, then stop.' },
+
+    { id:'ac4', el:'action', check:true,
+      stem:'They say "leave it with me". What is the best follow-up?',
+      opts:[
+        {t:'Accept and wait.', w:'Where most pitches go to die.'},
+        {t:'"Of course — can I come back to you Thursday if I have not heard?"', w:'Turns an open deferral into a dated one without pressure. You have attached a clock to something that otherwise has none.'},
+        {t:'"Is there something specific holding you back?"', w:'A reasonable probe, and slightly confrontational immediately after a soft no.'},
+        {t:'"I will take that as a maybe then."', w:'Passive-aggressive and it forces a defensive response.'}
+      ], a:1, take:'Attach a date to every deferral, politely.' },
+
+    { id:'ac5', el:'action',
+      stem:'Your ask was refused. What is the strongest immediate move?',
+      opts:[
+        {t:'Accept gracefully and move on.', w:'Sometimes right, and it leaves you no information for the next attempt.'},
+        {t:'Ask what would have to be true for the answer to be yes.', w:'It converts a refusal into a specification. You either learn the real objection — which may be nothing to do with your case — or you learn there is no route, which is also worth knowing.'},
+        {t:'Offer a smaller version immediately.', w:'Shrinking on the spot teaches them that your asks are opening positions.'},
+        {t:'Ask them to reconsider next quarter.', w:'Defers without learning anything.'}
+      ], a:1, take:'"What would have to be true for this to be a yes?"' },
+
+    /* --- WHOLE --- */
+    { id:'aw1', el:'whole',
+      stem:'Which pitch is strongest?',
+      opts:[
+        {t:'"I wanted to talk about our inspection strategy. We use fixed intervals; risk-based is an alternative where intervals follow remaining life and consequence. It is well established and standards-supported. It would need planning changes. Let me know your thoughts."', w:'Agenda, method, authority, caveat, non-ask. Four slots all filled with method, and nothing requested.'},
+        {t:'"Seven of eleven circuits we opened had not moved in six years. That is scaffold and downtime spent confirming what our data already said — from the budget you defend. Inspect by actual degradation and you get a third of it back, with effort aimed at equipment that can hurt us. Give me those eleven for one cycle and I will bring you numbers before the budget round."', w:'Undismissable fact, relevance in his currency, a wantable after-state, and a small reversible ask with a return date.'},
+        {t:'"We are wasting money on unnecessary inspections. Risk-based intervals would fix it and save about a third of scaffold spend. I would like approval to switch the programme over."', w:'Blunt hook that accuses, a real benefit stated as a fact rather than a state, and an ask for the whole prize at once — the most refusable shape.'},
+        {t:'"Seven of eleven circuits had not moved in six years. Risk-based intervals would let us stop opening those. It is standard practice across the industry now. Happy to discuss whenever."', w:'Strong hook, then relevance never arrives, desire is a feature, and the close asks for nothing.'}
+      ], a:1, take:'Fact, their currency, after-state, small reversible ask.' },
+
+    { id:'aw2', el:'whole',
+      stem:'Scrambled. Which order is AIDA?\n(1) "Give me those eleven circuits for one cycle and I will bring you the numbers."\n(2) "Seven of eleven circuits had not moved measurably in six years."\n(3) "Inspect by actual degradation and you get about a third of that spend back."\n(4) "That is scaffold and downtime out of the budget you defend every quarter."',
+      opts:[
+        {t:'2 → 4 → 3 → 1', w:'Hook, relevance, after-state, ask. Correct.'},
+        {t:'2 → 3 → 4 → 1', w:'Desire before Interest — you offer the prize before establishing it is their problem.'},
+        {t:'4 → 2 → 3 → 1', w:'Relevance before the fact that creates it, so the opening asserts cost without evidence.'},
+        {t:'2 → 4 → 1 → 3', w:'Ask before desire, so you request a yes before giving them a reason to want one.'}
+      ], a:0, take:'Hook, their world, the after-state, the ask.' },
+
+    { id:'aw3', el:'whole',
+      stem:'A pitch gets a warm response and then nothing happens. Which slot most likely failed?',
+      opts:[
+        {t:'Attention — they were never really engaged.', w:'A warm response suggests attention worked.'},
+        {t:'Action — there was no specific ask, so there was nothing to actually do.', w:'Warm-then-nothing is the signature of a missing or soft ask. Everyone agreed it was a good idea, nobody was asked to do anything, and agreement is free.'},
+        {t:'Interest — it was not relevant to them.', w:'Irrelevance usually produces politeness, not warmth.'},
+        {t:'Desire — they did not want it enough.', w:'Possible, and warmth without movement points much more strongly at the close.'}
+      ], a:1, take:'"Great idea" followed by silence means you never asked.' },
+
+    { id:'aw4', el:'whole',
+      stem:'Which is NOT an AIDA pitch, despite being persuasive?',
+      opts:[
+        {t:'"Seven circuits unmoved in six years; that is your budget; a third comes back; give me eleven circuits for a cycle."', w:'Complete AIDA.'},
+        {t:'"Our corrosion rates are rising, our coverage is falling, and our budget is flat. Those three lines cross somewhere, and when they do we will have an incident rather than a finding."', w:'A genuinely compelling problem statement — vivid, logical, alarming. But it is all diagnosis: there is no proposal to want and nothing to say yes to. Persuasive about the problem is not the same as persuasive about the solution.'},
+        {t:'"Every surprise was under insulation; we sample blind today; sensors would let us see it coming; six units on one circuit for a cycle."', w:'Complete AIDA.'},
+        {t:'"We lost a finding twice this year; three formats, one tired review board; one format means real review; let me trial it next campaign."', w:'Complete AIDA.'}
+      ], a:1, take:'A brilliant problem statement with no ask persuades nobody to do anything.' },
+
+    { id:'aw5', el:'whole',
+      stem:'Which AIDA slot do technical people most often skip entirely?',
+      opts:[
+        {t:'Attention', w:'Usually attempted, if weakly — most people open with something.'},
+        {t:'Interest', w:'Often substituted with method detail rather than skipped outright.'},
+        {t:'Desire', w:'Commonly skipped, because describing a wantable state feels like salesmanship rather than engineering — so the pitch goes straight from "here is why it matters" to a request, with nothing in between to create want.'},
+        {t:'Action', w:'Very often weak, though at least some form of close usually appears.'}
+      ], a:2, take:'Desire is the skipped slot. It is also where adoption happens.' },
+
+    { id:'aw6', el:'whole',
+      stem:'You have thirty seconds in a corridor. What survives?',
+      opts:[
+        {t:'Attention and Interest — get them engaged and follow up later.', w:'Engagement with no ask produces a pleasant exchange and nothing else.'},
+        {t:'Attention and Action — the hook, then the smallest possible ask.', w:'With no time to build desire, a striking fact plus a tiny reversible ask can still land: "seven of eleven had not moved in six years — can I have twenty minutes next week?" The ask becomes the meeting.'},
+        {t:'Desire and Action — the prize and the request.', w:'A prize with no grounding fact reads as a sales claim.'},
+        {t:'All four, compressed.', w:'Compressing four slots into thirty seconds usually produces four fragments.'}
+      ], a:1, take:'No time? Hook plus a tiny ask. The ask can be the meeting.' },
+
+    { id:'aw7', el:'whole',
+      stem:'All four have a clear ask. Which pitch is strongest?',
+      opts:[
+        {t:'Ask: "approve the full programme change."', w:'Large and irreversible — the most refusable shape regardless of how good the case is.'},
+        {t:'Ask: "give me eleven circuits for one cycle; I will bring numbers before the budget round."', w:'Small, bounded, reversible, dated, and it produces the evidence for the larger decision later. The trial is both the ask and the route to the real prize.'},
+        {t:'Ask: "let me put a business case together for the steering group."', w:'You have asked for permission to do more work, not for a decision — and the steering group becomes a second hurdle.'},
+        {t:'Ask: "can we add this to next month\'s agenda?"', w:'Schedules a conversation rather than starting a thing.'}
+      ], a:1, take:'The best ask is a trial that generates the evidence for the real decision.' },
+
+    { id:'aw8', el:'whole',
+      stem:'What is the honest answer to "is AIDA manipulative?"',
+      opts:[
+        {t:'Yes — it is a sales technique and has no place in technical work.', w:'This position feels principled and mostly results in good ideas being ignored by people who could have acted on them.'},
+        {t:'It is the order people actually decide in — so it is manipulative only when used for something you do not believe delivers what you are making them want.', w:'The structure is neutral. What makes it honest or not is whether the desire you create corresponds to something real. Refusing to use it does not protect anyone; it just means worse ideas, pitched better, win.'},
+        {t:'No — persuasion is always legitimate.', w:'Too permissive. Persuasion toward something false is exactly what manipulation is.'},
+        {t:'It depends on the audience.', w:'It depends on the truth of the claim, not on who is hearing it.'}
+      ], a:1, take:'Structure is neutral. Truth is what makes it honest.' }
+  ]
+};
+
+/* ============================================================
+   Chapter 10 — Impromptu (ABT)
+   ============================================================ */
+const CH_ABT = {
+  id:'abt', n:10,
+  title:'Impromptu (ABT)',
+  subtitle:'And → But → Therefore',
+  blurb:'A shape you can start speaking into before you know how it ends.',
+  idea:[
+    `The terror of being asked something unexpectedly is not the lack of knowledge — it is the lack of a shape. You know things about the topic; what you do not have is an ending, and so you start hedging, listing, and circling until someone rescues you.`,
+    `ABT solves this better than any other framework because of one unusual property: you can safely begin speaking before you know your conclusion. Start with what everyone agrees on ("and"), introduce the complication ("but"), and the "therefore" is largely forced by the tension you just created. The structure generates your point rather than requiring you to have it in advance.`,
+    `It is also the smallest possible story. A list of true statements is forgettable; the moment you introduce a "but", you have tension, and tension is what makes people listen. Most dull updates are dull because they are all "and".`
+  ],
+  whenToUse:[
+    'A question you were not expecting, in front of people',
+    'Being asked for a view with no preparation time',
+    'Turning a flat status update into something people listen to',
+    'Any moment you need to start talking before you have finished thinking'
+  ],
+  elements:[
+    { name:'And', key:'and', color:'var(--teal)',
+      job:'State the uncontested ground — what is true and agreed.',
+      fail:'Classic failure: making this the whole answer. A string of "ands" is a list, and lists have no tension, so nobody remembers them. The second failure is taking too long here while you think.' },
+    { name:'But', key:'but', color:'var(--orange)',
+      job:'Introduce the single complication that makes this interesting.',
+      fail:'Classic failure: no "but" at all, leaving an inert summary. The other failure is several buts — each one resets the tension, and the answer becomes a tangle rather than a turn.' },
+    { name:'Therefore', key:'therefore', color:'var(--gold)',
+      job:'State what follows from the tension — the consequence, view or action.',
+      fail:'Classic failure: trailing off without resolving, which wastes the tension you built. Or a "therefore" that does not actually follow from the "but", which listeners notice even when they cannot name why.' }
+  ],
+  examples:[
+    { label:'Unexpected question in a meeting', prompt:'"What do you make of the new inspection contractor?"',
+      lines:[
+        {el:'And', c:'var(--teal)', t:'Their technical work has been solid — the reporting is clean and they have hit every scheduled date so far.'},
+        {el:'But', c:'var(--orange)', t:'They are still working to a procedure revision we superseded last year, and nobody caught it until I checked a report last week.'},
+        {el:'Therefore', c:'var(--gold)', t:'So I would keep them, but I want a documented procedure alignment before the next campaign rather than assuming it.'}
+      ]},
+    { label:'Turning a flat update into something people hear', prompt:'"Anything from integrity this week?"',
+      lines:[
+        {el:'And', c:'var(--teal)', t:'The campaign is on schedule and we have closed eleven of the fourteen circuits.'},
+        {el:'But', c:'var(--orange)', t:'The three outstanding ones are all the ones needing scaffold, and scaffold is the thing that has slipped in every campaign for two years.'},
+        {el:'Therefore', c:'var(--gold)', t:'So I would rather we stopped treating access as a detail of the plan and started treating it as the plan — I will bring a proposal next week.'}
+      ]},
+    { label:'Asked for a view you have not formed', prompt:'"Do you think we should bring inspection in-house?"',
+      lines:[
+        {el:'And', c:'var(--teal)', t:'In-house would give us continuity, and continuity is most of what makes inspection judgement good — you need to have seen the equipment before.'},
+        {el:'But', c:'var(--orange)', t:'We would be hiring into a market where the experienced people are all already placed, so realistically we would be building that continuity from scratch over several years.'},
+        {el:'Therefore', c:'var(--gold)', t:'So I would say yes in principle and only if we are honest that it is a five-year play rather than a cost decision for this budget round.'}
+      ]},
+    { label:'Outside work', prompt:'"How is the house move going?"',
+      lines:[
+        {el:'And', c:'var(--teal)', t:'We found a place we both like and the survey came back clean.'},
+        {el:'But', c:'var(--orange)', t:'The chain below us has a buyer whose mortgage is not confirmed.'},
+        {el:'Therefore', c:'var(--gold)', t:'So we are proceeding but not packing — and I have told the agent we will not wait past November.'}
+      ]}
+  ],
+  weakStrong:{
+    prompt:'"What do you make of the new inspection contractor?" — asked with no warning.',
+    weak:'Um, well, they have been okay I think. The reporting has been good, and they have been on time mostly, and the guys on site seem happy enough with them. There was a bit of a thing with a procedure at one point, and obviously they are still bedding in. So, yeah, fine overall I would say. Early days really.',
+    weakWhy:'All "and". Four true statements with no tension, so nothing lands and no view is offered. The one genuinely interesting fact — the procedure problem — is buried mid-list and immediately excused, and the answer ends by retreating from having any opinion at all.',
+    strong:'Their technical work has been solid — clean reporting, every date hit. But they are still working to a procedure revision we superseded last year, and nobody caught it until I checked a report last week. So I would keep them, and I want a documented procedure alignment before the next campaign rather than assuming it.',
+    strongWhy:'Genuine credit, one sharp complication that carries real information, and a view that follows directly from the tension. Three sentences, no preparation, and the speaker sounds like someone who has thought about it.'
+  },
+  questions:[
+    /* --- AND --- */
+    { id:'an1', el:'and', check:true,
+      stem:'What is the "And" slot for?',
+      opts:[
+        {t:'Warming up while you think of an answer.', w:'It does buy a few seconds, but treating it as filler makes it rambling — and the listener hears the stalling.'},
+        {t:'Establishing the uncontested ground the tension will act against.', w:'The "but" only has force if something stable precedes it. The And is the platform the turn is made from.'},
+        {t:'Listing everything you know about the topic.', w:'A list is exactly what ABT exists to prevent.'},
+        {t:'Acknowledging the question politely.', w:'Politeness is fine and is not what the slot does.'}
+      ], a:1, take:'The And is the platform. The But needs something to turn against.' },
+
+    { id:'an2', el:'and', check:true,
+      stem:'Which "And" is strongest?',
+      opts:[
+        {t:'"Well, there is a lot to say about them really."', w:'Pure stalling. It establishes nothing and announces that you have not thought about it.'},
+        {t:'"Their technical work has been solid — clean reporting, every date hit."', w:'Specific, generous and genuinely uncontested. It also earns you credibility for the criticism that follows.'},
+        {t:'"They have been okay I suppose."', w:'Hedged and vague, so the platform is soft and the turn will have nothing to push against.'},
+        {t:'"They are a large contractor with a good industry reputation."', w:'True and generic. It is about their category rather than your experience of them.'}
+      ], a:1, take:'Make the And specific and genuinely true. It earns the But.' },
+
+    { id:'an3', el:'and', check:true,
+      stem:'Why does starting with genuine credit strengthen the criticism that follows?',
+      opts:[
+        {t:'It softens the blow so people are less defensive.', w:'That is the compliment-sandwich theory, and it treats the And as a social cushion rather than a structural element.'},
+        {t:'It establishes you as fair, so the complication reads as judgement rather than as grievance.', w:'A criticism from someone who just acknowledged the strengths is heard as assessment. The same criticism standing alone is heard as a complaint — and complaints are discounted.'},
+        {t:'It gives you time to think.', w:'A side benefit, not the mechanism.'},
+        {t:'It is more polite.', w:'Politeness is not why it works.'}
+      ], a:1, take:'Credit first makes you an assessor, not a complainer.' },
+
+    { id:'an4', el:'and', check:true,
+      stem:'How long should the And be?',
+      opts:[
+        {t:'As long as it takes to cover the background properly.', w:'Background coverage is how the And becomes the whole answer.'},
+        {t:'One sentence, usually — just enough to set the platform.', w:'A single specific sentence is almost always enough, and keeping it short leaves the tension and the resolution room to land.'},
+        {t:'About half the answer.', w:'Half your airtime on uncontested ground means the interesting part gets a quarter.'},
+        {t:'It can be skipped if you are short of time.', w:'Skip it and the But has nothing to turn against — you open on a complication nobody has context for.'}
+      ], a:1, take:'One specific sentence. The platform does not need to be a stage.' },
+
+    { id:'an5', el:'and',
+      stem:'You genuinely disagree with the premise of the question. What should the And be?',
+      opts:[
+        {t:'Challenge the premise immediately instead.', w:'Sometimes necessary, and opening on a challenge usually costs you the room before you have made your case.'},
+        {t:'Find the part of the premise you do accept, state that, then turn on the part you do not.', w:'"It is true that the fixed-interval approach has served us safely for years — but it has done so by opening equipment that never needed opening." You have been honest, kept the shared ground, and the disagreement becomes a turn rather than a confrontation.'},
+        {t:'Answer the question as asked and raise your disagreement later.', w:'Later usually means never, and you will have implicitly endorsed the premise.'},
+        {t:'State that you disagree with the question before answering.', w:'Meta-commentary about the question delays your actual view and sounds combative.'}
+      ], a:1, take:'Accept the true part, then turn. Disagreement lands better as a But.' },
+
+    { id:'an6', el:'and',
+      stem:'Which is the subtlest "And" failure?',
+      opts:[
+        {t:'Making it too long.', w:'The most common failure and easy to hear.'},
+        {t:'Offering credit you do not mean, to be diplomatic.', w:'Hollow praise is detectable, and once the listener senses it they discount everything after — including the genuine complication. The insincere And poisons the whole answer while feeling like good manners.'},
+        {t:'Being too specific.', w:'Specificity is a virtue here.'},
+        {t:'Starting with "well".', w:'A verbal tic, not a structural problem.'}
+      ], a:1, take:'Fake credit contaminates the criticism that follows it.' },
+
+    /* --- BUT --- */
+    { id:'bu1', el:'but', check:true,
+      stem:'What does the "But" do?',
+      opts:[
+        {t:'Introduces the single complication that makes the topic interesting.', w:'It is the engine of the whole shape. Tension is what converts information into something worth listening to.'},
+        {t:'Balances the positives with negatives for fairness.', w:'Balance is not the goal — a turn is. This framing produces a pros-and-cons list rather than a point.'},
+        {t:'Signals that you are about to disagree.', w:'Sometimes, and its function is structural rather than social.'},
+        {t:'Adds a caveat to protect you if you are wrong.', w:'Using the But as a hedge is precisely how it loses its force.'}
+      ], a:0, take:'The But is the engine. No tension, no attention.' },
+
+    { id:'bu2', el:'but', check:true,
+      stem:'Why is a single "But" better than several?',
+      opts:[
+        {t:'It is quicker.', w:'Speed is a side effect.'},
+        {t:'Each additional one resets the tension, so the answer becomes a tangle with no clear turn.', w:'Tension only works if it points somewhere. Two complications leave the listener unsure which one the "therefore" resolves, and the answer stops being a story.'},
+        {t:'Multiple buts sound negative.', w:'Tone is not the issue; structure is.'},
+        {t:'It makes you sound more decisive.', w:'A consequence, not the reason.'}
+      ], a:1, take:'One turn. Two buts and the story collapses.' },
+
+    { id:'bu3', el:'but', check:true,
+      stem:'Which "But" is strongest?',
+      opts:[
+        {t:'"But obviously there are always teething problems with a new contractor."', w:'A pre-excused complication. By explaining it away in the same sentence, you remove the tension you just created.'},
+        {t:'"But they are still working to a procedure revision we superseded last year, and nobody caught it until I checked a report last week."', w:'Specific, consequential, and it implies a systemic gap rather than a one-off. It genuinely changes what the listener thinks.'},
+        {t:'"But I do have some concerns."', w:'Announces a complication instead of supplying one.'},
+        {t:'"But it is early days and hard to judge yet."', w:'A reason not to have a view, dressed as a complication.'}
+      ], a:1, take:'A But that you immediately excuse is not a But.' },
+
+    { id:'bu4', el:'but', check:true,
+      stem:'A colleague gives a long update with no "But" anywhere. What is the likely effect?',
+      opts:[
+        {t:'It reassures everyone that things are going well.', w:'Occasionally, and mostly it does not register at all.'},
+        {t:'It is heard as an undifferentiated list and forgotten almost immediately.', w:'Without tension there is nothing for attention to grip. The listener cannot tell what mattered, so nothing is retained — which is why most status updates evaporate.'},
+        {t:'It makes the speaker seem positive.', w:'Perceptions of positivity do not survive being forgotten.'},
+        {t:'It saves time.', w:'Time spent producing nothing memorable is not saved.'}
+      ], a:1, take:'An update with no tension is an update nobody retains.' },
+
+    { id:'bu5', el:'but',
+      stem:'There genuinely is no complication — things are simply fine. What then?',
+      opts:[
+        {t:'Invent a minor concern so the structure works.', w:'Manufacturing tension is dishonest and, worse, it teaches people to discount your warnings.'},
+        {t:'Say so plainly and briefly — and consider whether the real But is "and that is unusual enough to be worth noticing".', w:'Sometimes the honest answer is short. And often there is a legitimate turn hiding in the fact that things going well is itself notable, or fragile, or dependent on something. If not, be brief rather than forcing a shape.'},
+        {t:'Use the framework anyway with a weak but.', w:'A weak But is worse than none — it creates tension and then fails to pay it off.'},
+        {t:'Give a longer And to fill the time.', w:'Padding an already contentless answer.'},
+      ], a:1, take:'Never manufacture tension. Sometimes the honest answer is short.' },
+
+    { id:'bu6', el:'but',
+      stem:'Which "But" would most damage you despite being true?',
+      opts:[
+        {t:'"But they are working to a superseded procedure revision."', w:'Factual and about the work.'},
+        {t:'"But frankly their site lead is not up to the job and everyone knows it."', w:'True perhaps, and it converts a process observation into a personal judgement delivered in public. The room now has to manage your opinion of a named individual rather than the issue — and it will follow you further than it follows him.'},
+        {t:'"But nobody caught it until I checked a report last week."', w:'Implies a systemic gap without naming a culprit.'},
+        {t:'"But scaffold has slipped in every campaign for two years."', w:'A pattern, stated neutrally.'}
+      ], a:1, take:'Keep the But about the work. A personal But costs you, not them.' },
+
+    /* --- THEREFORE --- */
+    { id:'th1', el:'therefore', check:true,
+      stem:'What should the "Therefore" contain?',
+      opts:[
+        {t:'A summary of both sides.', w:'Summarising the tension is not resolving it, and it wastes the setup.'},
+        {t:'What follows from the tension — your view, the consequence, or the action.', w:'The therefore pays off the tension. It is the reason the listener stayed with you.'},
+        {t:'A question back to the room.', w:'Occasionally a good next move, and it is not a resolution.'},
+        {t:'A caveat protecting your position.', w:'Hedging at the resolution dissolves everything the But built.'}
+      ], a:1, take:'Tension unresolved is tension wasted.' },
+
+    { id:'th2', el:'therefore', check:true,
+      stem:'Which "Therefore" actually follows from this But: "they are working to a superseded procedure and nobody caught it until I checked"?',
+      opts:[
+        {t:'"So overall I think they are performing reasonably well."', w:'Retreats to a general verdict that ignores the complication entirely. The listener feels the mismatch even if they cannot name it.'},
+        {t:'"So I would keep them, and I want a documented procedure alignment before the next campaign rather than assuming it."', w:'It resolves both halves — the And (keep them) and the But (close the gap, and close it by design rather than by luck).'},
+        {t:'"So we should probably review our contractor selection process."', w:'Escalates to a much larger conclusion the evidence does not support. One procedure error does not indict selection.'},
+        {t:'"So I am keeping an eye on it."', w:'Vigilance is not a conclusion. Nothing changes as a result.'}
+      ], a:1, take:'The Therefore must resolve the actual tension — not a bigger one.' },
+
+    { id:'th3', el:'therefore', check:true,
+      stem:'Which Therefore failure is most common under pressure?',
+      opts:[
+        {t:'Overstating the conclusion.', w:'It happens, and less often than the opposite.'},
+        {t:'Trailing off without resolving — "so, yeah, we will see how it goes."', w:'Having built tension, the speaker loses nerve at exactly the moment a view is required. All the work of the And and But is spent and nothing is banked.'},
+        {t:'Making it too long.', w:'Rare — therefores are usually too short.'},
+        {t:'Resolving too quickly.', w:'Speed is a virtue here.'}
+      ], a:1, take:'Do not build tension and then decline to spend it.' },
+
+    { id:'th4', el:'therefore', check:true,
+      stem:'You are genuinely unsure what should follow. What is the strongest Therefore?',
+      opts:[
+        {t:'"So I am not sure, really."', w:'Honest and inert. It resolves nothing and leaves the listener with your discomfort.'},
+        {t:'"So the question I would want answered before deciding is whether this is a one-off or systemic — and I can find that out this week."', w:'Uncertainty converted into a next move. You have named what would resolve it and committed to resolving it, which is a conclusion about the process rather than a refusal to conclude.'},
+        {t:'"So I would need to think about it more."', w:'A deferral with no date and no shape.'},
+        {t:'"So what do you think?"', w:'Handing back a question you were asked reads as evasion.'}
+      ], a:1, take:'Unsure? Name what would resolve it, and who will.' },
+
+    { id:'th5', el:'therefore',
+      stem:'Why does ABT let you start speaking before you know your conclusion?',
+      opts:[
+        {t:'Because the And buys enough time to think of one.', w:'It buys a few seconds, which is not why the structure works.'},
+        {t:'Because the tension you create in the But largely determines what the Therefore has to be.', w:'Once you have stated the stable ground and the complication, the resolution is substantially constrained — you are no longer inventing a conclusion, you are reading off the one the tension implies. That is what makes it safe to begin.'},
+        {t:'Because listeners do not expect a conclusion.', w:'They very much do.'},
+        {t:'Because you can change direction mid-answer.', w:'Changing direction mid-answer is what ABT prevents.'}
+      ], a:1, take:'State the tension and the conclusion mostly writes itself.' },
+
+    { id:'th6', el:'therefore',
+      stem:'Which Therefore is subtly weaker than it sounds?',
+      opts:[
+        {t:'"So I would keep them and require documented alignment before the next campaign."', w:'Specific, actionable, and it addresses the gap.'},
+        {t:'"So I think we need to be much more rigorous about procedure control across the board."', w:'It sounds decisive and even principled — but it converts a specific, fixable gap into a broad aspiration nobody owns. Generalising a concrete finding is how actionable issues become permanent themes.'},
+        {t:'"So I will check the other two contractors for the same issue this week."', w:'Proportionate and owned.'},
+        {t:'"So my view is keep them, with one condition."', w:'Clear, with the condition specified next.'}
+      ], a:1, take:'Generalising a specific finding is how it stops getting fixed.' },
+
+    /* --- WHOLE --- */
+    { id:'abw1', el:'whole',
+      stem:'Which impromptu answer is strongest?',
+      opts:[
+        {t:'"They have been okay I think. Reporting has been good, they are mostly on time, the site guys seem happy. There was a thing with a procedure. Early days really."', w:'All And. Four true statements, no turn, no view — and the one interesting fact is buried and excused.'},
+        {t:'"Their technical work has been solid — clean reporting, every date hit. But they are still working to a procedure revision we superseded last year, and nobody caught it until I checked. So I would keep them, and I want documented procedure alignment before the next campaign."', w:'Genuine credit, one sharp complication, and a view that follows directly from it. Three sentences and the speaker sounds considered.'},
+        {t:'"There is a problem — they are using a superseded procedure. Nobody caught it. I am not confident in their QA at all."', w:'Opens on the complication with no platform, then escalates to a sweeping judgement the single fact does not support.'},
+        {t:'"Technically solid, good reporting, hit their dates. But a superseded procedure slipped through, and scaffold has been an issue, and their site lead is weak. So, mixed really."', w:'A strong And, then three buts that tangle the tension, and a therefore that resolves none of them.'}
+      ], a:1, take:'One And, one But, one Therefore. Anything else tangles.' },
+
+    { id:'abw2', el:'whole',
+      stem:'Scrambled. Which order is ABT?\n(1) "So I would keep them, with documented procedure alignment before the next campaign."\n(2) "But they are working to a revision we superseded last year."\n(3) "Their technical work has been solid — clean reporting, every date hit."',
+      opts:[
+        {t:'3 → 2 → 1', w:'Platform, turn, resolution.'},
+        {t:'2 → 3 → 1', w:'Complication before context. The listener hears a problem about something they have no frame for.'},
+        {t:'3 → 1 → 2', w:'Resolution before the tension it resolves.'},
+        {t:'1 → 3 → 2', w:'Conclusion first, then the setup — which leaves the answer ending on the problem.'}
+      ], a:0, take:'Ground, turn, land. The order carries the meaning.' },
+
+    { id:'abw3', el:'whole',
+      stem:'Someone asks you something you genuinely know nothing about. Is ABT still usable?',
+      opts:[
+        {t:'Yes — use it to give a general answer that sounds informed.', w:'Using structure to disguise ignorance is how people get caught, and badly.'},
+        {t:'Partly — the honest shape is "here is what I do know, but here is the gap, therefore here is how I will close it."', w:'ABT works on your own state of knowledge as the subject. It converts "I do not know" into a structured, competent-sounding plan — which is very different from bluffing.'},
+        {t:'No — say you do not know and stop.', w:'Honest and it leaves value on the table. "I do not know, and here is how I will find out by Thursday" is far stronger.'},
+        {t:'No — ABT requires subject knowledge.', w:'It requires a tension, and ignorance with a plan is a perfectly good tension.'}
+      ], a:1, take:'"Here is what I know, here is the gap, here is how I close it."' },
+
+    { id:'abw4', el:'whole',
+      stem:'Which is NOT an ABT, despite sounding structured?',
+      opts:[
+        {t:'"On schedule, eleven of fourteen closed. But the three left all need scaffold, which has slipped every campaign for two years. So I want access treated as the plan, not a detail of it."', w:'Complete ABT with a real turn.'},
+        {t:'"On the one hand the reporting is good, and on the other there was a procedure issue. There are positives and negatives, as with most things."', w:'It has the surface form of a turn — "on the one hand / on the other" — but it is balance, not tension. Nothing follows from it, and it deliberately declines to land anywhere. Balance is the counterfeit of ABT.'},
+        {t:'"Continuity is what makes inspection judgement good. But we would be building it from scratch over years. So yes in principle, and only as a five-year play."', w:'Complete ABT.'},
+        {t:'"Survey came back clean. But the chain below has an unconfirmed mortgage. So we are proceeding and not packing."', w:'Complete ABT.'}
+      ], a:1, take:'Balance is the counterfeit of tension. It goes nowhere on purpose.' },
+
+    { id:'abw5', el:'whole',
+      stem:'What should you do in the two seconds after an unexpected question?',
+      opts:[
+        {t:'Start talking immediately so you do not look stalled.', w:'Talking to avoid silence is how answers become rambles. The first words are usually filler you cannot retract.'},
+        {t:'Pause, and find the tension — what is agreed, and what complicates it.', w:'The pause reads as consideration, and searching for the But is the fastest route to a shaped answer. Find the tension and the answer exists.'},
+        {t:'Repeat the question to buy time.', w:'Occasionally useful, and if you do it habitually it reads as a stalling tic.'},
+        {t:'Say you will come back to it later.', w:'Sometimes legitimate, and usually it is read as avoidance.'}
+      ], a:1, take:'Do not hunt for an answer. Hunt for the tension.' },
+
+    { id:'abw6', el:'whole',
+      stem:'Why are most status updates forgettable?',
+      opts:[
+        {t:'They are too long.', w:'Long updates with tension are remembered; short ones without are not.'},
+        {t:'They are all "and" — a sequence of true statements with no complication.', w:'Nothing in a list tells the listener what matters, so attention has nothing to attach to. Adding one honest "but" transforms the same content into something people retain.'},
+        {t:'They are delivered without enthusiasm.', w:'Enthusiastic lists are still lists.'},
+        {t:'They contain too much detail.', w:'Detail attached to a turn is interesting.'}
+      ], a:1, take:'One honest "but" turns a forgettable update into a memorable one.' },
+
+    { id:'abw7', el:'whole',
+      stem:'All four are ABTs. Which is strongest?',
+      opts:[
+        {t:'"Things are going well. But there are some challenges. So we will keep monitoring."', w:'The correct shape filled entirely with abstractions. A structure with no content is still empty.'},
+        {t:'"On schedule, eleven of fourteen closed. But the three left are all the scaffold ones, and scaffold has slipped every campaign for two years. So I want to stop treating access as a detail of the plan — proposal next week."', w:'Specific platform, a But that reveals a pattern rather than an incident, and a therefore that commits to a dated action.'},
+        {t:'"The campaign went well. But scaffold was late. So scaffold needs improving."', w:'Concrete but thin — the therefore just restates the but as an aspiration with nobody owning it.'},
+        {t:'"We closed eleven circuits, hit our dates, and the reporting was clean. But scaffold slipped. So, noted for next time."', w:'A good platform, a real but, and a therefore that quietly discards it.'}
+      ], a:1, take:'The best Buts reveal a pattern. The best Therefores have a date.' },
+
+    { id:'abw8', el:'whole',
+      stem:'What single habit most improves impromptu speaking?',
+      opts:[
+        {t:'Preparing answers to likely questions in advance.', w:'Valuable, and it fails at exactly the moment impromptu skill is needed — on the question you did not predict.'},
+        {t:'Training yourself to look for the tension first, rather than for the answer.', w:'The answer is hard to find under pressure; the tension is easy, because you already know what is agreed and what complicates it. Find that and the shape — and usually the conclusion — comes with it.'},
+        {t:'Speaking more slowly.', w:'Helps delivery, does not generate structure.'},
+        {t:'Keeping answers very short.', w:'Short and shapeless is still shapeless.'}
+      ], a:1, take:'Hunt the tension, not the answer. The tension hands you the answer.' }
+  ]
+};
+
+/* ============================================================
+   Chapter 11 — Q&A Mastery
+   ============================================================ */
+const CH_QA = {
+  id:'qa', n:11,
+  title:'Q&A Mastery',
+  subtitle:'Listen → Clarify → Pause → Answer → Bridge',
+  blurb:'The part of any talk where reputations are actually made.',
+  idea:[
+    `Most people prepare the presentation and improvise the Q&A. This is backwards. The talk is where you say what you planned; the Q&A is where the room finds out whether you actually know it — and it is the part they remember.`,
+    `The whole skill rests on one unglamorous move: the pause. A beat of silence before answering does three things at once. It signals that the question was worth considering, it stops you answering the first five words instead of the whole question, and it is the only moment in which you get to choose which question you are answering.`,
+    `The other half is honesty about direction. You must genuinely answer what was asked — evasion is detected instantly and costs more than any bad answer — and then you may steer back to your message. Answer first, bridge second. Doing it the other way round is what makes people sound like politicians.`
+  ],
+  whenToUse:[
+    'After any presentation or briefing',
+    'Being challenged in a meeting',
+    'Interview panels and review boards',
+    'Any moment someone is testing whether you really know this'
+  ],
+  elements:[
+    { name:'Listen', key:'listen', color:'var(--teal)',
+      job:'Hear the whole question, including the concern underneath it.',
+      fail:'Classic failure: composing your answer while they are still speaking. You then answer the first five words, miss the real concern, and the questioner has to ask again — which reads as evasion even though it was inattention.' },
+    { name:'Clarify', key:'clarify', color:'var(--orange)',
+      job:'When the question is genuinely ambiguous, restate it or ask.',
+      fail:'Classic failure: clarifying every time as a stalling habit, which reads as evasive. The opposite failure is never clarifying and confidently answering a question nobody asked.' },
+    { name:'Pause', key:'pause', color:'var(--gold)',
+      job:'Take a beat before you speak.',
+      fail:'Classic failure: the instant answer. It reads as pre-packaged or defensive, and it removes your only chance to choose your ground. Under challenge, speed looks like reflex rather than thought.' },
+    { name:'Answer', key:'answer', color:'var(--blue)',
+      job:'Answer the question that was actually asked, directly, first.',
+      fail:'Classic failure: answering the adjacent question you would rather have been asked. Audiences detect this immediately, and it costs more credibility than admitting you do not know.' },
+    { name:'Bridge', key:'bridge', color:'var(--teal)',
+      job:'Return to the point you want the room to leave with.',
+      fail:'Classic failure: no bridge, so the Q&A drifts wherever the questions lead. The opposite failure is bridging so hard that you never answered — which is the politician\'s tell.' }
+  ],
+  examples:[
+    { label:'Hostile challenge on cost', prompt:'"Is this not just gold-plating? We have managed fine for years."',
+      lines:[
+        {el:'Listen', c:'var(--teal)', t:'(The real concern is not corrosion. It is that integrity keeps asking for money.)'},
+        {el:'Pause', c:'var(--gold)', t:'(One beat.)'},
+        {el:'Answer', c:'var(--blue)', t:'It is a fair challenge, and no. We have managed fine because the equipment was younger — the same interval on older metal is not the same decision.'},
+        {el:'Bridge', c:'var(--teal)', t:'Which is really the point: I am not asking to inspect more, I am asking to inspect the right things. On that circuit that means intercepting now.'}
+      ]},
+    { label:'Question you cannot answer', prompt:'"What is the remaining life on the adjacent line?"',
+      lines:[
+        {el:'Listen', c:'var(--teal)', t:'(A specific technical number, and they will check it.)'},
+        {el:'Pause', c:'var(--gold)', t:'(One beat.)'},
+        {el:'Answer', c:'var(--blue)', t:'I do not have that figure in front of me and I do not want to guess at it. I will confirm it by end of day.'},
+        {el:'Bridge', c:'var(--teal)', t:'What I can tell you is that it shares the same insulation detail, which is exactly why I would rather we looked at both in this window.'}
+      ]},
+    { label:'Ambiguous question', prompt:'"How confident are you in the data?"',
+      lines:[
+        {el:'Listen', c:'var(--teal)', t:'(Confidence in the readings, or in the model built on them? Different answers.)'},
+        {el:'Clarify', c:'var(--orange)', t:'Do you mean the raw thickness readings, or the projection we have built from them?'},
+        {el:'Answer', c:'var(--blue)', t:'(On the projection) Moderately — it assumes the corrosion rate stays linear, and it has not been linear since the process change.'},
+        {el:'Bridge', c:'var(--teal)', t:'That uncertainty is one of the reasons I would rather open it than model it for another eighteen months.'}
+      ]},
+    { label:'Question with a false premise', prompt:'"Why did your team miss this for so long?"',
+      lines:[
+        {el:'Listen', c:'var(--teal)', t:'(The premise is that it was missed. It was not — it was found on schedule.)'},
+        {el:'Pause', c:'var(--gold)', t:'(One beat.)'},
+        {el:'Answer', c:'var(--blue)', t:'We did not miss it — it was found at the first inspection after the rate changed, which is when it became visible.'},
+        {el:'Bridge', c:'var(--teal)', t:'The real question underneath yours is a fair one though: could we have seen it sooner? Only with monitoring under the insulation, which is what I am asking for.'}
+      ]}
+  ],
+  weakStrong:{
+    prompt:'"Is this not just gold-plating? We have managed fine for years."',
+    weak:'Well, I would not call it gold-plating, I mean, corrosion under insulation is a recognised degradation mechanism and it is in all the standards, and the rates we are seeing are consistent with what the literature would predict for this service. It is really a question of managing risk appropriately. So I would not say it is gold-plating, no.',
+    weakWhy:'Answers instantly and defensively, retreats into standards and literature, never addresses the actual concern — that integrity keeps asking for money — and ends by repeating the denial. The questioner is unmoved and the room has learned nothing.',
+    strong:'[beat] It is a fair challenge, and no. We have managed fine because the equipment was younger — the same interval on older metal is not the same decision. Which is really the point: I am not asking to inspect more, I am asking to inspect the right things, and on that circuit it means intercepting now.',
+    strongWhy:'A pause, the challenge acknowledged as legitimate, a direct answer that reframes rather than denies, and a bridge that turns the hostile question into a restatement of the ask.'
+  },
+  questions:[
+    /* --- LISTEN --- */
+    { id:'li1', el:'listen', check:true,
+      stem:'What is the most common Listen failure?',
+      opts:[
+        {t:'Not hearing the question because of nerves.', w:'It happens, and it is not the systematic failure.'},
+        {t:'Composing your answer while the questioner is still speaking.', w:'You hear the first five words, recognise a topic, and start building — so you miss the actual question and often the concern beneath it. Almost everyone does this under pressure.'},
+        {t:'Interrupting the questioner.', w:'A visible discourtesy, and rarer than silent inattention.'},
+        {t:'Forgetting the question mid-answer.', w:'A symptom of not having listened properly in the first place.'}
+      ], a:1, take:'If you are building an answer, you have stopped listening.' },
+
+    { id:'li2', el:'listen', check:true,
+      stem:'What does "the concern underneath the question" mean?',
+      opts:[
+        {t:'The hidden agenda the questioner is pursuing.', w:'A cynical reading. Most questioners are not being strategic.'},
+        {t:'The worry that prompted the question, which is often broader than the question itself.', w:'"Is this gold-plating?" is usually not about gold-plating — it is a worry that integrity spending is unbounded. Answering only the surface question leaves the worry intact and the questioner unsatisfied.'},
+        {t:'The technical detail they omitted.', w:'That is ambiguity, which the Clarify slot handles.'},
+        {t:'Their level of expertise.', w:'Useful to gauge, and a different thing.'}
+      ], a:1, take:'Answer the surface question. Address the worry underneath it.' },
+
+    { id:'li3', el:'listen', check:true,
+      stem:'A questioner asks a long, meandering question. What should you do?',
+      opts:[
+        {t:'Answer the part you remember best.', w:'Usually the last part, which is rarely the most important.'},
+        {t:'Listen to the end, then answer the strongest version of what they asked.', w:'Meandering questions usually contain one real question. Finding and answering the strongest version serves them better than the fragment you happened to retain — and it is generous rather than evasive.'},
+        {t:'Interrupt to get to the point faster.', w:'Efficient and costly, especially if they are senior.'},
+        {t:'Ask them to rephrase.', w:'Sometimes necessary, and often reads as a rebuke.'}
+      ], a:1, take:'Find the real question inside the meander and answer that.' },
+
+    { id:'li4', el:'listen', check:true,
+      stem:'Why does answering the wrong question read as evasion even when it was accidental?',
+      opts:[
+        {t:'Because the audience assumes bad faith.', w:'They usually do not start there — but they arrive there.'},
+        {t:'Because the questioner cannot tell inattention from avoidance, and avoidance is the more available explanation under challenge.', w:'From outside, a missed question and a dodged one look identical. In a tense room the audience picks the less charitable reading — so inattention costs you the same as evasion would.'},
+        {t:'Because it takes too long.', w:'Duration is not the issue.'},
+        {t:'Because it forces them to repeat themselves.', w:'That is the visible symptom, not the reason it damages you.'}
+      ], a:1, take:'A missed question and a dodged one look identical from outside.' },
+
+    { id:'li5', el:'listen',
+      stem:'Which habit most improves listening in Q&A?',
+      opts:[
+        {t:'Taking notes while they speak.', w:'Helpful for multi-part questions, and it can also pull your attention to writing rather than hearing.'},
+        {t:'Deciding in advance that you will not begin forming an answer until they have finished.', w:'A deliberate rule beats good intentions, because the urge to start composing is automatic under pressure. Making it a prior commitment is what actually stops it.'},
+        {t:'Maintaining eye contact.', w:'Looks attentive; does not guarantee you are.'},
+        {t:'Repeating the question back every time.', w:'A tic if habitual — and it can mask that you were not listening.'}
+      ], a:1, take:'Commit in advance: no composing until they have finished.' },
+
+    /* --- CLARIFY --- */
+    { id:'cl1', el:'clarify', check:true,
+      stem:'When should you clarify?',
+      opts:[
+        {t:'Always — it shows you are being careful.', w:'Habitual clarification reads as stalling and, worse, as reluctance to commit to anything.'},
+        {t:'When the question is genuinely ambiguous and the answers would differ materially.', w:'The test is consequence: if two readings produce the same answer, just answer. If they produce different answers, you must ask.'},
+        {t:'Whenever you need time to think.', w:'Using clarification as a stalling device is transparent, and it spends a tool you may need honestly later.'},
+        {t:'When the questioner is senior.', w:'Seniority does not change whether the question is ambiguous.'}
+      ], a:1, take:'Clarify only when the two readings give different answers.' },
+
+    { id:'cl2', el:'clarify', check:true,
+      stem:'Which clarification is well judged?',
+      opts:[
+        {t:'"Sorry, what exactly do you mean by that?"', w:'Puts the burden entirely on them and can sound like a challenge or like you were not listening.'},
+        {t:'"Do you mean the raw thickness readings, or the projection we have built from them?"', w:'Names the two readings precisely, which shows you understood the ambiguity and lets them answer in one word.'},
+        {t:'"That is a very broad question — could you narrow it down?"', w:'Criticises the question. Even when true, it puts the questioner on the back foot.'},
+        {t:'"I think what you are really asking is whether we can trust the model."', w:'Telling someone what they really meant is presumptuous and often wrong — and if they disagree, you have started a second argument.'}
+      ], a:1, take:'Offer the two readings. Do not ask them to do the work.' },
+
+    { id:'cl3', el:'clarify', check:true,
+      stem:'What is the risk of clarifying too often?',
+      opts:[
+        {t:'It wastes time.', w:'A minor cost.'},
+        {t:'It reads as evasive or as reluctance to commit — the opposite of the care you intended.', w:'One clarification looks precise. Three looks like someone manoeuvring for the narrowest question they can safely answer.'},
+        {t:'It annoys the questioner.', w:'Sometimes, and reputational cost is the bigger one.'},
+        {t:'It suggests you do not know the topic.', w:'Less likely than the evasion reading.'}
+      ], a:1, take:'One clarification reads as precise. Three reads as manoeuvring.' },
+
+    { id:'cl4', el:'clarify', check:true,
+      stem:'A question contains a false premise. Is that a Clarify or an Answer problem?',
+      opts:[
+        {t:'Clarify — you should ask them to restate it correctly.', w:'Asking them to fix their own question is awkward and can feel like a correction in public.'},
+        {t:'Answer — correct the premise plainly as part of your answer, then address the fair question underneath it.', w:'"We did not miss it — it was found at the first inspection after the rate changed" corrects without ceremony. Then you can address the legitimate concern that prompted it, which is usually the better question anyway.'},
+        {t:'Neither — answer as asked and let the premise stand.', w:'Accepting a false premise means implicitly conceding it, and it will be repeated as established fact.'},
+        {t:'Clarify — ask whether they are sure of their facts.', w:'Openly confrontational and likely to produce a defensive exchange.'}
+      ], a:1, take:'Correct the premise inside your answer, then answer the fair version.' },
+
+    { id:'cl5', el:'clarify',
+      stem:'A multi-part question. Best handling?',
+      opts:[
+        {t:'Answer them all in sequence.', w:'Workable, and by part three the room has forgotten part one and you have lost the thread.'},
+        {t:'Name the parts, then answer the one that matters most first: "there are two questions there — the important one is X, and the answer is…"', w:'Naming the parts proves you heard all of it, and ordering by importance means the answer that matters lands while attention is highest. You can return to the rest if wanted.'},
+        {t:'Ask which part they want answered.', w:'Occasionally sensible, and usually it pushes work back to them.'},
+        {t:'Answer the easiest part and stop.', w:'Transparently selective and reads as evasion.'}
+      ], a:1, take:'Name the parts, then answer the important one first.' },
+
+    /* --- PAUSE --- */
+    { id:'pa1', el:'pause', check:true,
+      stem:'Why is the pause the core skill of Q&A?',
+      opts:[
+        {t:'It makes you look thoughtful.', w:'It does, and that is the least of what it achieves.'},
+        {t:'It signals the question was worth considering, stops you answering a fragment, and is the only moment you choose your ground.', w:'Three jobs in one beat. Without the pause you are reacting, and reaction is where every other Q&A failure originates.'},
+        {t:'It gives the audience time to absorb the question.', w:'A minor side benefit.'},
+        {t:'It prevents you from interrupting.', w:'The question has already finished by then.'}
+      ], a:1, take:'The pause is the only moment you get to choose your ground.' },
+
+    { id:'pa2', el:'pause', check:true,
+      stem:'Why does an instant answer often hurt you under challenge?',
+      opts:[
+        {t:'It suggests you were not listening.', w:'Sometimes true and not the main perception.'},
+        {t:'It reads as pre-packaged or defensive — a reflex rather than a considered response.', w:'Under challenge, speed signals that you did not weigh what they said. The room reads it as defending a position rather than thinking about a question, and defensiveness invites more challenge.'},
+        {t:'It is usually wrong.', w:'Fast answers are often correct. The cost is in perception.'},
+        {t:'It is disrespectful.', w:'Rarely taken that way.'}
+      ], a:1, take:'Speed under challenge looks like reflex, not thought.' },
+
+    { id:'pa3', el:'pause', check:true,
+      stem:'How long should the pause be?',
+      opts:[
+        {t:'Five seconds or more, for maximum effect.', w:'Beyond a couple of seconds it becomes theatrical or looks like you are stuck.'},
+        {t:'About one to two seconds — a real beat, not a performance.', w:'Long enough to register as consideration, short enough to stay natural. It feels much longer to you than it does to the room.'},
+        {t:'Just long enough to take a breath.', w:'Close, and a breath alone is often shorter than a genuine beat.'},
+        {t:'It depends entirely on the question.', w:'True at the margins, and unhelpful as guidance — the default should be a beat.'}
+      ], a:1, take:'A beat, not a performance. It feels longer to you than to them.' },
+
+    { id:'pa4', el:'pause', check:true,
+      stem:'What makes the pause hard to do?',
+      opts:[
+        {t:'It feels like you do not know the answer.', w:'The silence feels like exposure, so you fill it — and the urge is strongest exactly when the question is hardest and the pause is most valuable. That is why it has to be practised rather than intended.'},
+        {t:'Audiences find it uncomfortable.', w:'Audiences read it as composure. The discomfort is entirely yours.'},
+        {t:'It disrupts your flow.', w:'It creates flow rather than disrupting it.'},
+        {t:'It is culturally inappropriate in some settings.', w:'Rarely true, and not the general obstacle.'}
+      ], a:0, take:'The urge to fill silence is strongest when the pause matters most.' },
+
+    { id:'pa5', el:'pause',
+      stem:'What should you actually do during the pause?',
+      opts:[
+        {t:'Recall relevant facts.', w:'Facts come later. Leading with recall produces a data dump.'},
+        {t:'Decide what the question really is, and what you want the room to take from your answer.', w:'Two decisions in one beat: which question you are answering, and where you intend to land. Made deliberately, they shape everything that follows; made by default, you ramble.'},
+        {t:'Compose your first sentence.', w:'Useful, and secondary to deciding direction.'},
+        {t:'Calm your nerves.', w:'A real benefit, and not the working purpose.'}
+      ], a:1, take:'In the beat: which question, and where am I landing?' },
+
+    /* --- ANSWER --- */
+    { id:'ans1', el:'answer', check:true,
+      stem:'What is the cardinal rule of the Answer slot?',
+      opts:[
+        {t:'Be as complete as possible.', w:'Completeness in Q&A produces mini-lectures and invites more questions than it settles.'},
+        {t:'Answer the question that was actually asked, directly, before anything else.', w:'Directness first. Everything else — context, nuance, your message — comes after the room has heard you actually answer.'},
+        {t:'Never admit uncertainty.', w:'Bluffing is the fastest way to lose a technical room.'},
+        {t:'Keep it short whatever the question.', w:'Brevity is usually right and is not the cardinal rule.'}
+      ], a:1, take:'Answer it. Directly. First.' },
+
+    { id:'ans2', el:'answer', check:true,
+      stem:'You do not know the answer. What is strongest?',
+      opts:[
+        {t:'Give your best estimate, flagged as an estimate.', w:'Sometimes acceptable — and for a specific number someone can check, an estimate is a trap.'},
+        {t:'"I do not have that figure and I do not want to guess. I will confirm it by end of day."', w:'Plain, credible, and it converts the gap into a commitment. Reliability about what you do not know is itself a form of authority.'},
+        {t:'Redirect to something related that you do know.', w:'Recognised instantly as a dodge, which costs more than the gap would have.'},
+        {t:'Say it is outside your area.', w:'Sometimes true, and it can read as deflection if the topic is plainly yours.'}
+      ], a:1, take:'"I will confirm by end of day" beats any guess.' },
+
+    { id:'ans3', el:'answer', check:true,
+      stem:'Which is the subtlest Answer failure?',
+      opts:[
+        {t:'Refusing to answer.', w:'Conspicuous and rare.'},
+        {t:'Giving a complete, accurate, well-delivered answer — to a slightly different question than the one asked.', w:'It sounds excellent, so the speaker never notices. But the questioner does, and having been answered fluently they often cannot articulate why they are unsatisfied — which is worse than a visible dodge, because it cannot be corrected.'},
+        {t:'Answering too briefly.', w:'Easily remedied by a follow-up.'},
+        {t:'Being too technical.', w:'Obvious in the room.'}
+      ], a:1, take:'A fluent answer to the wrong question is the worst kind.' },
+
+    { id:'ans4', el:'answer', check:true,
+      stem:'The honest answer damages your own case. What should you do?',
+      opts:[
+        {t:'Answer honestly, then put it in proportion.', w:'"Yes, the model assumes linearity and it has not been linear — which is exactly why I would rather open it than model it for another eighteen months." Conceding accurately and then framing what follows is far stronger than defending an indefensible point.'},
+        {t:'Emphasise the strongest parts of your case instead.', w:'Visible avoidance, and it tells the room the weakness is real and unmanaged.'},
+        {t:'Acknowledge it and concede the decision.', w:'Over-correction. A genuine weakness rarely invalidates the whole case.'},
+        {t:'Challenge the relevance of the question.', w:'Reads as defensive unless the irrelevance is unmistakable.'}
+      ], a:0, take:'Concede accurately, then frame. Weakness handled well builds trust.' },
+
+    { id:'ans5', el:'answer',
+      stem:'Why is a bad answer less damaging than a visible dodge?',
+      opts:[
+        {t:'Because audiences are forgiving of error.', w:'Partly, and that is not the mechanism.'},
+        {t:'Because a wrong answer is a failure of knowledge, while a dodge is read as a failure of character.', w:'Rooms forgive not knowing far more readily than they forgive apparent concealment. One can be corrected; the other changes how everything else you say is weighed.'},
+        {t:'Because a bad answer can be corrected later.', w:'True, and secondary.'},
+        {t:'Because dodges take longer.', w:'Duration is irrelevant.'}
+      ], a:1, take:'Not knowing is a knowledge gap. Dodging is a character read.' },
+
+    /* --- BRIDGE --- */
+    { id:'br1', el:'bridge', check:true,
+      stem:'What is the Bridge for?',
+      opts:[
+        {t:'Avoiding difficult parts of the question.', w:'That is the abuse of bridging, and it is what gives the technique its bad name.'},
+        {t:'Returning to the point you want the room to leave with, after you have answered.', w:'Questions scatter attention. The bridge re-aims it, so the Q&A reinforces your message instead of dissolving it.'},
+        {t:'Making your answer longer so it seems thorough.', w:'Length is not the purpose.'},
+        {t:'Changing the subject to safer ground.', w:'Subject-changing is evasion; bridging follows a real answer.'}
+      ], a:1, take:'Answer first. Then re-aim the room.' },
+
+    { id:'br2', el:'bridge', check:true,
+      stem:'What separates a legitimate bridge from a politician\'s dodge?',
+      opts:[
+        {t:'The bridge is shorter.', w:'Length is not the distinction.'},
+        {t:'Whether the question was genuinely answered before you bridged.', w:'That is the whole test. Answer then steer is responsive; steer instead of answering is evasion — and audiences detect the difference immediately.'},
+        {t:'Whether the bridge is relevant to the question.', w:'Helpful, and not the defining test.'},
+        {t:'Whether the audience is hostile.', w:'The audience does not change what is honest.'}
+      ], a:1, take:'Answered then steered is fine. Steered instead is a dodge.' },
+
+    { id:'br3', el:'bridge', check:true,
+      stem:'Which is the strongest bridge after answering a cost challenge?',
+      opts:[
+        {t:'"Anyway, as I said in my presentation, the case is strong."', w:'Refers back to your own talk rather than connecting to what they just raised. It restates instead of bridging.'},
+        {t:'"Which is really the point: I am not asking to inspect more, I am asking to inspect the right things."', w:'It grows out of the answer, reframes the challenge into your message, and gives the room a sentence worth keeping.'},
+        {t:'"But the real issue here is something else entirely."', w:'Explicitly dismisses their question, which is the most visible form of dodge.'},
+        {t:'"Does that answer your question?"', w:'A reasonable check and not a bridge — it ends on them rather than on your message.'}
+      ], a:1, take:'The best bridges grow out of the answer, not away from it.' },
+
+    { id:'br4', el:'bridge', check:true,
+      stem:'When should you not bridge?',
+      opts:[
+        {t:'When the question is hostile.', w:'Hostile questions are often the best bridging opportunities.'},
+        {t:'When the honest answer is simply "I do not know" and a bridge would look like deflection.', w:'Sometimes the strongest move is to stop after the answer. Bridging away from an admitted gap converts an honest moment into an evasive-looking one.'},
+        {t:'When the questioner is senior.', w:'Seniority does not change this.'},
+        {t:'When time is short.', w:'A bridge is one sentence.'}
+      ], a:1, take:'After "I do not know", sometimes the strongest move is to stop.' },
+
+    { id:'br5', el:'bridge',
+      stem:'Why is a hostile question often the best bridging opportunity?',
+      opts:[
+        {t:'Because the room sympathises with you.', w:'Sympathy is unreliable and not the mechanism.'},
+        {t:'Because the room is paying maximum attention, so a calm answer plus a clean reframe lands harder than anything in your talk.', w:'Attention peaks at conflict. Handling it without defensiveness and converting it into your message is the single most persuasive thing that can happen in a Q&A — which is why hostile questions are opportunities rather than threats.'},
+        {t:'Because hostile questioners are usually wrong.', w:'They are frequently partly right.'},
+        {t:'Because it lets you demonstrate expertise.', w:'Composure persuades more than expertise here.'}
+      ], a:1, take:'Attention peaks at conflict. That is when a calm reframe lands hardest.' },
+
+    /* --- WHOLE --- */
+    { id:'qw1', el:'whole',
+      stem:'Which handling of "is this not just gold-plating?" is strongest?',
+      opts:[
+        {t:'"I would not call it gold-plating — CUI is a recognised mechanism, it is in the standards, and our rates match the literature. It is about managing risk appropriately."', w:'Instant, defensive, hides in standards, and never touches the real worry that integrity spending is unbounded.'},
+        {t:'"[beat] Fair challenge, and no. We managed fine because the equipment was younger — the same interval on older metal is not the same decision. Which is the point: I am not asking to inspect more, I am asking to inspect the right things."', w:'Pause, the challenge legitimised, a direct answer that reframes rather than denies, and a bridge that converts the attack into the ask.'},
+        {t:'"No, it is not gold-plating. The wall loss is 22% and accelerating, which is well documented in the report I circulated."', w:'Direct and evidenced, but it answers the surface question only and leaves the underlying worry untouched — so the challenge will return.'},
+        {t:'"I understand the concern, and these decisions are always a balance between cost and risk, which is ultimately a judgement for the business."', w:'Sounds mature and answers nothing. It also quietly abandons the recommendation.'}
+      ], a:1, take:'Legitimise, answer directly, reframe into your ask.' },
+
+    { id:'qw2', el:'whole',
+      stem:'Which slot is missing? "[beat] I do not have that figure and I will not guess — I will confirm by end of day. It shares the same insulation detail as the line we are discussing, which is why I would look at both."',
+      opts:[
+        {t:'Pause', w:'Present — the beat is marked.'},
+        {t:'Answer', w:'Present and honest, with a commitment attached.'},
+        {t:'Bridge', w:'Present — it connects to the broader ask.'},
+        {t:'Clarify — but correctly omitted, since the question was unambiguous.', w:'Nothing is missing. Clarify is conditional: it is only used when two readings would give materially different answers, and a request for a specific figure is not ambiguous. Using every slot every time is itself a failure.'}
+      ], a:3, take:'Clarify is conditional. Not every slot fires every time.' },
+
+    { id:'qw3', el:'whole',
+      stem:'Why does Q&A matter more than the presentation itself?',
+      opts:[
+        {t:'Because it takes longer.', w:'It usually does not.'},
+        {t:'Because the talk is what you prepared, and the Q&A is where the room learns whether you actually know it.', w:'Anyone can deliver a rehearsed case. Unscripted response is where command of the subject and composure become visible — which is why it is what people remember and judge on.'},
+        {t:'Because audiences pay more attention to questions.', w:'They do, and that is a consequence rather than the reason.'},
+        {t:'Because it comes last.', w:'Recency helps; it is not the substance.'}
+      ], a:1, take:'The talk shows what you prepared. Q&A shows what you know.' },
+
+    { id:'qw4', el:'whole',
+      stem:'Someone asks a question containing a false premise, in front of your management. Best move?',
+      opts:[
+        {t:'Let the premise stand to avoid a public correction.', w:'An uncorrected false premise becomes the accepted version, and you will be answering it for months.'},
+        {t:'Correct it plainly without ceremony, then address the fair question underneath.', w:'"We did not miss it — it was found at the first inspection after the rate changed. The fair question underneath is whether we could have seen it sooner, and that needs monitoring under the insulation." Correct, then be generous about what they were really getting at.'},
+        {t:'Point out that the question is based on a misunderstanding.', w:'Labelling their question a misunderstanding is a correction with an insult attached.'},
+        {t:'Answer the premise as if it were true, then clarify afterwards.', w:'Conceding first and retracting later is confusing and looks like backpedalling.'}
+      ], a:1, take:'Correct the premise, then answer the fair question generously.' },
+
+    { id:'qw5', el:'whole',
+      stem:'What is the most common overall Q&A failure?',
+      opts:[
+        {t:'Not knowing enough.', w:'Rarely the binding constraint — the people in the room usually know their material.'},
+        {t:'Answering too fast, which causes almost everything else.', w:'Speed removes the pause, so you answer a fragment, miss the concern, never choose your ground, and end up defending rather than thinking. Most other failures are downstream of it.'},
+        {t:'Being too honest about uncertainty.', w:'Honesty about gaps usually builds credibility.'},
+        {t:'Bridging too much.', w:'A real failure and much less common than reflexive speed.'}
+      ], a:1, take:'Almost every Q&A failure starts with answering too fast.' },
+
+    { id:'qw6', el:'whole',
+      stem:'All four answer the question. Which is strongest?',
+      opts:[
+        {t:'A complete, technically exhaustive answer covering every nuance.', w:'Exhaustiveness in Q&A buries the point and usually generates more questions than it resolves.'},
+        {t:'A direct answer in two sentences, then one sentence bridging to your ask.', w:'Direct enough to be unmistakably responsive, short enough to stay memorable, and it leaves the room holding your message rather than the questioner\'s framing.'},
+        {t:'A short answer with no bridge.', w:'Responsive and it cedes direction — the next question sets the agenda.'},
+        {t:'An answer that pre-empts the three follow-ups you expect.', w:'Pre-empting unasked questions makes you sound defensive and extends the exposure.'}
+      ], a:1, take:'Two sentences answering, one bridging. That is the shape.' },
+
+    { id:'qw7', el:'whole',
+      stem:'You are asked the same challenging question for the third time by the same person. What does it mean?',
+      opts:[
+        {t:'They are being obstructive.', w:'Possible, and it is the least useful assumption and usually wrong.'},
+        {t:'Your answers have not addressed their actual concern — so stop answering and ask what it is.', w:'Repetition is the clearest signal that you are answering the surface question while their real worry sits untouched. "I do not think I am getting at what is bothering you — what is the concern?" resolves in one move what three answers could not.'},
+        {t:'You need to explain it more thoroughly.', w:'A fourth, longer version of an answer that has already failed three times.'},
+        {t:'They did not understand the technical content.', w:'A comfortable assumption that is usually wrong and slightly condescending.'}
+      ], a:1, take:'Asked three times means you are answering the wrong question.' },
+
+    { id:'qw8', el:'whole',
+      stem:'What single habit most improves Q&A performance?',
+      opts:[
+        {t:'Preparing answers to anticipated questions.', w:'Useful, and it fails on the questions you did not anticipate — which are the ones that test you.'},
+        {t:'Training the pause until it is automatic.', w:'It is the smallest change with the widest effect: it creates the space in which listening, choosing the question, and choosing your landing all become possible. Everything else in this chapter depends on it.'},
+        {t:'Learning bridging phrases.', w:'Phrases without the pause produce slick evasion.'},
+        {t:'Knowing your material more deeply.', w:'Depth helps and does not fix reflexive speed.'}
+      ], a:1, take:'Train the pause. Everything else in Q&A depends on it.' }
+  ]
+};
+
+/* ============================================================
+   Chapter 12 — Executive Presence
+   ============================================================ */
+const CH_EXEC = {
+  id:'exec', n:12,
+  title:'Executive Presence',
+  subtitle:'Credibility → Vision → Call to Action',
+  blurb:'Why the same content lands differently depending on who says it.',
+  idea:[
+    `Executive presence gets talked about as charisma, which is unhelpful, because charisma cannot be practised. What can be practised is what actually produces it: altitude, commitment, and brevity.`,
+    `Altitude means talking about the thing at the level a decision-maker lives at — trajectories and consequences rather than tasks and methods. Commitment means being willing to say what you think without a hedge attached. Brevity means being willing to stop talking, which is the hardest of the three and the most convincing.`,
+    `This framework is not about sounding senior. It is about being useful to someone who is: establish quickly that you know what you are talking about, show them where this goes, and tell them what you want. Do that consistently and people start treating your view as one that settles things — which is all presence really is.`
+  ],
+  whenToUse:[
+    'Speaking to people more senior than you',
+    'Any room where you are the most junior person present',
+    'Making the case for yourself — promotion, a role, a mandate',
+    'Moments where being right is not enough to be heeded'
+  ],
+  elements:[
+    { name:'Credibility', key:'credibility', color:'var(--teal)',
+      job:'Establish quickly that you know this — by demonstrating command, not claiming it.',
+      fail:'Classic failure: listing credentials or tenure. Standing is conferred by a precise fact or a clear judgement, not by an account of your background. The opposite failure is over-qualifying — "I am not really the expert, but…" — which disqualifies you in advance.' },
+    { name:'Vision', key:'vision', color:'var(--orange)',
+      job:'Show where this goes — the trajectory, not the task.',
+      fail:'Classic failure: staying in the detail. Senior people think in directions and consequences; a description of activity gives them nothing to decide about, however accomplished the activity is.' },
+    { name:'Call to Action', key:'cta', color:'var(--gold)',
+      job:'Say plainly what you want to happen.',
+      fail:'Classic failure: hedging at the top, or asking for discussion rather than a decision. "I would welcome your thoughts" is what people say when they have lost their nerve in the last sentence.' }
+  ],
+  examples:[
+    { label:'Ten minutes with a director', prompt:'You have been given a slot at a leadership meeting.',
+      lines:[
+        {el:'Credibility', c:'var(--teal)', t:'We have six years of thickness data across the asset, and in that time every serious corrosion surprise we have had has been under insulation, where we do not look.'},
+        {el:'Vision', c:'var(--orange)', t:'On our current approach that does not improve — we will keep finding these at the point they become expensive. If we monitor where we currently guess, inspection stops being a calendar activity and becomes something that actually predicts.'},
+        {el:'Call to Action', c:'var(--gold)', t:'I want to run monitoring on one circuit for a cycle, and I want it funded from the integrity budget rather than a project so it is not competing for capital. I need your backing for that this month.'}
+      ]},
+    { label:'Making the case for yourself', prompt:'A conversation about your next role.',
+      lines:[
+        {el:'Credibility', c:'var(--teal)', t:'Over the last two years I have owned the sign-off on every static equipment decision on this asset, including the three that went against the contractor recommendation.'},
+        {el:'Vision', c:'var(--orange)', t:'What I want next is the bit I currently do informally — setting the inspection strategy rather than executing it, because the biggest wins are in what we choose to look at, not how well we look at it.'},
+        {el:'Call to Action', c:'var(--gold)', t:'I would like to be considered for the Lead role when it opens, and I would like to know what you would need to see from me between now and then.'}
+      ]},
+    { label:'Being the most junior person in the room', prompt:'Asked for a view at a senior meeting.',
+      lines:[
+        {el:'Credibility', c:'var(--teal)', t:'I have inspected that line for four years, and it is the only one on the asset where the rate has changed direction twice.'},
+        {el:'Vision', c:'var(--orange)', t:'That makes it the wrong candidate for a standard interval — whatever we decide today will be wrong within two cycles unless we treat it as a special case.'},
+        {el:'Call to Action', c:'var(--gold)', t:'My recommendation is that we carve it out of the standard programme and I bring a specific plan for it next month.'}
+      ]},
+    { label:'Outside work', prompt:'Raising something at a community meeting.',
+      lines:[
+        {el:'Credibility', c:'var(--teal)', t:'I have photographed the drains after every flood this year — there have been four, all after the same kind of rainfall.'},
+        {el:'Vision', c:'var(--orange)', t:'This is not going to resolve itself; the pattern is getting more frequent, not less, and the cost of doing nothing lands on the same eleven houses each time.'},
+        {el:'Call to Action', c:'var(--gold)', t:'I would like the committee to write formally to the council this month, and I will draft it.'}
+      ]}
+  ],
+  weakStrong:{
+    prompt:'Ten minutes at a leadership meeting to raise under-insulation monitoring.',
+    weak:'Thanks for the slot, I appreciate it. So, a bit about my background — I have been in integrity for nine years, mostly static equipment. What I wanted to raise is around corrosion under insulation, which as some of you may know is a degradation mechanism that occurs when moisture is trapped under the cladding. We do a certain amount of sampling at present, removing insulation at selected supports. There is technology available now for monitoring. It might be something worth exploring at some stage, if there is appetite. I would welcome any thoughts.',
+    weakWhy:'Thanks, then credentials, then a tutorial on a mechanism, then a description of current activity — all at task altitude. It never says where this goes, and it ends by asking for opinions instead of a decision. Nothing here is wrong and nothing here has any weight.',
+    strong:'We have six years of thickness data, and every serious corrosion surprise in that time has been under insulation, where we do not look. On our current approach that does not improve — we keep finding these at the point they become expensive. If we monitor where we currently guess, inspection stops being a calendar activity and starts predicting. I want one circuit monitored for a cycle, funded from the integrity budget rather than a project so it is not competing for capital, and I need your backing this month.',
+    strongWhy:'Command demonstrated by a fact only he could state. Altitude raised from mechanism to trajectory. And a specific ask, including how it should be funded — which is the detail that signals he has thought like the person he is asking.'
+  },
+  questions:[
+    /* --- CREDIBILITY --- */
+    { id:'cr1', el:'credibility', check:true,
+      stem:'Which establishes credibility fastest with a senior audience?',
+      opts:[
+        {t:'"I have been in integrity for nine years, mostly static equipment."', w:'Tenure. It tells them how long you have been present, not what you can do — and everyone in the room can recite their own years.'},
+        {t:'"We have six years of thickness data, and every serious corrosion surprise in that time has been under insulation, where we do not look."', w:'A precise fact only someone with command of the subject could state, and it carries an implication. Standing is demonstrated rather than claimed.'},
+        {t:'"I am the technical authority for pressure equipment on this asset."', w:'A title. It establishes position, which is not the same as being worth listening to.'},
+        {t:'"I have done a lot of work on this and I know it well."', w:'A claim about yourself that the room has no reason to accept yet.'}
+      ], a:1, take:'Demonstrate command with a fact. Do not claim it with a CV.' },
+
+    { id:'cr2', el:'credibility', check:true,
+      stem:'Why does listing credentials tend to reduce rather than build standing?',
+      opts:[
+        {t:'It takes time away from the substance.', w:'True and minor.'},
+        {t:'It signals that you expect to be doubted, and invites the room to assess whether the credentials are sufficient.', w:'Claiming standing raises the question of whether you have it. Demonstrating it never does — the room simply starts listening. Reaching for credentials is read as compensating.'},
+        {t:'Senior people dislike being told about experience.', w:'They do not mind. The mechanism is about what claiming implies.'},
+        {t:'It is considered arrogant.', w:'Rarely the perception; it usually reads as slightly anxious.'}
+      ], a:1, take:'Claiming standing invites doubt. Demonstrating it prevents the question.' },
+
+    { id:'cr3', el:'credibility', check:true,
+      stem:'Which opening most damages a junior person in a senior room?',
+      opts:[
+        {t:'"I have inspected that line for four years, and it is the only one where the rate changed direction twice."', w:'Specific, authoritative, and only they could say it. Excellent.'},
+        {t:'"I am probably not the right person to comment, but my instinct would be…"', w:'Self-disqualification before the content arrives. You have instructed the room to discount you, and they will — so even a good point is heard as an instinct rather than a judgement.'},
+        {t:'"My view is that we should carve it out of the standard programme."', w:'Direct and committed.'},
+        {t:'"Based on the last four campaigns, I would treat it as a special case."', w:'Grounded and clear.'}
+      ], a:1, take:'Never disqualify yourself before speaking. They will believe you.' },
+
+    { id:'cr4', el:'credibility', check:true,
+      stem:'You genuinely are the least experienced person present. What is the right move?',
+      opts:[
+        {t:'Acknowledge it so nobody thinks you are overreaching.', w:'The acknowledgement is what makes it a problem. Nobody was assessing your seniority until you raised it.'},
+        {t:'Say nothing about your standing and speak from what you specifically know.', w:'Experience is not the only source of authority — proximity is. The person who has actually inspected the line for four years has something nobody senior in the room has, and leading with that fact settles the question silently.'},
+        {t:'Defer to the most senior person before giving your view.', w:'Deference before content frames your view as subordinate to theirs.'},
+        {t:'Speak more forcefully to compensate.', w:'Force without grounding reads as bluster.'}
+      ], a:1, take:'You have proximity. That is authority they cannot borrow.' },
+
+    { id:'cr5', el:'credibility',
+      stem:'Which is the subtlest credibility failure?',
+      opts:[
+        {t:'Listing credentials.', w:'Common, and easy to spot once named.'},
+        {t:'Excessive attribution — "the team found", "we were told", "it was decided" — with no first-person judgement anywhere.', w:'It reads as modest and collegiate, which is why it survives self-review. But a speaker who never says "I think" or "I decided" gives the room nobody to hold a view, and presence requires someone to be there.'},
+        {t:'Speaking too quietly.', w:'A delivery issue, separately fixable.'},
+        {t:'Using jargon.', w:'An altitude problem rather than a credibility one.'}
+      ], a:1, take:'If there is no "I" anywhere, there is nobody in the room to heed.' },
+
+    { id:'cr6', el:'credibility',
+      stem:'What does brevity have to do with credibility?',
+      opts:[
+        {t:'Nothing — they are separate qualities.', w:'They are closely connected in how rooms read people.'},
+        {t:'Being willing to stop talking signals that you believe what you said was sufficient.', w:'Over-explanation is read as uncertainty — the speaker keeps adding because they do not trust the point to hold. Stopping is a display of confidence in your own judgement, which is why it reads as authority.'},
+        {t:'Short statements are easier to remember.', w:'True, and a different benefit.'},
+        {t:'Senior people have short attention spans.', w:'A lazy and mostly false premise.'}
+      ], a:1, take:'Continuing to explain says you do not trust your own point.' },
+
+    /* --- VISION --- */
+    { id:'vi1', el:'vision', check:true,
+      stem:'What does the Vision slot require?',
+      opts:[
+        {t:'An inspiring description of the future.', w:'"Inspiring" is the wrong target — it invites grandiosity. What is needed is a trajectory.'},
+        {t:'Raising the altitude from task to trajectory — where this goes if nothing changes, and where it goes if it does.', w:'Senior people decide about directions. Showing the two paths gives them something to decide between; describing activity does not.'},
+        {t:'A long-term strategic plan.', w:'A plan is a document. Vision here is two sentences about direction.'},
+        {t:'Ambition for your own function.', w:'Departmental ambition is not a trajectory the business cares about.'}
+      ], a:1, take:'Show where it goes with and without the change.' },
+
+    { id:'vi2', el:'vision', check:true,
+      stem:'Which is operating at the right altitude?',
+      opts:[
+        {t:'"We currently remove insulation at selected supports and take readings, then trend them between campaigns."', w:'A description of activity. Accurate, and it gives a decision-maker nothing to decide.'},
+        {t:'"On our current approach this does not improve — we keep finding these at the point they become expensive. Monitor where we currently guess, and inspection starts predicting instead of reporting."', w:'Two trajectories in two sentences, framed as a change in what the function is for. That is the altitude a director thinks at.'},
+        {t:'"CUI is driven by moisture ingress where cladding is breached, typically at supports."', w:'A mechanism tutorial — the lowest useful altitude for this audience.'},
+        {t:'"We would like to improve our integrity management maturity."', w:'High altitude but empty. Maturity models are not a direction anyone can picture.'}
+      ], a:1, take:'Two trajectories beat any amount of activity description.' },
+
+    { id:'vi3', el:'vision', check:true,
+      stem:'Why do technical specialists stay too low?',
+      opts:[
+        {t:'They think detail demonstrates competence.', w:'Partly true, and there is something more specific going on.'},
+        {t:'Detail is where they are certain, and trajectory requires a claim about the future that cannot be evidenced.', w:'Raising altitude means saying something you cannot prove — "this does not improve on the current approach" is a judgement, not a measurement. That is genuinely uncomfortable for people trained to evidence claims, so they retreat to what they can defend.'},
+        {t:'They are not asked for vision.', w:'They are asked constantly, in the form "so what does this mean for us?"'},
+        {t:'They do not have a view on the direction.', w:'They almost always do; they hesitate to state it.'}
+      ], a:1, take:'Altitude requires a claim you cannot evidence. Make it anyway.' },
+
+    { id:'vi4', el:'vision', check:true,
+      stem:'Which Vision statement is strongest for your own promotion case?',
+      opts:[
+        {t:'"I would like more responsibility and a bigger role."', w:'About your wants, with no direction in it. Every candidate says this.'},
+        {t:'"What I want next is the part I already do informally — setting the inspection strategy rather than executing it, because the biggest wins are in what we choose to look at, not how well we look at it."', w:'It names the trajectory of the work rather than of your career, and the reasoning shows you think at the level of the role you are asking for. That is the actual evidence.'},
+        {t:'"I have been in this role for four years and I am ready for the next step."', w:'Tenure as entitlement. It contains no view about the work.'},
+        {t:'"I want to be considered for the Lead role."', w:'A call to action, arriving before any reason to grant it.'}
+      ], a:1, take:'Show you already think at the altitude of the role you want.' },
+
+    { id:'vi5', el:'vision',
+      stem:'Which Vision failure is most damaging?',
+      opts:[
+        {t:'Being too abstract.', w:'Real, and abstraction at least operates at the right altitude.'},
+        {t:'Overclaiming — promising a transformation the proposal cannot deliver.', w:'Vision is the slot where credibility is most easily spent. An unbacked promise of transformation is remembered, and when it does not arrive it discounts everything you say afterwards.'},
+        {t:'Being too brief.', w:'Two sentences is usually enough.'},
+        {t:'Focusing on risk rather than opportunity.', w:'Risk trajectories are entirely legitimate.'}
+      ], a:1, take:'Vision is where credibility is most easily overspent.' },
+
+    { id:'vi6', el:'vision',
+      stem:'What is the quickest test that you are at the right altitude?',
+      opts:[
+        {t:'Whether you have avoided technical terms.', w:'Plain language can still describe tasks.'},
+        {t:'Whether what you said could change a decision, as opposed to merely informing one.', w:'Task-level statements inform; trajectory-level statements bear on choices. If nothing you said could alter what the room decides, you are too low regardless of how clearly you said it.'},
+        {t:'Whether the audience is nodding.', w:'People nod at things they understand and will not act on.'},
+        {t:'Whether you finished on time.', w:'Unrelated.'}
+      ], a:1, take:'Could it change a decision? If not, you are too low.' },
+
+    /* --- CALL TO ACTION --- */
+    { id:'ca1', el:'cta', check:true,
+      stem:'Which Call to Action is strongest?',
+      opts:[
+        {t:'"I would welcome any thoughts."', w:'What people say when their nerve fails in the final sentence. It converts everything before it into a discussion item.'},
+        {t:'"I want one circuit monitored for a cycle, funded from the integrity budget rather than a project so it is not competing for capital, and I need your backing this month."', w:'Specific, bounded, dated — and the funding detail shows you have thought about the decision from their side, which is the part that reads as senior.'},
+        {t:'"It might be something worth exploring at some stage, if there is appetite."', w:'Three hedges and an invitation to have no appetite. Nothing will happen.'},
+        {t:'"I think we should invest properly in monitoring technology."', w:'A direction rather than a request. Nobody can grant it.'}
+      ], a:1, take:'Name the thing, the funding route, and the date.' },
+
+    { id:'ca2', el:'cta', check:true,
+      stem:'Why is hedging worst in the final sentence?',
+      opts:[
+        {t:'Because it is the part people remember.', w:'Recency matters, and there is a more specific mechanism.'},
+        {t:'Because a hedge at the close retroactively reframes everything before it as tentative.', w:'A firm case ending in "if there is appetite" tells the room you do not fully back your own argument — so they reread the whole thing as exploratory. The last sentence sets the interpretation of all the others.'},
+        {t:'Because it wastes the closing position.', w:'True but understates the damage.'},
+        {t:'Because senior audiences dislike uncertainty.', w:'They deal in uncertainty constantly; what they dislike is a speaker who will not commit.'}
+      ], a:1, take:'A hedge at the close makes the whole case retroactively tentative.' },
+
+    { id:'ca3', el:'cta', check:true,
+      stem:'What is the difference between a call to action and a request for discussion?',
+      opts:[
+        {t:'A call to action is more forceful in tone.', w:'Tone is not the distinction — a quiet ask is still an ask.'},
+        {t:'A call to action can be granted or refused; a request for discussion cannot.', w:'That is the operational test. "Back this by month end" has two possible answers. "I would welcome thoughts" has none, so nothing is decided and the item returns forever.'},
+        {t:'A call to action names a deadline.', w:'Usually it does, and a dated request for discussion is still not decidable.'},
+        {t:'A call to action is shorter.', w:'Length is irrelevant.'}
+      ], a:1, take:'If it cannot be refused, it is not an ask.' },
+
+    { id:'ca4', el:'cta', check:true,
+      stem:'You want something large. How should the Call to Action be shaped?',
+      opts:[
+        {t:'Ask for the whole thing — anything less undersells it.', w:'Large irreversible asks are easier to defer than to grant, however strong the case.'},
+        {t:'Ask for the smallest decision that starts it, and name what it would prove.', w:'"One circuit for a cycle, and I will bring you the numbers" is grantable, and it manufactures the evidence for the larger decision later. You are not shrinking the ambition; you are sequencing it.'},
+        {t:'Ask for the whole thing, then negotiate down.', w:'Negotiating down in the room teaches people your asks are opening positions.'},
+        {t:'Ask for agreement in principle only.', w:'Agreement in principle commits nobody to anything and quietly expires.'}
+      ], a:1, take:'Ask for the smallest grantable step that proves the case.' },
+
+    { id:'ca5', el:'cta',
+      stem:'In a promotion conversation, what is the strongest close?',
+      opts:[
+        {t:'"I hope you will keep me in mind."', w:'Passive and entirely dependent on their memory and goodwill.'},
+        {t:'"I would like to be considered for the Lead role, and I would like to know what you would need to see from me between now and then."', w:'States the want plainly, then asks for the criteria — which converts a hope into a specification you can actually work against, and signals you intend to meet it rather than merely wish for it.'},
+        {t:'"I feel I am ready for the next step."', w:'A feeling about yourself, with no ask attached.'},
+        {t:'"Is there any chance of a promotion this year?"', w:'Frames it as something that happens to you, and invites a simple no.'}
+      ], a:1, take:'Ask for the role — then ask for the criteria.' },
+
+    { id:'ca6', el:'cta',
+      stem:'Which closing habit most undermines presence?',
+      opts:[
+        {t:'Ending slightly abruptly.', w:'Abruptness usually reads as confidence.'},
+        {t:'Adding "does that make sense?" after the ask.', w:'It invites the room to assess your clarity at the moment they should be assessing your request, and it quietly asks for reassurance. Small, habitual, and it drains authority every time.'},
+        {t:'Pausing before the ask.', w:'A pause before the ask strengthens it.'},
+        {t:'Repeating the ask once.', w:'Repetition of a clear ask is often good practice.'}
+      ], a:1, take:'"Does that make sense?" asks them to grade you, not decide.' },
+
+    /* --- WHOLE --- */
+    { id:'ew1', el:'whole',
+      stem:'Which is strongest at a leadership meeting?',
+      opts:[
+        {t:'"Thanks for the slot. A bit about my background — nine years in integrity. I wanted to raise corrosion under insulation, which occurs when moisture is trapped under cladding. We sample at present. There is technology available. It might be worth exploring if there is appetite. I would welcome thoughts."', w:'Thanks, credentials, tutorial, activity, hedge, no ask. Every slot is either missing or filled with something weaker.'},
+        {t:'"Six years of thickness data, and every serious corrosion surprise has been under insulation, where we do not look. On the current approach that does not improve — we keep finding them when they are expensive. Monitor where we guess, and inspection starts predicting. I want one circuit monitored for a cycle, funded from integrity rather than a project, and I need your backing this month."', w:'Command by fact, altitude raised to trajectory, and a specific dated ask that shows he has thought about funding from their side.'},
+        {t:'"Corrosion under insulation is our biggest blind spot and we should invest in monitoring technology. It would transform our integrity performance. I would like the leadership team to support this."', w:'Right altitude and commitment, but credibility is asserted rather than demonstrated, "transform" overclaims, and "support this" is not grantable.'},
+        {t:'"We have six years of data showing every surprise has been under insulation. I would like to discuss options for monitoring at a future meeting."', w:'Strong credibility, then no trajectory and a close that schedules a conversation instead of asking for a decision.'}
+      ], a:1, take:'Fact, trajectory, grantable ask. Nothing else earns the slot.' },
+
+    { id:'ew2', el:'whole',
+      stem:'Scrambled. Which order is correct?\n(1) "I want one circuit monitored for a cycle, funded from integrity, and your backing this month."\n(2) "On the current approach this does not improve — we keep finding them when they are expensive."\n(3) "Six years of data, and every serious surprise has been under insulation, where we do not look."',
+      opts:[
+        {t:'3 → 2 → 1', w:'Command, trajectory, ask. Correct.'},
+        {t:'2 → 3 → 1', w:'Trajectory before the fact that grounds it — the claim arrives unsupported.'},
+        {t:'3 → 1 → 2', w:'Ask before the reason to grant it, so the case arrives after the decision was requested.'},
+        {t:'1 → 3 → 2', w:'Opens with a request from someone the room has no reason yet to heed.'}
+      ], a:0, take:'Earn the hearing, raise the altitude, then ask.' },
+
+    { id:'ew3', el:'whole',
+      stem:'What is executive presence actually made of, per this framework?',
+      opts:[
+        {t:'Confidence, charisma and gravitas.', w:'All three are descriptions of the effect rather than its causes — and none can be practised directly, which is why the usual advice is useless.'},
+        {t:'Altitude, commitment and brevity.', w:'Three practisable behaviours: talk at the level decisions are made, say what you think without hedging, and stop when you are done. Presence is the name given to their combined effect.'},
+        {t:'Seniority and track record.', w:'Plenty of senior people lack it, and plenty of junior people have it.'},
+        {t:'Vocabulary and delivery.', w:'Surface features that follow from the three above.'}
+      ], a:1, take:'Altitude, commitment, brevity. All three are trainable.' },
+
+    { id:'ew4', el:'whole',
+      stem:'Which is NOT an executive-presence failure?',
+      opts:[
+        {t:'Opening with "I am not really the expert, but…"', w:'Self-disqualification. A clear failure.'},
+        {t:'Ending with "I would welcome any thoughts."', w:'A non-ask. Clear failure.'},
+        {t:'Saying "I do not know — I will confirm by Thursday."', w:'It feels like a weakness and is the opposite. Reliability about the limits of your knowledge is a form of command, and the dated commitment demonstrates it. Presence does not require omniscience.'},
+        {t:'Describing your method in detail to a director.', w:'Wrong altitude. Clear failure.'}
+      ], a:2, take:'Admitting a gap with a date attached is presence, not weakness.' },
+
+    { id:'ew5', el:'whole',
+      stem:'You are interrupted and talked over repeatedly in a senior meeting. What is the strongest response?',
+      opts:[
+        {t:'Talk louder and faster to hold the floor.', w:'Escalation reads as struggling and usually loses the room entirely.'},
+        {t:'Stop, wait for the interruption to finish, and resume calmly from where you were.', w:'Refusing to be hurried is itself a display of composure. Stopping cleanly and resuming exactly where you left off communicates that you intend to finish, without contesting anything.'},
+        {t:'Point out that you were speaking.', w:'Occasionally justified, and it makes the interruption the subject and burns capital.'},
+        {t:'Cut your point short and hand over.', w:'Teaches the room that interrupting you works.'}
+      ], a:1, take:'Stop, wait, resume. Refusing to be hurried is composure.' },
+
+    { id:'ew6', el:'whole',
+      stem:'Which habit most undermines otherwise strong content?',
+      opts:[
+        {t:'Speaking too briefly.', w:'Brevity almost always helps.'},
+        {t:'Upspeak and trailing qualifiers — ending statements as though they were questions.', w:'It converts judgements into bids for approval. The content is unchanged and the room hears someone seeking permission to hold their own view, which is the fastest way to be overruled.'},
+        {t:'Using plain language with technical peers.', w:'An altitude misjudgement, easily corrected.'},
+        {t:'Pausing frequently.', w:'Pauses build presence.'}
+      ], a:1, take:'A judgement delivered as a question is a request for permission.' },
+
+    { id:'ew7', el:'whole',
+      stem:'All four are well structured. Which shows the most presence?',
+      opts:[
+        {t:'A thorough case covering every angle, ending with a clear ask.', w:'Thoroughness with a good close — but exhaustiveness itself signals that you did not trust any single point to carry weight.'},
+        {t:'Three sentences: a fact only you could state, where it goes, and what you want by when.', w:'Command, altitude and commitment, delivered with the confidence to stop. The willingness to leave it there is what makes it land.'},
+        {t:'A confident, energetic delivery of a strong recommendation.', w:'Energy is not presence, and it can read as advocacy rather than judgement.'},
+        {t:'A carefully balanced assessment of options with a recommendation at the end.', w:'Balance is a virtue in analysis and reads as reluctance to commit when your view was what was wanted.'}
+      ], a:1, take:'Three sentences, then stop. Stopping is the hard part.' },
+
+    { id:'ew8', el:'whole',
+      stem:'What is the most useful thing to practise from this chapter?',
+      opts:[
+        {t:'Speaking with more authority in your voice.', w:'Vocal authority without altitude and commitment is performance, and it is detected.'},
+        {t:'Cutting the hedges and stopping when you have made your point.', w:'These are the two smallest and most reliable changes: remove the qualifiers that convert judgements into bids, and resist the urge to keep explaining. Both are behavioural, immediate, and change how the same content is received.'},
+        {t:'Learning to talk about strategy.', w:'Altitude matters, and forced strategy talk without grounding is worse than detail.'},
+        {t:'Building a stronger track record first.', w:'Track record helps, and it does not produce presence by itself — and waiting for it is how people stay unheard for years.'}
+      ], a:1, take:'Cut the hedges. Stop talking. Those two alone change how you land.' }
+  ]
+};
+
+const CHAPTERS = [CH_PREP, CH_THREE, CH_SELFINTRO, CH_ONEPOINT, CH_STAR, CH_STAKE, CH_BADNEWS, CH_TECH,
+                  CH_AIDA, CH_ABT, CH_QA, CH_EXEC];
+const COMING = [];
 
 /* ============================================================
    STATE — localStorage only, never transmitted
@@ -2995,8 +4308,11 @@ function renderHome(){
     <p class="tiny muted" style="margin-top:-6px">Chapters build in order, but nothing is locked — open whichever one you are actually on. Progress is saved per device.</p>
     <div class="label">Chapters &nbsp;<span class="pill pill-m">${masteredN} of ${CHAPTERS.length} mastered</span></div>
     ${rows}
-    <div class="label">Coming next</div>
-    ${soon}
+    ${soon ? `<div class="label">Coming next</div>${soon}` : ''}
+    ${masteredN === CHAPTERS.length ? `<div class="card" style="background:var(--green-l);border-color:var(--green);margin-top:18px">
+      <b style="color:var(--green)">All twelve frameworks mastered.</b>
+      <p class="tiny muted" style="margin:6px 0 0">Keep drilling any chapter — misses resurface first, and exams keep mixing in the earlier frameworks so none of it fades.</p>
+    </div>` : ''}
     <p class="tiny muted" style="margin-top:22px">Progress is saved in this browser only. Nothing leaves this device — there are no network requests at all.</p>
   `;
 }
